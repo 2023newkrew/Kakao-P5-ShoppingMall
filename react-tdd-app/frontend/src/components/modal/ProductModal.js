@@ -11,8 +11,8 @@ import "swiper/css/scrollbar";
 
 const ProductModal = ({ title }) => {
   return (
-    <ProductModalContainer className="ProductModalContainer">
-      <ProductImageContainer className="ProductImageContainer">
+    <ProductModalContainer>
+      <ProductImageContainer>
         <Swiper modules={[Navigation, Pagination, Scrollbar, A11y]} loopFillGroupWithBlank={false} speed={500} slidesPerView={1} slidesPerGroup={1} touchRatio={0} pagination={{ clickable: true }} navigation>
           <SwiperSlide>
             <img src="http://localhost:4000/images/america.jpeg" alt={title}></img>
@@ -25,6 +25,10 @@ const ProductModal = ({ title }) => {
           </SwiperSlide>
         </Swiper>
       </ProductImageContainer>
+      <ProductSetting>
+        <ProductSettingWrapper></ProductSettingWrapper>
+        <ProductDecision></ProductDecision>
+      </ProductSetting>
     </ProductModalContainer>
   );
 };
@@ -58,4 +62,27 @@ const ProductImageContainer = styled.div`
       object-fit: cover;
     }
   }
+`;
+
+const ProductSetting = styled.div`
+  width: 100%;
+  height: 70%;
+
+  background-color: gray;
+
+  display: flex;
+`;
+
+const ProductSettingWrapper = styled.div`
+  width: 90%;
+  height: 100%;
+
+  background-color: green;
+`;
+
+const ProductDecision = styled.div`
+  width: 10%;
+  height: 100%;
+
+  background-color: yellow;
 `;

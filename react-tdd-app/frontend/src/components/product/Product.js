@@ -7,18 +7,16 @@ const Product = ({ imageUrl, title, overview }) => {
   const { Modal, open } = useModal();
 
   return (
-    <ProductContainer className="ProductContainer">
+    <ProductContainer>
       <ProductWrapper>
-        <ImageContainer className="ImageContainer">
+        <ImageContainer>
           <img src="http://localhost:4000/images/america.jpeg" alt={title}></img>
         </ImageContainer>
-        <ProductOverview className="ProductOverview">
+        <ProductOverview>
           <ProductTitle>America</ProductTitle>
           <ProductDescription>Good America</ProductDescription>
         </ProductOverview>
-        <PurchaseButton className="PurchaseButton" onClick={open}>
-          +
-        </PurchaseButton>
+        <PurchaseButton onClick={open}>+</PurchaseButton>
         <Modal>
           <ProductModal />
         </Modal>
