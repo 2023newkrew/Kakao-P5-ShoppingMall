@@ -47,3 +47,15 @@ test("renders products", async () => {
   const englandElement = await screen.findByText("England");
   expect(englandElement).toBeInTheDocument();
 });
+
+test("handles server error", async () => {
+  server.use(
+    rest.get("/products", (request, response, context) => {
+      return response(context.status(500));
+    })
+  );
+
+  render(<App url={url} />);
+  const errorElement = await screen.findByText("문제가 발생했습니다.");
+  expect(errorElement).toBeInTheDocument();
+});
