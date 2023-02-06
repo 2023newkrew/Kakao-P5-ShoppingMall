@@ -15,6 +15,8 @@
     "react-app",
     "react-app/jest",
     "eslint:recommended",
+    "plugin:testing-library/react",
+    "plugin:jest-dom/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended"
   ],
