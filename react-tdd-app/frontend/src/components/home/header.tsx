@@ -1,9 +1,10 @@
 import { HEADER_TITLE } from '../constants/home';
+import { HeaderContainer, HeaderTitle } from './header.style';
 
 const Header = () => (
-  <header>
-    <h1>{HEADER_TITLE}</h1>
-  </header>
+  <HeaderContainer>
+    <HeaderTitle>{HEADER_TITLE}</HeaderTitle>
+  </HeaderContainer>
 );
 
 export default Header;
