@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
@@ -15,7 +16,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!axios)/\"",
     "eject": "react-scripts eject",
     "prepare": "cd ../.. && husky install react-tdd-app/frontend/.husky"
   },
@@ -44,6 +45,7 @@
     "eslint-plugin-testing-library": "^5.10.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.1.0",
+    "msw": "^1.0.0",
     "prettier": "2.8.3"
   },
   "lint-staged": {
@@ -51,5 +53,6 @@
       "prettier --write",
       "eslint --fix"
     ]
-  }
+  },
+  "proxy": "http://localhost:4000"
 }
