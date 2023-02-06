@@ -1,4 +1,3 @@
-export interface Options {
-  name: string;
-}
-export const options = [{ name: 'Insurance' }, { name: 'Dinner' }];
+import { Option } from 'types/option';
+
+export const options: Option[] = [{ name: 'Insurance' }, { name: 'Dinner' }];
