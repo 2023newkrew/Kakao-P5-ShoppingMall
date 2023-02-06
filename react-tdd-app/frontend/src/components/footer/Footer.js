@@ -16,7 +16,7 @@ export default Footer;
 const FooterComponent = styled.footer`
   background-color: #fff6bf;
 
-  width: 45%;
+  width: 100%;
   height: 5%;
   position: fixed;
   bottom: 0;

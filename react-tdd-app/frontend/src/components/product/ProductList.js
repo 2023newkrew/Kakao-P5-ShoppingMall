@@ -5,21 +5,13 @@ const ProductList = () => {
   return (
     <ProductListContainer className="ProductListContainer">
       <Product />
-
       <Product />
-
       <Product />
-
       <Product />
-
       <Product />
-
       <Product />
-
       <Product />
-
       <Product />
-
       <Product />
     </ProductListContainer>
   );
@@ -28,10 +20,8 @@ const ProductList = () => {
 export default ProductList;
 
 const ProductListContainer = styled.div`
-  width: 100%;
+  width: 45%;
   height: 100%;
-
-  margin: 40px 0;
 
   min-width: 850px;
 `;

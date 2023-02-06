@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
+import useModal from "../../hooks/useModal";
+
 const Product = ({ imageUrl, title, overview }) => {
+  const { Modal, open } = useModal();
+
   return (
     <ProductContainer className="ProductContainer">
       <ProductWrapper>
@@ -8,9 +12,13 @@ const Product = ({ imageUrl, title, overview }) => {
           <img src="http://localhost:4000/images/america.jpeg" alt={title}></img>
         </ImageContainer>
         <ProductOverview className="ProductOverview">
-          <title>AAA</title>
+          <ProductTitle>America</ProductTitle>
+          <ProductDescription>Good America</ProductDescription>
         </ProductOverview>
-        <PurchaseButton className="PurchaseButton">+</PurchaseButton>
+        <PurchaseButton className="PurchaseButton" onClick={open}>
+          +
+        </PurchaseButton>
+        <Modal />
       </ProductWrapper>
       <hr />
     </ProductContainer>
@@ -24,10 +32,12 @@ const ProductContainer = styled.div`
   height: 20%;
 
   padding: 20px;
-  min-width: 850px;
 
   display: flex;
   flex-direction: column;
+
+  border-left: 2px solid rgba(0, 0, 0, 0.2);
+  border-right: 2px solid rgba(0, 0, 0, 0.2);
 `;
 
 const ProductWrapper = styled.div`
@@ -43,6 +53,7 @@ const ImageContainer = styled.div`
 
   width: 200px;
   height: 200px;
+  aspect-ratio: 1 / 1;
 
   img {
     width: 100%;
@@ -55,6 +66,28 @@ const ProductOverview = styled.div`
 
   width: 65%;
   height: 200px;
+`;
+
+const ProductTitle = styled.div`
+  background-color: green;
+
+  height: 30%;
+  width: 100%;
+
+  padding: 10px;
+
+  display: flex;
+  align-items: center;
+
+  font-size: 20px;
+  font-weight: bold;
+`;
+
+const ProductDescription = styled.div`
+  padding: 10px;
+
+  width: 100%;
+  height: 70%;
 `;
 
 const PurchaseButton = styled.button`
