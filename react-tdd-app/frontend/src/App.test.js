@@ -1,14 +1,49 @@
 import { render, screen } from "@testing-library/react";
+import { rest } from "msw";
+import { setupServer } from "msw/node";
 import App from "./App";
 
+const server = setupServer(
+  rest.get("/products", (request, response, context) => {
+    return response(
+      context.json([
+        {
+          name: "America",
+          imagePath: "/images/america.jpeg",
+          description: "Good America",
+        },
+        {
+          name: "England",
+          imagePath: "/images/england.jpeg",
+          description: "Good England",
+        },
+      ])
+    );
+  })
+);
+
+const url = "";
+
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
+
 test("renders heading", () => {
-  render(<App />);
+  render(<App url={url} />);
   const headingElement = screen.getByRole("heading");
   expect(headingElement).toHaveTextContent("Travel Products");
 });
 
-test("renders loading", async () => {
-  render(<App />);
-  const loadingElement = await screen.findByText("loading...");
+test("renders loading", () => {
+  render(<App url={url} />);
+  const loadingElement = screen.getByText("loading...");
   expect(loadingElement).toBeInTheDocument();
+});
+
+test("renders products", async () => {
+  render(<App url={url} />);
+  const americaElement = await screen.findByText("America");
+  expect(americaElement).toBeInTheDocument();
+  const englandElement = await screen.findByText("England");
+  expect(englandElement).toBeInTheDocument();
 });
