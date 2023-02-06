@@ -3,6 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
     node: true,
+    jest: true,
   },
   extends: [
     'airbnb',
@@ -16,5 +17,8 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['testing-library', 'jest-dom'],
-  rules: {},
+  rules: {
+    'react/react-in-jsx-scope': 'off',
+    'react/prop-types': 'off',
+  },
 };
