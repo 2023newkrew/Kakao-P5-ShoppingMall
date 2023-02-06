@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import useModal from "../../hooks/useModal";
+import ProductModal from "../modal/ProductModal";
 
 const Product = ({ imageUrl, title, overview }) => {
   const { Modal, open } = useModal();
@@ -18,7 +19,9 @@ const Product = ({ imageUrl, title, overview }) => {
         <PurchaseButton className="PurchaseButton" onClick={open}>
           +
         </PurchaseButton>
-        <Modal />
+        <Modal>
+          <ProductModal />
+        </Modal>
       </ProductWrapper>
       <hr />
     </ProductContainer>
