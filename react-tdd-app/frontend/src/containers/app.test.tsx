@@ -1,8 +1,12 @@
 import { render, screen } from '@testing-library/react';
+import { HEADER_TITLE } from '@/components/constants/home';
 import App from './app';
 
-test('start react app', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/App/i);
-  expect(linkElement).toBeInTheDocument();
+describe('App component', () => {
+  it('App component renders correctly', () => {
+    render(<App />);
+
+    const headerTitleEl = screen.getByText(HEADER_TITLE);
+    expect(headerTitleEl).toBeInTheDocument();
+  });
 });
