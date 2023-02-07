@@ -2,7 +2,7 @@ import { rest } from 'msw';
 import { products as mockProducts } from './products';
 import { options as mockOptions } from './options';
 
-const BASE_URL = 'http://localhost:5000' as const;
+const BASE_URL = 'http://localhost:4000' as const;
 const PRODUCT_URL = BASE_URL + '/products';
 const OPTIONS_URL = BASE_URL + '/options';
 

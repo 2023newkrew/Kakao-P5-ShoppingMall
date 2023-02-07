@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import Product from './Products';
+import Product from './Product';
 import { Product as ProductType } from 'types/product';
 import { Option as OptionType } from 'types/option';
 import ErrorBanner from './ErrorBanner';
@@ -11,6 +11,17 @@ interface Props {
   orderType: OrderType;
 }
 
+const item = {
+  products: {
+    title: 'Products',
+    price: 1000,
+  },
+  options: {
+    title: 'Options',
+    price: 500,
+  },
+};
+
 const Type = ({ orderType }: Props) => {
   const [items, setItems] = useState<ProductType[] | OptionType[]>([]);
   const [error, setError] = useState(false);
@@ -18,7 +29,7 @@ const Type = ({ orderType }: Props) => {
   useEffect(() => {
     const loadItems = async (orderType: OrderType) => {
       try {
-        const response = await axios.get(`http://localhost:5000/${orderType}`);
+        const response = await axios.get(`http://localhost:4000/${orderType}`);
         setItems(response.data);
       } catch (error) {
         setError(true);
@@ -40,7 +51,18 @@ const Type = ({ orderType }: Props) => {
     const options = items as OptionType[];
     return options.map(({ name }) => <Option key={name} name={name} />);
   };
-
-  return <div>{orderType === 'products' ? renderProducts() : renderOptions()}</div>;
+  const renderItems = () => {
+    return orderType === 'products' ? renderProducts() : renderOptions();
+  };
+  return (
+    <div>
+      <h2>{item[orderType].title}</h2>
+      <p>개당 가격 : ₩{item[orderType].price}</p>
+      <p>총 가격</p>
+      <div className="flex" style={{ flexDirection: orderType === 'products' ? 'row' : 'column' }}>
+        {renderItems()}
+      </div>
+    </div>
+  );
 };
 export default Type;
