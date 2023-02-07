@@ -9,7 +9,7 @@ describe('<CheckBox />', () => {
   };
   it('name text와 input이 잘 생성되어야 한다.', () => {
     const { getByText, getByRole } = render(<CheckBox {...checkBoxProps} />);
-    getByText('test name');
+    getByText(checkBoxProps.name);
     getByRole('checkbox');
   });
 
