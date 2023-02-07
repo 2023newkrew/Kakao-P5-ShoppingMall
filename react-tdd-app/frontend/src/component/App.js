@@ -1,8 +1,8 @@
 import React, { Suspense } from "react";
-import { fetchProducts } from "./api";
+import { fetchProducts } from "../api";
 import "./App.css";
 import ErrorBoundary from "./ErrorBoundary";
-import { useResource } from "./hook";
+import { useResource } from "../hook";
 
 function ProductList({ resource }) {
   const products = resource.read();
