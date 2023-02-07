@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-
-type CheckBoxProps = {
-  name: string;
-  description: string;
-};
+import { CheckBoxProps } from 'types';
 
 function CheckBox({ name, description }: CheckBoxProps) {
   return (

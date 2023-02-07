@@ -1,13 +1,14 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 import { QuantityInput } from 'components';
+import { QuantityInputProps } from 'types';
 
 describe('<QuantityInput />', () => {
   const quantityInputProps = {
     name: 'test name',
     imagePath: 'test.jpeg',
     description: 'test description',
-  };
+  } as QuantityInputProps;
 
   it('name text와 input이 잘 생성되어야 한다.', () => {
     const { getByText, getByRole } = render(<QuantityInput {...quantityInputProps} />);

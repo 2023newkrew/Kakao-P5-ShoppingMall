@@ -1,12 +1,14 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 import { CheckBox } from 'components';
+import { CheckBoxProps } from 'types';
 
 describe('<CheckBox />', () => {
   const checkBoxProps = {
     name: 'test name',
     description: 'test description',
-  };
+  } as CheckBoxProps;
+
   it('name text와 input이 잘 생성되어야 한다.', () => {
     const { getByText, getByRole } = render(<CheckBox {...checkBoxProps} />);
     getByText(checkBoxProps.name);
