@@ -20,5 +20,9 @@ module.exports = {
   rules: {
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
+    'import/no-extraneous-dependencies': [
+      'error',
+      { devDependencies: ['src/mocks/**/*'] },
+    ],
   },
 };
