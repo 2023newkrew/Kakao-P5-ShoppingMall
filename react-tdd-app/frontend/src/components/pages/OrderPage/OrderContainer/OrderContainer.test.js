@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { rest } from "msw";
-import { MOCK_BASE_URL } from "../../../mocks/handlers";
-import { mockServer } from "../../../mocks/mockServer";
+import { MOCK_BASE_URL } from "../../../../mocks/handlers";
+import { mockServer } from "../../../../mocks/mockServer";
 import OrderContainer from "./OrderContainer";
 
 test("display products image from server", async () => {

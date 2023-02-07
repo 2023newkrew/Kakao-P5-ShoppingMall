@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Product from "./Product";
-import Option from "./Option";
 import axios from "axios";
+import Product from "../Product/Product";
+import Option from "../Option/Option";
+import ErrorBanner from "../../../ErrorBanner";
 import "./OrderContainer.css";
-import ErrorBanner from "../../ErrorBanner";
 
 const BASE_URL = "http://localhost:5000";
 export default function OrderContainer({ requestPath }) {

@@ -1,5 +1,5 @@
 import React from "react";
-import OrderContainer from "./OrderContainer";
+import OrderContainer from "./OrderContainer/OrderContainer";
 import "./OrderPage.css";
 
 export default function OrderPage() {
