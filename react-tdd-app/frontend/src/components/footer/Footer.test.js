@@ -1,8 +1,13 @@
 import { render, screen } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
 import Footer from "./Footer";
 
 test("푸터의 기본 가격 값이 0인지 테스트 합니다", () => {
-  render(<Footer totalPrice={10000} />);
+  render(
+    <BrowserRouter initialEntries={["/"]}>
+      <Footer totalPrice={10000} />
+    </BrowserRouter>
+  );
 
   const price = screen.getByTestId("price");
 
@@ -11,7 +16,11 @@ test("푸터의 기본 가격 값이 0인지 테스트 합니다", () => {
 });
 
 test("푸터의 값이 0일때 버튼이 disable 되는 지 테스트 합니다", () => {
-  render(<Footer totalPrice={0} />);
+  render(
+    <BrowserRouter initialEntries={["/"]}>
+      <Footer totalPrice={0} />
+    </BrowserRouter>
+  );
 
   const priceButtonElement = screen.getByTestId("price");
 

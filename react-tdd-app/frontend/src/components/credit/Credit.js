@@ -35,7 +35,7 @@ const Credit = ({ productList }) => {
         <ProductContainer>{getProductList()}</ProductContainer>
         <label>
           <input type="checkbox" onClick={() => setChecked((checked) => !checked)} />
-          주문하려는 것을 확인하셨나요 ?
+          주문하려는 것을 확인하셨나요?
         </label>
         <CreditButton disabled={!checked}>결제하기</CreditButton>
       </CreditWrapper>
