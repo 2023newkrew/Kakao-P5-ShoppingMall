@@ -4,6 +4,12 @@ export default function SummaryPage() {
   const [checked, setChecked] = useState(false);
   return (
     <div>
+      <div>
+        여행 상품 : <span data-testid="products-price">000</span>
+      </div>
+      <div>
+        옵션 : <span data-testid="options-price">000</span>
+      </div>
       <form>
         <input
           type={"checkbox"}
