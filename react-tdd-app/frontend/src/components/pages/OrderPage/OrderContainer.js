@@ -3,11 +3,12 @@ import Product from "./Product";
 import Option from "./Option";
 import axios from "axios";
 
+const BASE_URL = "http://localhost:5000";
 export default function OrderContainer({ itemType }) {
   const [itemInfoList, setItemInfoList] = useState([]);
   const fetchData = async (path) => {
     try {
-      const res = await axios.get(`http://localhost:4000/${path}`);
+      const res = await axios.get(`${BASE_URL}/${path}`);
       setItemInfoList(res.data);
     } catch (error) {
       console.error(error);
