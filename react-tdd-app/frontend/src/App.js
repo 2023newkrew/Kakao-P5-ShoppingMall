@@ -1,14 +1,15 @@
-import Footer from "./components/footer/Footer";
-import Header from "./components/header/Header";
-import ProductList from "./components/product/ProductList";
+import MainPage from "./pages/MainPage";
+
+import { Route, Routes } from "react-router-dom";
+import { useState } from "react";
 
 const App = () => {
+  const [totalPrice, setTotalPrice] = useState(0);
+
   return (
-    <>
-      <Header />
-      <ProductList />
-      <Footer />
-    </>
+    <Routes>
+      <Route path="/" element={<MainPage totalPrice={totalPrice} setTotalPrice={setTotalPrice} />}></Route>
+    </Routes>
   );
 };
 

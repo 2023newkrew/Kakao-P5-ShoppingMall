@@ -1,6 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import ProductModal from "./ProductModal";
-import userEvent from "@testing-library/user-event";
 
 test("입력한 값에 따라 가격의 총합이 변화하는 지 테스트", () => {
   /*
@@ -21,7 +20,7 @@ test("입력한 값에 따라 가격의 총합이 변화하는 지 테스트", (
 
   const priceElement = screen.getByTestId("price");
 
-  const countElement = screen.getByLabelText("count");
+  const countElement = screen.getByLabelText("개수");
   fireEvent.change(countElement, { target: { value: 1 } });
 
   const insuranceElement = screen.getByLabelText("insurance");
@@ -35,4 +34,27 @@ test("입력한 값에 따라 가격의 총합이 변화하는 지 테스트", (
   const firstClassElement = screen.getByLabelText("firstClass");
   fireEvent.click(firstClassElement);
   expect(priceElement).toHaveTextContent(2500);
+});
+
+test("입력된 price의 값이 0이면 버튼이 disable 되는지 테스트", () => {
+  render(
+    <ProductModal
+      product={{
+        name: "America",
+        imagePath: "/images/america.jpeg",
+        description: "Good America",
+      }}
+    />
+  );
+
+  const priceElement = screen.getByTestId("price");
+
+  const countElement = screen.getByLabelText("개수");
+  fireEvent.change(countElement, { target: { value: 0 } });
+
+  expect(priceElement).toHaveTextContent(0);
+
+  const priceButtonElement = screen.getByRole("button");
+
+  expect(priceButtonElement).toBeDisabled();
 });

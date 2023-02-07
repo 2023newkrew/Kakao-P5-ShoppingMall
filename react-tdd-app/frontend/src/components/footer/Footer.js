@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-const Footer = ({ price }) => {
+const Footer = ({ totalPrice }) => {
   return (
-    <FooterComponent className="FooterComponent">
+    <FooterComponent className="FooterComponent" disabled={!totalPrice} data-testid="price">
       <p>
-        <b data-testid="price">{price || 0}</b>원
+        <b>{totalPrice}</b>원
       </p>
       <p>계산하기</p>
     </FooterComponent>
@@ -13,7 +13,7 @@ const Footer = ({ price }) => {
 
 export default Footer;
 
-const FooterComponent = styled.footer`
+const FooterComponent = styled.button`
   background-color: #fff6bf;
 
   width: 100%;

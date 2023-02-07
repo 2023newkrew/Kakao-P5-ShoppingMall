@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-const ProductModal = ({ product }) => {
+const ProductModal = ({ product, setTotalPrice, close }) => {
   const [price, setPrice] = useState(0);
 
   const [setting, setSetting] = useState({
-    count: 1,
+    count: 0,
     isInsurance: false,
     isDinner: false,
     isFirstClass: false,
@@ -14,6 +14,11 @@ const ProductModal = ({ product }) => {
   useEffect(() => {
     setPrice(setting.count * 1000 + (setting.isInsurance + setting.isDinner + setting.isFirstClass) * 500 * setting.count);
   }, [setting]);
+
+  const onClick = () => {
+    setTotalPrice(price);
+    close();
+  };
 
   return (
     product && (
@@ -32,7 +37,7 @@ const ProductModal = ({ product }) => {
             </ProductOverview>
             <ProductSelection>
               <label>
-                count
+                개수
                 <input
                   id="count"
                   type="number"
@@ -42,6 +47,7 @@ const ProductModal = ({ product }) => {
                   placeholder="0"
                 />
               </label>
+              개
             </ProductSelection>
             <ProductOption>
               <h2>Option</h2>
@@ -87,7 +93,7 @@ const ProductModal = ({ product }) => {
               </p>
             </ProductOption>
           </ProductSettingWrapper>
-          <ProductDecision>
+          <ProductDecision disabled={!price} onClick={onClick}>
             <h3>장바구니에 담기</h3>
             <p data-testid="price">{price}원</p>
           </ProductDecision>
@@ -112,6 +118,8 @@ const ProductImageContainer = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
   }
 `;
 
@@ -156,7 +164,7 @@ const ProductOption = styled.div`
   padding: 20px;
 `;
 
-const ProductDecision = styled.div`
+const ProductDecision = styled.button`
   width: 15%;
   height: 100%;
 
