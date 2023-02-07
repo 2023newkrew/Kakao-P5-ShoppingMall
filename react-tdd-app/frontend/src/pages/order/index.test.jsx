@@ -44,3 +44,27 @@ test('잘못된 상품 수량 입력', async () => {
   userEvent.type(productInput, '-1');
   expect(parseInt(productInput.value, 10)).toBeGreaterThanOrEqual(0);
 });
+
+test('상품 옵션', async () => {
+  render(<Order />);
+
+  const options = await screen.findAllByRole('checkbox');
+  expect(options).toHaveLength(3);
+
+  const labelTexts = options.map((option) => option.labels[0].textContent);
+  expect(labelTexts).toEqual(['Insurance', 'Dinner', 'FirstClass']);
+});
+
+test('상품 옵션 선택', async () => {
+  render(<Order />);
+
+  const options = await screen.findAllByRole('checkbox');
+  const option = options[0];
+  expect(option.checked).toBe(false);
+
+  userEvent.click(option);
+  expect(option.checked).toBe(true);
+
+  userEvent.click(option);
+  expect(option.checked).toBe(false);
+});
