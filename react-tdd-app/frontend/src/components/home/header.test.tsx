@@ -1,16 +1,11 @@
-import { ThemeProvider } from '@emotion/react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { HEADER_TITLE } from '../constants/home';
 import Header from './header';
-import theme from '@/styles/theme';
+import useRender from '@/tests/hooks/use-render';
 
 describe('Header component', () => {
   it('Header component renders correctly', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <Header />
-      </ThemeProvider>,
-    );
+    useRender(<Header />);
 
     const headerTitleEl = screen.getByText(HEADER_TITLE);
     expect(headerTitleEl).toBeInTheDocument();
