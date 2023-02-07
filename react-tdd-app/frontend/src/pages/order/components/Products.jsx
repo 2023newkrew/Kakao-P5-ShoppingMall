@@ -1,33 +1,17 @@
-function Product({
-  name,
-  imagePath,
-  description,
-  quantity,
-  handleProductOrderChange,
-}) {
-  const id = `${name}-number`;
+import styled from 'styled-components';
+import Product from './Product';
 
-  const handleChange = (event) => {
-    const value = Math.max(0, event.target.value);
-    handleProductOrderChange(name, value);
-  };
+const Ul = styled.ul`
+  display: flex;
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 
-  return (
-    <li>
-      <img src={imagePath} alt={description} />
-      <label htmlFor={id}>
-        {name}
-        <input
-          type="number"
-          id={id}
-          value={quantity}
-          min="0"
-          onChange={handleChange}
-        />
-      </label>
-    </li>
-  );
-}
+  img {
+    width: 100%;
+  }
+`;
 
 export default function Products({
   products,
@@ -38,7 +22,7 @@ export default function Products({
     <>
       <h2>여행 상품</h2>
       <div>상품당 가격: ₩1,000</div>
-      <ul>
+      <Ul>
         {products.map(({ name, imagePath, description }) => (
           <Product
             key={name}
@@ -49,7 +33,7 @@ export default function Products({
             handleProductOrderChange={handleProductOrderChange}
           />
         ))}
-      </ul>
+      </Ul>
     </>
   );
 }
