@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-const ProductModal = ({ title }) => {
+const ProductModal = ({ product }) => {
   const [price, setPrice] = useState(0);
 
   const [setting, setSetting] = useState({
@@ -12,34 +12,36 @@ const ProductModal = ({ title }) => {
   });
 
   useEffect(() => {
-    setPrice(setting.count * 1000 + (setting.isInsurance + setting.isDinner + setting.isFirstClass) * 500);
-  });
+    setPrice(setting.count * 1000 + (setting.isInsurance + setting.isDinner + setting.isFirstClass) * 500 * setting.count);
+  }, [setting]);
 
   return (
     <ProductModalContainer>
       <ProductImageContainer>
-        <img src="http://localhost:4000/images/america.jpeg" alt={title}></img>
+        <img src={`http://localhost:4000/${product.imagePath}`} alt={product.title}></img>
       </ProductImageContainer>
       <ProductSetting>
         <ProductSettingWrapper>
           <ProductOverview>
             <h2>Product</h2>
+            <h2>{product.title}</h2>
             <p>₩1,000</p>
             <h4>overview</h4>
-            <p>Good America</p>
+            <p>{product.description}</p>
           </ProductOverview>
           <ProductSelection>
-            <label htmlFor="count">수량 : </label>
-            <input
-              id="count"
-              type="number"
-              onChange={(event) => {
-                setSetting({ ...setting, count: event.target.value });
-              }}
-              data-testid="counter"
-              placeholder="0"
-            />
-            개
+            <label>
+              수량
+              <input
+                id="count"
+                type="number"
+                onChange={(event) => {
+                  setSetting({ ...setting, count: event.target.value });
+                }}
+                data-testid="counter"
+                placeholder="0"
+              />
+            </label>
           </ProductSelection>
           <ProductOption>
             <h2>Option</h2>

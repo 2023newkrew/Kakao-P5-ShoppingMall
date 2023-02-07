@@ -1,17 +1,24 @@
 import styled from "styled-components";
 import Product from "./Product";
 
+import { API } from "../../utils/fetch";
+import { useEffect, useState } from "react";
+
 const ProductList = () => {
-  return (
-    <ProductListContainer className="ProductListContainer">
-      <Product />
-      <Product />
-      <Product />
-      <Product />
-      <Product />
-      <Product />
-    </ProductListContainer>
-  );
+  const [fetchProductList, setFetchProductList] = useState([]);
+
+  useEffect(() => {
+    fetchProductItems();
+
+    async function fetchProductItems() {
+      const response = await API.fetchProductItems();
+      setFetchProductList(response);
+    }
+  }, []);
+
+  const ProductList = fetchProductList.map((product, index) => <Product key={index} product={product} />);
+
+  return <ProductListContainer className="ProductListContainer">{ProductList}</ProductListContainer>;
 };
 
 export default ProductList;

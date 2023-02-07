@@ -3,7 +3,7 @@ import styled from "styled-components";
 import useModal from "../../hooks/useModal";
 import ProductModal from "../modal/ProductModal";
 
-const Product = ({ imageUrl, title, overview }) => {
+const Product = ({ product }) => {
   const { Modal, open } = useModal();
 
   return (
@@ -11,17 +11,17 @@ const Product = ({ imageUrl, title, overview }) => {
       <ProductContainer>
         <ProductWrapper>
           <ImageContainer>
-            <img src="http://localhost:4000/images/america.jpeg" alt={title}></img>
+            <img src={`http://localhost:4000/${product.imagePath}`} alt={product.name}></img>
           </ImageContainer>
           <ProductOverview>
-            <ProductTitle>America</ProductTitle>
-            <ProductDescription>Good America</ProductDescription>
+            <ProductTitle>{product.name}</ProductTitle>
+            <ProductDescription>{product.description}</ProductDescription>
           </ProductOverview>
           <PurchaseButton data-testid="purchaseButton" onClick={open}>
             +
           </PurchaseButton>
           <Modal data-testid="productModal">
-            <ProductModal />
+            <ProductModal product={product} />
           </Modal>
         </ProductWrapper>
       </ProductContainer>
