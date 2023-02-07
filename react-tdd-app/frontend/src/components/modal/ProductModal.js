@@ -5,7 +5,7 @@ const ProductModal = ({ product }) => {
   const [price, setPrice] = useState(0);
 
   const [setting, setSetting] = useState({
-    count: 0,
+    count: 1,
     isInsurance: false,
     isDinner: false,
     isFirstClass: false,
@@ -16,77 +16,84 @@ const ProductModal = ({ product }) => {
   }, [setting]);
 
   return (
-    <ProductModalContainer>
-      <ProductImageContainer>
-        <img src={`http://localhost:4000/${product.imagePath}`} alt={product.title}></img>
-      </ProductImageContainer>
-      <ProductSetting>
-        <ProductSettingWrapper>
-          <ProductOverview>
-            <h2>Product</h2>
-            <h2>{product.title}</h2>
-            <p>₩1,000</p>
-            <h4>overview</h4>
-            <p>{product.description}</p>
-          </ProductOverview>
-          <ProductSelection>
-            <label>
-              수량
-              <input
-                id="count"
-                type="number"
-                onChange={(event) => {
-                  setSetting({ ...setting, count: event.target.value });
-                }}
-                data-testid="counter"
-                placeholder="0"
-              />
-            </label>
-          </ProductSelection>
-          <ProductOption>
-            <h2>Option</h2>
-            <p>₩500</p>
-            <p>
-              <input
-                type="checkbox"
-                id="insurance"
-                onChange={() => {
-                  setSetting({ ...setting, isInsurance: !setting.isInsurance });
-                }}
-              />
-              <label htmlFor="insurance">insurance</label>
-              <b>[안전한 여행을 위해서!]</b>
-            </p>
-            <p>
-              <input
-                type="checkbox"
-                id="Dinner"
-                onChange={() => {
-                  setSetting({ ...setting, isDinner: !setting.isDinner });
-                }}
-              />
-              <label htmlFor="Dinner">Dinner</label>
-              <b>[맛있는 저녁과 함께하는 여행!]</b>
-            </p>
-            <p>
-              <input
-                type="checkbox"
-                id="FirstClass"
-                onChange={() => {
-                  setSetting({ ...setting, isFirstClass: !setting.isFirstClass });
-                }}
-              />
-              <label htmlFor="FirstClass">FirstClass</label>
-              <b>[편안한 비행을 위해서!]</b>
-            </p>
-          </ProductOption>
-        </ProductSettingWrapper>
-        <ProductDecision>
-          <h3>장바구니에 담기</h3>
-          <p data-testid="price">{price}원</p>
-        </ProductDecision>
-      </ProductSetting>
-    </ProductModalContainer>
+    product && (
+      <ProductModalContainer>
+        <ProductImageContainer>
+          <img src={`http://localhost:4000/${product.imagePath}`} alt={product.title}></img>
+        </ProductImageContainer>
+        <ProductSetting>
+          <ProductSettingWrapper>
+            <ProductOverview>
+              <h2>Product</h2>
+              <h2>{product.title}</h2>
+              <p>₩1,000</p>
+              <h4>overview</h4>
+              <p>{product.description}</p>
+            </ProductOverview>
+            <ProductSelection>
+              <label>
+                count
+                <input
+                  id="count"
+                  type="number"
+                  onChange={(event) => {
+                    setSetting({ ...setting, count: event.target.value });
+                  }}
+                  placeholder="0"
+                />
+              </label>
+            </ProductSelection>
+            <ProductOption>
+              <h2>Option</h2>
+              <p>₩500</p>
+              <p>
+                <label>
+                  <input
+                    type="checkbox"
+                    id="insurance"
+                    onChange={() => {
+                      setSetting({ ...setting, isInsurance: !setting.isInsurance });
+                    }}
+                  />
+                  insurance
+                </label>
+                <b>[안전한 여행을 위해서!]</b>
+              </p>
+              <p>
+                <label>
+                  <input
+                    type="checkbox"
+                    id="Dinner"
+                    onChange={() => {
+                      setSetting({ ...setting, isDinner: !setting.isDinner });
+                    }}
+                  />
+                  dinner
+                </label>
+                <b>[맛있는 저녁과 함께하는 여행!]</b>
+              </p>
+              <p>
+                <label>
+                  <input
+                    type="checkbox"
+                    id="FirstClass"
+                    onChange={() => {
+                      setSetting({ ...setting, isFirstClass: !setting.isFirstClass });
+                    }}
+                  />
+                  firstClass
+                </label>
+                <b>[편안한 비행을 위해서!]</b>
+              </p>
+            </ProductOption>
+          </ProductSettingWrapper>
+          <ProductDecision>
+            <h3>장바구니에 담기</h3>
+            <p data-testid="price">{price}원</p>
+          </ProductDecision>
+        </ProductSetting>
+      </ProductModalContainer>
+    )
   );
 };
 

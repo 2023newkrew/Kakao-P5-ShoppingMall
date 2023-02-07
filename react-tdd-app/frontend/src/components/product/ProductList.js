@@ -16,6 +16,8 @@ const ProductList = () => {
     }
   }, []);
 
+  if (fetchProductList === undefined) return <div>로딩중</div>;
+
   const ProductList = fetchProductList.map((product, index) => <Product key={index} product={product} />);
 
   return <ProductListContainer className="ProductListContainer">{ProductList}</ProductListContainer>;

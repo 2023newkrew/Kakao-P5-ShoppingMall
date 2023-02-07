@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-const Footer = () => {
+const Footer = ({ price }) => {
   return (
     <FooterComponent className="FooterComponent">
       <p>
-        <b>200,000</b>원
+        <b data-testid="price">{price || 0}</b>원
       </p>
       <p>계산하기</p>
     </FooterComponent>
