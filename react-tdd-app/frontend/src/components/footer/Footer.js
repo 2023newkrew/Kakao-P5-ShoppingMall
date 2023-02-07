@@ -1,8 +1,14 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Footer = ({ totalPrice }) => {
+  const navigate = useNavigate();
+  const onClick = () => {
+    navigate("/credit");
+  };
+
   return (
-    <FooterComponent className="FooterComponent" disabled={!totalPrice} data-testid="price">
+    <FooterComponent className="FooterComponent" disabled={!totalPrice} data-testid="price" onClick={onClick}>
       <p>
         <b>{totalPrice}</b>원
       </p>

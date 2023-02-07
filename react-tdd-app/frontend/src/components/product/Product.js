@@ -3,7 +3,7 @@ import styled from "styled-components";
 import useModal from "../../hooks/useModal";
 import ProductModal from "../modal/ProductModal";
 
-const Product = ({ product, setTotalPrice }) => {
+const Product = ({ product, setTotalPrice, setProductList }) => {
   const { Modal, open, close } = useModal();
 
   return (
@@ -21,7 +21,7 @@ const Product = ({ product, setTotalPrice }) => {
             +
           </PurchaseButton>
           <Modal data-testid="productModal">
-            <ProductModal product={product} setTotalPrice={setTotalPrice} close={close} />
+            <ProductModal product={product} setTotalPrice={setTotalPrice} close={close} setProductList={setProductList} />
           </Modal>
         </ProductWrapper>
       </ProductContainer>

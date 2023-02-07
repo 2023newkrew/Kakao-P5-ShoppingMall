@@ -4,7 +4,7 @@ import Product from "./Product";
 import { API } from "../../utils/fetch";
 import { useEffect, useState } from "react";
 
-const ProductList = ({ setTotalPrice }) => {
+const ProductList = ({ setTotalPrice, setProductList }) => {
   const [fetchProductList, setFetchProductList] = useState([]);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const ProductList = ({ setTotalPrice }) => {
 
   if (fetchProductList === undefined) return <div>로딩중</div>;
 
-  const ProductList = fetchProductList.map((product, index) => <Product key={index} product={product} setTotalPrice={setTotalPrice} />);
+  const ProductList = fetchProductList.map((product, index) => <Product key={index} product={product} setTotalPrice={setTotalPrice} setProductList={setProductList} />);
 
   return <ProductListContainer className="ProductListContainer">{ProductList}</ProductListContainer>;
 };

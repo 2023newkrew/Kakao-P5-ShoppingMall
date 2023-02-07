@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-const ProductModal = ({ product, setTotalPrice, close }) => {
+const ProductModal = ({ product, setTotalPrice, close, setProductList }) => {
   const [price, setPrice] = useState(0);
 
   const [setting, setSetting] = useState({
@@ -16,7 +16,19 @@ const ProductModal = ({ product, setTotalPrice, close }) => {
   }, [setting]);
 
   const onClick = () => {
-    setTotalPrice(price);
+    setTotalPrice((prevPrice) => prevPrice + price);
+
+    setProductList((prevProduct) =>
+      prevProduct.concat({
+        title: product.name,
+        count: setting.count,
+        isInsurance: setting.isInsurance,
+        isDinner: setting.isDinner,
+        isFirstClass: setting.isFirstClass,
+        price: price,
+      })
+    );
+
     close();
   };
 
