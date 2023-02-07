@@ -1,5 +1,5 @@
 import { screen } from '@testing-library/react';
-import { HEADER_TITLE } from '../constants/home';
+import { HEADER_TITLE } from '../../constants/home';
 import Header from './header';
 import useRender from '@/tests/hooks/use-render';
 
