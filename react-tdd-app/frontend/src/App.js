@@ -1,38 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { Suspense } from "react";
+import { fetchProducts } from "./api";
 import "./App.css";
+import ErrorBoundary from "./ErrorBoundary";
+import { useResource } from "./hook";
 
-function App({ url }) {
-  const [products, setProducts] = useState(null);
-  const [error, setError] = useState(null);
+function ProductList({ resource }) {
+  const products = resource.read();
 
-  useEffect(() => {
-    fetch(`${url}/products`)
-      .then((response) => response.json())
-      .then(setProducts)
-      .catch(setError);
-  }, [url]);
+  return (
+    <ul>
+      {products.map((product) => (
+        <li key={product.name}>{product.name}</li>
+      ))}
+    </ul>
+  );
+}
 
-  if (error) {
-    return (
-      <div className="App">
-        <h2>문제가 발생했습니다.</h2>
-        <p>{error.toString()}</p>
-      </div>
-    );
-  }
+function App() {
+  const resource = useResource(fetchProducts());
 
   return (
     <div className="App">
-      <h1>Travel Products</h1>
-      {products ? (
-        <ul>
-          {products.map((product) => (
-            <li key={product.name}>{product.name}</li>
-          ))}
-        </ul>
-      ) : (
-        <p>loading...</p>
-      )}
+      <ErrorBoundary fallback={<p>문제가 발생했습니다.</p>}>
+        <h1>Travel Products</h1>
+        <Suspense fallback={<p>loading...</p>}>
+          <ProductList resource={resource} />
+        </Suspense>
+      </ErrorBoundary>
     </div>
   );
 }
