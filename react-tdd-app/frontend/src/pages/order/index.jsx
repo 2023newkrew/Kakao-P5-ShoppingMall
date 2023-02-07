@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Products from './components/Products';
+import Options from './components/Options';
 
 export default function Order() {
   const [products, setProducts] = useState([]);
-  // const [options, setOptions] = useState([]);
+  const [options, setOptions] = useState([]);
   const [order, setOrder] = useState({});
 
   const handleProductOrderChange = (name, quantity) => {
@@ -17,22 +18,32 @@ export default function Order() {
     }));
   };
 
+  const handleOptionOrderChange = (name, checked) => {
+    setOrder((prev) => ({
+      ...prev,
+      options: {
+        ...prev.options,
+        [name]: checked,
+      },
+    }));
+  };
+
   useEffect(() => {
     const fetch = async () => {
       const { data: productsData } = await axios.get('/products');
-      // const { data: optionsData } = await axios.get('/options');
+      const { data: optionsData } = await axios.get('/options');
       setProducts(productsData);
-      // setOptions(optionsData);
+      setOptions(optionsData);
       setOrder((prev) => ({
         ...prev,
         products: productsData.reduce(
           (acc, { name }) => ({ ...acc, [name]: 0 }),
           {}
         ),
-        // options: optionsData.reduce(
-        //   (acc, { name }) => ({ ...acc, [name]: false }),
-        //   {}
-        // ),
+        options: optionsData.reduce(
+          (acc, { name }) => ({ ...acc, [name]: false }),
+          {}
+        ),
       }));
     };
 
@@ -46,6 +57,11 @@ export default function Order() {
         products={products}
         order={order}
         handleProductOrderChange={handleProductOrderChange}
+      />
+      <Options
+        options={options}
+        order={order}
+        handleOptionOrderChange={handleOptionOrderChange}
       />
     </>
   );
