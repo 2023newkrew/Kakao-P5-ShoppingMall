@@ -17,7 +17,7 @@ describe('Type component', () => {
   });
 
   test('error on fetching product data', async () => {
-    server.resetHandlers(rest.get('http://localhost:5000/products', (req, res, ctx) => res(ctx.status(500))));
+    server.resetHandlers(rest.get('http://localhost:4000/products', (req, res, ctx) => res(ctx.status(500))));
 
     render(<Type orderType="products" />);
 
