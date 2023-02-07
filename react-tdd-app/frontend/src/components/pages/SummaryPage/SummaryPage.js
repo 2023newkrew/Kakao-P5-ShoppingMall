@@ -1,11 +1,15 @@
 import React, { useState } from "react";
+import "./SummaryPage.css";
 
 export default function SummaryPage() {
   const [checked, setChecked] = useState(false);
   return (
-    <div>
+    <div className="summary-container">
       <div>
         여행 상품 : <span data-testid="products-price">000</span>
+        <ul>
+          <li data-testid="selected-product">test product</li>
+        </ul>
       </div>
       <div>
         옵션 : <span data-testid="options-price">000</span>
