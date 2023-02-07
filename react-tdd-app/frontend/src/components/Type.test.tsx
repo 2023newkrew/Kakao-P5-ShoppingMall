@@ -4,6 +4,8 @@ import { server } from 'mocks/server';
 import { rest } from 'msw';
 import userEvent from '@testing-library/user-event';
 import { OrderContextProvider } from 'contexts/OrderContext';
+import { PRODUCT_PRICE } from 'constants/price';
+import { options } from 'mocks/options';
 
 describe('Type component', () => {
   test('displays product images from server', async () => {
@@ -32,7 +34,7 @@ describe('Type component', () => {
 
     const optionCheckboxes = await screen.findAllByRole('checkbox');
 
-    expect(optionCheckboxes).toHaveLength(2);
+    expect(optionCheckboxes).toHaveLength(options.length);
   });
 
   test("update product's total price when products changed", async () => {
@@ -45,7 +47,7 @@ describe('Type component', () => {
     userEvent.clear(americaInput);
     userEvent.type(americaInput, '1');
 
-    expect(totalProductsPrice).toHaveTextContent('₩1000');
+    expect(totalProductsPrice).toHaveTextContent(`₩${PRODUCT_PRICE}`);
   });
 
   test("update option's total price when options changed", async () => {

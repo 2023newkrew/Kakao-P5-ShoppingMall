@@ -6,6 +6,7 @@ import { Option as OptionType } from 'types/option';
 import ErrorBanner from './ErrorBanner';
 import Option from './Option';
 import { OrderContext } from 'contexts/OrderContext';
+import { OPTION_PRICE, PRODUCT_PRICE } from 'constants/price';
 
 export type OrderType = 'products' | 'options';
 interface Props {
@@ -15,11 +16,11 @@ interface Props {
 const item = {
   products: {
     title: 'Products',
-    price: 1000,
+    price: PRODUCT_PRICE,
   },
   options: {
     title: 'Options',
-    price: 500,
+    price: OPTION_PRICE,
   },
 };
 
@@ -29,7 +30,7 @@ const Type = ({ orderType }: Props) => {
   const [error, setError] = useState(false);
 
   const totalProductsPrice = Array.from(products).reduce((totalPrice, [, price]) => {
-    return totalPrice + price * 1000;
+    return totalPrice + price * PRODUCT_PRICE;
   }, 0);
 
   const totalOptionsPrice = useMemo(() => {
@@ -37,7 +38,7 @@ const Type = ({ orderType }: Props) => {
       if (!checked) {
         return totalPrice;
       }
-      return totalPrice + 500;
+      return totalPrice + OPTION_PRICE;
     }, 0);
   }, [options]);
 
