@@ -6,7 +6,7 @@ import Options from './components/Options';
 export default function Order() {
   const [products, setProducts] = useState([]);
   const [options, setOptions] = useState([]);
-  const [order, setOrder] = useState({});
+  const [order, setOrder] = useState({ products: {}, options: {} });
 
   const handleProductOrderChange = (name, quantity) => {
     setOrder((prev) => ({

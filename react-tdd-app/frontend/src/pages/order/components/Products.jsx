@@ -18,10 +18,16 @@ export default function Products({
   order,
   handleProductOrderChange,
 }) {
+  const productTotalPrice = Object.values(order.products).reduce(
+    (acc, quantity) => acc + quantity * 1000,
+    0
+  );
+
   return (
     <>
       <h2>여행 상품</h2>
       <div>상품당 가격: ₩1,000</div>
+      <div>상품 총 가격: ₩{productTotalPrice.toLocaleString()}</div>
       <Ul>
         {products.map(({ name, imagePath, description }) => (
           <Product
