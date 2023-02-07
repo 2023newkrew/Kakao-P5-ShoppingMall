@@ -6,7 +6,7 @@ export const getProducts = async () => {
 };
 
 export const getOptions = async () => {
-  const res = await fetch(`${process.env.REACT_APP_API_URL}${API_ROUTE_PATH[API_ROUTE.OPTIONS]}}`);
+  const res = await fetch(`${process.env.REACT_APP_API_URL}${API_ROUTE_PATH[API_ROUTE.OPTIONS]}`);
   return res.json();
 };
 
