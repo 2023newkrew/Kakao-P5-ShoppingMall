@@ -1,3 +1,3 @@
 export function MainPage() {
-  return <></>;
+  return <div>상품1</div>;
 }
