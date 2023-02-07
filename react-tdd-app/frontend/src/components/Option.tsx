@@ -1,10 +1,24 @@
+import { ChangeEvent, useContext } from 'react';
 import { Option as OptionType } from '../types/option';
+import { OrderContext } from 'contexts/OrderContext';
 
 type Props = OptionType;
 const Option = ({ name }: Props) => {
+  const { updateOption } = useContext(OrderContext);
+
+  const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
+    const currentValue = e.target.checked;
+    updateOption(name, currentValue);
+  };
   return (
     <form>
-      <input type="checkbox" id={`${name} option`} />
+      <input
+        type="checkbox"
+        id={`${name} option`}
+        aria-label={`${name} option`}
+        defaultChecked={false}
+        onChange={handleCheck}
+      />
       <label htmlFor={`${name} option`}>{name}</label>
     </form>
   );

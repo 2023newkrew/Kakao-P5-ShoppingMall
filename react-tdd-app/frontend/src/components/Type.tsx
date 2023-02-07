@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { memo, useContext, useEffect, useMemo, useState } from 'react';
 import Product from './Product';
 import { Product as ProductType } from 'types/product';
 import { Option as OptionType } from 'types/option';
 import ErrorBanner from './ErrorBanner';
 import Option from './Option';
+import { OrderContext } from 'contexts/OrderContext';
 
 export type OrderType = 'products' | 'options';
 interface Props {
@@ -23,8 +24,22 @@ const item = {
 };
 
 const Type = ({ orderType }: Props) => {
+  const { options, products } = useContext(OrderContext);
   const [items, setItems] = useState<ProductType[] | OptionType[]>([]);
   const [error, setError] = useState(false);
+
+  const totalProductsPrice = Array.from(products).reduce((totalPrice, [, price]) => {
+    return totalPrice + price * 1000;
+  }, 0);
+
+  const totalOptionsPrice = useMemo(() => {
+    return Array.from(options).reduce((totalPrice, [, checked]) => {
+      if (!checked) {
+        return totalPrice;
+      }
+      return totalPrice + 500;
+    }, 0);
+  }, [options]);
 
   useEffect(() => {
     const loadItems = async (orderType: OrderType) => {
@@ -58,11 +73,11 @@ const Type = ({ orderType }: Props) => {
     <div>
       <h2>{item[orderType].title}</h2>
       <p>개당 가격 : ₩{item[orderType].price}</p>
-      <p>총 가격</p>
+      <p>총 가격 : ₩{orderType === 'products' ? totalProductsPrice : totalOptionsPrice}</p>
       <div className="flex" style={{ flexDirection: orderType === 'products' ? 'row' : 'column' }}>
         {renderItems()}
       </div>
     </div>
   );
 };
-export default Type;
+export default memo(Type);
