@@ -4,4 +4,8 @@ function fetchProducts() {
   return fetch(`${baseUrl}/products`).then((response) => response.json());
 }
 
-export { fetchProducts };
+function fetchOptions() {
+  return fetch(`${baseUrl}/options`).then((response) => response.json());
+}
+
+export { fetchProducts, fetchOptions };

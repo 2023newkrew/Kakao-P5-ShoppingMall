@@ -4,37 +4,36 @@ import { setupServer } from "msw/node";
 import OrderFormPage from "./OrderFormPage";
 
 const server = setupServer(
-  rest
-    .get("/products", (request, response, context) => {
-      return response(
-        context.json([
-          {
-            name: "America",
-            imagePath: "/images/america.jpeg",
-            description: "Good America",
-          },
-          {
-            name: "England",
-            imagePath: "/images/england.jpeg",
-            description: "Good England",
-          },
-        ])
-      );
-    })
-    .get("/options", (request, response, context) => {
-      return response(
-        context.json([
-          {
-            name: "Insurance",
-            description: "안전한 여행을 위해서!",
-          },
-          {
-            name: "Dinner",
-            description: "맛있는 저녁과 함께하는 여행!",
-          },
-        ])
-      );
-    })
+  rest.get("/products", (request, response, context) => {
+    return response(
+      context.json([
+        {
+          name: "America",
+          imagePath: "/images/america.jpeg",
+          description: "Good America",
+        },
+        {
+          name: "England",
+          imagePath: "/images/england.jpeg",
+          description: "Good England",
+        },
+      ])
+    );
+  }),
+  rest.get("/options", (request, response, context) => {
+    return response(
+      context.json([
+        {
+          name: "Insurance",
+          description: "안전한 여행을 위해서!",
+        },
+        {
+          name: "Dinner",
+          description: "맛있는 저녁과 함께하는 여행!",
+        },
+      ])
+    );
+  })
 );
 
 beforeAll(() => server.listen());
@@ -76,11 +75,11 @@ test("handles server error", async () => {
 test("renders product images", async () => {
   render(<OrderFormPage />);
   const americaImageElement = await screen.findByAltText(
-    "America product image"
+    "America scene"
   );
   expect(americaImageElement).toBeInTheDocument();
   const englandImageElement = await screen.findByAltText(
-    "England product image"
+    "England scene"
   );
   expect(englandImageElement).toBeInTheDocument();
 });
