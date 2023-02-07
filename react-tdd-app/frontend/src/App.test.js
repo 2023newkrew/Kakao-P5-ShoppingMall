@@ -22,26 +22,24 @@ const server = setupServer(
   })
 );
 
-const url = "";
-
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 test("renders heading", () => {
-  render(<App url={url} />);
+  render(<App />);
   const headingElement = screen.getByRole("heading");
   expect(headingElement).toHaveTextContent("Travel Products");
 });
 
 test("renders loading", () => {
-  render(<App url={url} />);
+  render(<App />);
   const loadingElement = screen.getByText("loading...");
   expect(loadingElement).toBeInTheDocument();
 });
 
 test("renders products", async () => {
-  render(<App url={url} />);
+  render(<App />);
   const americaElement = await screen.findByText("America");
   expect(americaElement).toBeInTheDocument();
   const englandElement = await screen.findByText("England");
@@ -55,7 +53,7 @@ test("handles server error", async () => {
     })
   );
 
-  render(<App url={url} />);
+  render(<App />);
   const errorElement = await screen.findByText("문제가 발생했습니다.");
   expect(errorElement).toBeInTheDocument();
 });
