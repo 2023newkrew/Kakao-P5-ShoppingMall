@@ -1,21 +1,8 @@
-import tw from 'twin.macro';
-import styled from 'styled-components';
-import './App.css';
+import { RouterProvider } from 'react-router-dom';
+import router from 'router';
 
-const Container = tw.div`
-
-`;
-const Text = styled.span`
-  color: red;
-`;
 function App() {
-  return (
-    <div className="w-screen h-screen flex items-center justify-center bg-gray-200">
-      <Container>
-        <Text>Hello world</Text>
-      </Container>
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
