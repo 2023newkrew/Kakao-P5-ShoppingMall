@@ -6,17 +6,9 @@ type CheckBoxProps = {
 };
 
 function CheckBox({ name, description }: CheckBoxProps) {
-  const [test, setTest] = useState(0);
-  console.log(test);
   return (
     <label htmlFor={name}>
-      <input
-        type="checkbox"
-        name={name}
-        onClick={() => {
-          setTest(test + 1);
-        }}
-      />
+      <input type="checkbox" name={name} />
       {name}
     </label>
   );
