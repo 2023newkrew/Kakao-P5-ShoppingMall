@@ -1,4 +1,4 @@
-const baseUrl = process.env.REACT_APP_BASE_URL;
+const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
 function fetchProducts() {
   return fetch(`${baseUrl}/products`).then((response) => response.json());
