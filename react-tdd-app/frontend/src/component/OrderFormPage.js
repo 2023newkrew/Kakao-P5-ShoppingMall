@@ -1,32 +1,125 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
+import "./OrderFormPage.css";
 import { fetchOptions, fetchProducts } from "../api";
 import ErrorBoundary from "./ErrorBoundary";
 import { useResource } from "../hook";
 
-function ProductList({ resource }) {
-  const products = resource.read();
+const PRODUCT_PRICE = 1000;
+const OPTION_PRICE = 500;
 
-  return (
-    <ul>
-      {products.map((product) => (
-        <li key={product.name}>
-          <img src={product.imagePath} alt={`${product.name} scene`} />
-          <p>{product.name}</p>
-        </li>
-      ))}
-    </ul>
+function OrderForm({ productResource, optionResource }) {
+  const products = productResource.read();
+  const options = optionResource.read();
+
+  const [selectedProducts, selectProducts] = useState(() =>
+    products.map(({ name }) => ({
+      name,
+      amount: 0,
+    }))
   );
-}
 
-function OptionList({ resource }) {
-  const options = resource.read();
+  const [selectedOptions, selectOptions] = useState(() =>
+    options.map(({ name }) => ({
+      name,
+      amount: 0,
+    }))
+  );
+
+  const productTotalPrice =
+    PRODUCT_PRICE *
+    selectedProducts.map(({ amount }) => amount).reduce((p, c) => p + c, 0);
+
+  const optionTotalPrice =
+    OPTION_PRICE *
+    selectedOptions.map(({ amount }) => amount).reduce((p, c) => p + c, 0);
+
+  const totalPrice = productTotalPrice + optionTotalPrice;
+
+  const handleProductInputChange = (event) => {
+    const { target } = event;
+
+    const nextSelectedProducts = [...selectedProducts];
+    const targetProduct = nextSelectedProducts.find(
+      ({ name }) => name === target.name
+    );
+    targetProduct.amount = Number(target.value);
+
+    selectProducts(nextSelectedProducts);
+  };
+
+  const handleOptionInputChange = (event) => {
+    const { target } = event;
+
+    const nextSelectedOptions = [...selectedOptions];
+    const targetOption = nextSelectedOptions.find(
+      ({ name }) => name === target.name
+    );
+    targetOption.amount = Number(target.checked);
+
+    selectOptions(nextSelectedOptions);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
 
   return (
-    <ul>
-      {options.map((option) => (
-        <li key={option.name}>{option.name}</li>
-      ))}
-    </ul>
+    <form className="order-form" onSubmit={handleSubmit}>
+      <fieldset className="order-form__product-fieldset">
+        <legend>Products</legend>
+        <dl>
+          <dt>하나의 가격</dt>
+          <dd>{PRODUCT_PRICE}</dd>
+          <dt>선택 상품 가격</dt>
+          <dd>{productTotalPrice}</dd>
+        </dl>
+        <div>
+          {products.map(({ name, imagePath }) => (
+            <label key={name}>
+              <img src={imagePath} alt={`${name} scene`} />
+              {name}
+              <input
+                type="number"
+                name={name}
+                defaultValue="0"
+                onChange={handleProductInputChange}
+              />
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <fieldset className="order-form__option-fieldset">
+        <legend>Options</legend>
+        <dl>
+          <dt>하나의 가격</dt>
+          <dd>{OPTION_PRICE}</dd>
+          <dt>선택 옵션 가격</dt>
+          <dd>{optionTotalPrice}</dd>
+        </dl>
+        <div>
+          {options.map(({ name }) => (
+            <label key={name}>
+              <input
+                type="checkbox"
+                name={name}
+                defaultChecked={false}
+                onChange={handleOptionInputChange}
+              />
+              {name}
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <fieldset className="order-form__summary-fieldset">
+        <dl>
+          <dt>Total Price</dt>
+          <dd>{totalPrice}</dd>
+        </dl>
+        <input type="submit" value="주문하기" />
+      </fieldset>
+    </form>
   );
 }
 
@@ -39,12 +132,10 @@ function OrderFormPage() {
       <ErrorBoundary fallback={<p>문제가 발생했습니다.</p>}>
         <h1>Travel Products</h1>
         <Suspense fallback={<p>loading...</p>}>
-          <ProductList resource={productResource} />
-
-          <h2>Options</h2>
-          <Suspense fallback={<p>loading...</p>}>
-            <OptionList resource={optionResource} />
-          </Suspense>
+          <OrderForm
+            productResource={productResource}
+            optionResource={optionResource}
+          />
         </Suspense>
       </ErrorBoundary>
     </div>

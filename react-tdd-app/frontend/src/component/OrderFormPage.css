@@ -1,0 +1,16 @@
+.order-form dl {
+  border: 1px solid black;
+}
+
+.order-form__product-fieldset div {
+  display: flex;
+}
+
+.order-form__product-fieldset img {
+  width: 100%;
+}
+
+.order-form__option-fieldset div {
+  display: flex;
+  flex-direction: column;
+}
