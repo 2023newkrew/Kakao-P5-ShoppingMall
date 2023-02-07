@@ -1,4 +1,4 @@
-import { createContext, useCallback, useMemo, useState } from 'react';
+import { ReactNode, createContext, useCallback, useMemo, useState } from 'react';
 
 type UpdateProductFunction = (key: string, value: number) => void;
 type UpdateOptionFunction = (key: string, value: boolean) => void;
@@ -11,7 +11,7 @@ export interface OrderContextType extends OrderCountType {
   updateOption: UpdateOptionFunction;
 }
 interface OrderContextProviderProps {
-  [key: string]: any;
+  children: ReactNode;
 }
 
 const initialContext: OrderCountType = {
@@ -27,7 +27,7 @@ export const OrderContext = createContext<OrderContextType>({
   updateProductCount: (key: string, value: number) => {},
 });
 
-export function OrderContextProvider(props: OrderContextProviderProps) {
+export function OrderContextProvider({ children }: OrderContextProviderProps) {
   const [orderCounts, setOrderCounts] = useState<OrderCountType>(initialContext);
 
   const updateProductCount = useCallback((key: string, updateValue: number) => {
@@ -60,6 +60,5 @@ export function OrderContextProvider(props: OrderContextProviderProps) {
     return { ...orderCounts, updateProductCount, updateOption };
   }, [orderCounts, updateOption, updateProductCount]);
 
-  return <OrderContext.Provider value={value} {...props} />;
+  return <OrderContext.Provider value={value}>{children}</OrderContext.Provider>;
 }
-//TODO: update totalPrice
