@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
-import App from "./App";
+import OrderFormPage from "./OrderFormPage";
 
 const server = setupServer(
   rest.get("/products", (request, response, context) => {
@@ -27,19 +27,19 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 test("renders heading", () => {
-  render(<App />);
+  render(<OrderFormPage />);
   const headingElement = screen.getByRole("heading");
   expect(headingElement).toHaveTextContent("Travel Products");
 });
 
 test("renders loading", () => {
-  render(<App />);
+  render(<OrderFormPage />);
   const loadingElement = screen.getByText("loading...");
   expect(loadingElement).toBeInTheDocument();
 });
 
 test("renders products", async () => {
-  render(<App />);
+  render(<OrderFormPage />);
   const americaElement = await screen.findByText("America");
   expect(americaElement).toBeInTheDocument();
   const englandElement = await screen.findByText("England");
@@ -53,7 +53,7 @@ test("handles server error", async () => {
     })
   );
 
-  render(<App />);
+  render(<OrderFormPage />);
   const errorElement = await screen.findByText("문제가 발생했습니다.");
   expect(errorElement).toBeInTheDocument();
 });
