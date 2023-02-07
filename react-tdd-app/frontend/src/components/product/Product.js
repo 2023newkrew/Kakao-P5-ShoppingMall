@@ -7,22 +7,26 @@ const Product = ({ imageUrl, title, overview }) => {
   const { Modal, open } = useModal();
 
   return (
-    <ProductContainer>
-      <ProductWrapper>
-        <ImageContainer>
-          <img src="http://localhost:4000/images/america.jpeg" alt={title}></img>
-        </ImageContainer>
-        <ProductOverview>
-          <ProductTitle>America</ProductTitle>
-          <ProductDescription>Good America</ProductDescription>
-        </ProductOverview>
-        <PurchaseButton onClick={open}>+</PurchaseButton>
-        <Modal>
-          <ProductModal />
-        </Modal>
-      </ProductWrapper>
+    <>
+      <ProductContainer>
+        <ProductWrapper>
+          <ImageContainer>
+            <img src="http://localhost:4000/images/america.jpeg" alt={title}></img>
+          </ImageContainer>
+          <ProductOverview>
+            <ProductTitle>America</ProductTitle>
+            <ProductDescription>Good America</ProductDescription>
+          </ProductOverview>
+          <PurchaseButton data-testid="purchaseButton" onClick={open}>
+            +
+          </PurchaseButton>
+          <Modal data-testid="productModal">
+            <ProductModal />
+          </Modal>
+        </ProductWrapper>
+      </ProductContainer>
       <hr />
-    </ProductContainer>
+    </>
   );
 };
 
@@ -36,9 +40,6 @@ const ProductContainer = styled.div`
 
   display: flex;
   flex-direction: column;
-
-  border-left: 2px solid rgba(0, 0, 0, 0.2);
-  border-right: 2px solid rgba(0, 0, 0, 0.2);
 `;
 
 const ProductWrapper = styled.div`
@@ -50,10 +51,8 @@ const ProductWrapper = styled.div`
 `;
 
 const ImageContainer = styled.div`
-  background-color: beige;
-
   width: 200px;
-  height: 200px;
+  height: auto;
   aspect-ratio: 1 / 1;
 
   img {
@@ -63,15 +62,13 @@ const ImageContainer = styled.div`
 `;
 
 const ProductOverview = styled.div`
-  background-color: azure;
-
   width: 65%;
-  height: 200px;
+  height: auto;
+
+  border: 1px solid gray;
 `;
 
 const ProductTitle = styled.div`
-  background-color: green;
-
   height: 30%;
   width: 100%;
 
@@ -93,7 +90,7 @@ const ProductDescription = styled.div`
 
 const PurchaseButton = styled.button`
   width: 10%;
-  height: 200px;
+  height: auto;
 
   border: 0;
   outline: none;

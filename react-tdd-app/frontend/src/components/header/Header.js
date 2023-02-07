@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
 const Header = () => {
-  return <HeaderComponent className="HeaderComponent">Travel</HeaderComponent>;
+  return (
+    <HeaderComponent className="HeaderComponent" data-testid="title">
+      Travel
+    </HeaderComponent>
+  );
 };
 
 export default Header;
@@ -18,6 +22,8 @@ const HeaderComponent = styled.header`
 
   min-width: 850px;
 
-  font-size: 80px;
+  font-size: 60px;
   font-weight: 200;
+
+  padding: 10px;
 `;
