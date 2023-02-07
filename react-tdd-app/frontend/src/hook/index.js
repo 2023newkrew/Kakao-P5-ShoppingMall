@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useMemo } from "react";
 
 function wrapPromise(promise) {
   let result = null;
@@ -28,8 +28,13 @@ function wrapPromise(promise) {
   };
 }
 
-function useResource(promise) {
-  return useRef(wrapPromise(promise)).current;
+function useResource(getResource) {
+  const memoizedResource = useMemo(
+    () => wrapPromise(getResource()),
+    [getResource]
+  );
+
+  return memoizedResource;
 }
 
 export { useResource };

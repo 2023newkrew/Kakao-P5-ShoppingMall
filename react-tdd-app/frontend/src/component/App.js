@@ -17,7 +17,7 @@ function ProductList({ resource }) {
 }
 
 function App() {
-  const resource = useResource(fetchProducts());
+  const resource = useResource(fetchProducts);
 
   return (
     <div className="App">
