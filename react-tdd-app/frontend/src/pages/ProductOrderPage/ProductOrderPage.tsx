@@ -9,17 +9,17 @@ const countries = [
   },
   {
     name: 'England',
-    imagePath: '/images/america.jpeg',
+    imagePath: '/images/england.jpeg',
     description: 'Good England',
   },
   {
     name: 'Germany',
-    imagePath: '/images/america.jpeg',
+    imagePath: '/images/germany.jpeg',
     description: 'Good Germany',
   },
   {
     name: 'Portland',
-    imagePath: '/images/america.jpeg',
+    imagePath: '/images/portland.jpeg',
     description: 'Good Portland',
   },
 ];
