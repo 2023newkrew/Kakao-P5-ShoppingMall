@@ -17,6 +17,14 @@ const theme = {
     tablet: `only screen and (max-width: ${size.large})`,
     mobile: `only screen and (max-width: ${size.small})`,
   },
+  colors: {
+    primaryColor: '#005f73',
+    secondaryColor: '#0a9396',
+    accentColor: '#ae2012',
+    primaryTextColor: '#212121',
+    secondaryTextColor: '#757575',
+    dividerColor: '#bdbdbd',
+  },
   fontSizes: {
     xxs: '0.5rem',
     xs: '0.75rem',
