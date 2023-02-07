@@ -7,6 +7,7 @@ module.exports = {
   },
   extends: [
     'airbnb',
+    'airbnb/hooks',
     'plugin:testing-library/react',
     'plugin:jest-dom/recommended',
     'plugin:prettier/recommended',
