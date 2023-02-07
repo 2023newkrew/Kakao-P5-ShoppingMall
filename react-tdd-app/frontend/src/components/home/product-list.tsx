@@ -16,7 +16,7 @@ export type ProductListProps = {
 };
 
 const ProductList: React.FC<ProductListProps> = ({ products }) => {
-  const { totalBasketCount } = useBasketStore();
+  const { totalProductsBasketCount: totalBasketCount } = useBasketStore();
 
   const totalPrice = useMemo(() => totalBasketCount * PRODUCT_PRICE, [totalBasketCount]);
 

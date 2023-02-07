@@ -10,7 +10,7 @@ import {
 } from './product-item.style';
 
 const ProductItem = ({ product }: { product: Product }) => {
-  const { baskets, setBasket } = useBasketStore();
+  const { productsBasket: baskets, setProductsBasket: setBasket } = useBasketStore();
 
   const onInput = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
