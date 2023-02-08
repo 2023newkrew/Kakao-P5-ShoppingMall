@@ -3,6 +3,8 @@ import Header from '@/components/home/header';
 import { getOptions, getProducts } from '@/apis/client';
 import ProductList from '@/components/home/product-list';
 import OptionList from '@/components/home/option-list';
+import OrderTotal from '@/components/home/order-total';
+import { OrderOptionContainer } from './app.style';
 
 export type Product = {
   name: string;
@@ -28,7 +30,10 @@ const App = () => {
     <>
       <Header />
       <ProductList products={products} />
-      <OptionList options={options} />
+      <OrderOptionContainer>
+        <OptionList options={options} />
+        <OrderTotal />
+      </OrderOptionContainer>
     </>
   );
 };
