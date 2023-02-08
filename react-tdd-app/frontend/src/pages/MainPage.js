@@ -1,15 +1,11 @@
-import { useState } from "react";
-import Footer from "../components/footer/Footer";
-import Header from "../components/header/Header";
 import ProductList from "../components/product/ProductList";
+import MainLayoutComponent from "../templates/MainLayoutComponent";
 
 const MainPage = ({ totalPrice, setTotalPrice, setProductList }) => {
   return (
-    <>
-      <Header />
+    <MainLayoutComponent header footer>
       <ProductList setTotalPrice={setTotalPrice} setProductList={setProductList} />
-      <Footer totalPrice={totalPrice} />
-    </>
+    </MainLayoutComponent>
   );
 };
 
