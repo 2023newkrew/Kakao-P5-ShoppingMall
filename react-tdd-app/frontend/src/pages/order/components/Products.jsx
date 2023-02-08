@@ -34,7 +34,7 @@ export default function Products({
             key={name}
             name={name}
             imagePath={imagePath}
-            description={`상품 - ${description}`}
+            description={description}
             quantity={order.products[name]}
             handleProductOrderChange={handleProductOrderChange}
           />
