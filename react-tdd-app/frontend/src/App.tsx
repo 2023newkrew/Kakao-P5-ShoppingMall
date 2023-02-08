@@ -5,7 +5,7 @@ import router from 'router';
 function App() {
   return (
     <OrderContextProvider>
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
     </OrderContextProvider>
   );
 }
