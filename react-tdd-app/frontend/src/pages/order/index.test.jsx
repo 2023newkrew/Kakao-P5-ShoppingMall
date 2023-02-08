@@ -11,6 +11,9 @@ describe('상품 목록', () => {
     });
     expect(productImages).toHaveLength(4);
 
+    const srcTexts = productImages.map((image) => image.src);
+    expect(srcTexts.every((srcText) => srcText.startsWith('http'))).toBe(true);
+
     const altTexts = productImages.map((image) => image.alt);
     expect(altTexts).toEqual([
       '상품 - Good America',
