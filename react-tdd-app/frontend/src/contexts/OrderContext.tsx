@@ -1,3 +1,4 @@
+import { OPTION_PRICE, PRODUCT_PRICE } from 'constants/price';
 import { ReactNode, createContext, useCallback, useContext, useMemo, useState } from 'react';
 
 type UpdateProductFunction = (key: string, value: number) => void;
@@ -68,5 +69,10 @@ export const useOrderContext = () => {
   if (!context) {
     throw new Error('useOrderContext must be used within a OrderProvider');
   }
-  return context;
+
+  const { products, options } = context;
+  const totalProductsPrice = Array.from(products).reduce((sum, [, amount]) => sum + amount * PRODUCT_PRICE, 0);
+  const totalOptionsPrice = Array.from(options).reduce((sum, [, checked]) => (checked ? sum + OPTION_PRICE : sum), 0);
+
+  return { ...context, totalProductsPrice, totalOptionsPrice, totalPrice: totalProductsPrice + totalOptionsPrice };
 };

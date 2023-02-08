@@ -26,22 +26,9 @@ const info = {
 };
 
 const Type = ({ orderType }: Props) => {
-  const { options, products } = useOrderContext();
+  const { totalOptionsPrice, totalProductsPrice } = useOrderContext();
   const [data, setData] = useState<ItemType | null>(null);
   const [error, setError] = useState(false);
-
-  const totalProductsPrice = Array.from(products).reduce((totalPrice, [, price]) => {
-    return totalPrice + price * PRODUCT_PRICE;
-  }, 0);
-
-  const totalOptionsPrice = useMemo(() => {
-    return Array.from(options).reduce((totalPrice, [, checked]) => {
-      if (!checked) {
-        return totalPrice;
-      }
-      return totalPrice + OPTION_PRICE;
-    }, 0);
-  }, [options]);
 
   useEffect(() => {
     const loadItems = async (orderType: OrderType) => {
