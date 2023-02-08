@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render } from 'utils/testUtils';
 import { CheckBox } from 'components';
 import { CheckBoxProps } from 'types';
 
@@ -7,6 +7,7 @@ describe('<CheckBox />', () => {
   const checkBoxProps = {
     name: 'test name',
     description: 'test description',
+    updateOrder: jest.fn(),
   } as CheckBoxProps;
 
   it('name text와 input이 잘 생성되어야 한다.', () => {
