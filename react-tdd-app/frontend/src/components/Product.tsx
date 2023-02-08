@@ -8,7 +8,7 @@ const Product = ({ name, imagePath }: Props) => {
   const { updateProductCount } = useContext(OrderContext);
 
   const handleUpdateCount = (e: ChangeEvent<HTMLInputElement>) => {
-    const currentValue = parseInt(e.target.value, 10);
+    const currentValue = e.target.valueAsNumber;
 
     if (Number.isNaN(currentValue)) {
       updateProductCount(name, 0);
