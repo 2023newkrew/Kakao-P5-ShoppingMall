@@ -24,9 +24,12 @@ const Product = ({ name, imagePath }: ProductType) => {
           alt={`${name} product`}
         />
       </div>
-      <form className="mt-4 flex justify-center">
-        <label className="mr-2 text-center">{name}</label>
+      <form className="mt-4 flex justify-evenly">
+        <label className="mr-2 text-center" htmlFor={name}>
+          {name}
+        </label>
         <input
+          id={name}
           type="number"
           aria-label={`${name} quantity`}
           name={`${name} quantity`}

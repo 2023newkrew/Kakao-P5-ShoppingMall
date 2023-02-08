@@ -10,7 +10,7 @@ const Option = ({ name }: OptionType) => {
     updateOption(name, currentValue);
   };
   return (
-    <form>
+    <form className="py-2">
       <input
         type="checkbox"
         id={`${name} option`}
@@ -18,7 +18,9 @@ const Option = ({ name }: OptionType) => {
         defaultChecked={false}
         onChange={handleCheck}
       />
-      <label htmlFor={`${name} option`}>{name}</label>
+      <label className="ml-2" htmlFor={`${name} option`}>
+        {name}
+      </label>
     </form>
   );
 };
