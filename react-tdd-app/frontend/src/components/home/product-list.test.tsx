@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import { Product } from '@/containers/app';
 import ProductList from './product-list';
 
 describe('ProductList Component', () => {

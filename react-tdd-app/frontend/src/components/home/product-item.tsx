@@ -1,5 +1,4 @@
 import { useCallback } from 'react';
-import { Product } from '@/containers/app';
 import useBasketStore from '@/stores/use-basket-store';
 import {
   ProductItemContainer,

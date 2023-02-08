@@ -1,5 +1,4 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { Product } from '@/containers/app';
 import useRender from '@/tests/hooks/use-render';
 import ProductItem from './product-item';
 

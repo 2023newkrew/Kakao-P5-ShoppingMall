@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import { Product } from '@/containers/app';
 import ProductItem from './product-item';
 import {
   ProductListContainer,
