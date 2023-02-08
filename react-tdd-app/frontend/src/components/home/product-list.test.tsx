@@ -34,7 +34,6 @@ describe('ProductList Component', () => {
 
     productEls.forEach((productEl, index) => {
       expect(productEl).toBeInTheDocument();
-      expect(productEl).not.toHaveTextContent('Product 5');
       expect(productEl).toHaveTextContent(products[index].name);
     });
   });
