@@ -15,6 +15,7 @@ export default function Product({
   return (
     <li>
       <img src={imagePath} alt={name} />
+      <p>{description}</p>
       <label htmlFor={id}>
         {name}
         <input
@@ -25,7 +26,6 @@ export default function Product({
           onChange={handleChange}
         />
       </label>
-      <p>{description}</p>
     </li>
   );
 }
