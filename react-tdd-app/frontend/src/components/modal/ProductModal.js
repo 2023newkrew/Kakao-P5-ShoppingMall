@@ -7,7 +7,7 @@ const ProductModal = ({ product, close }) => {
 
   const [price, setPrice] = useState(0);
 
-  const [setting, setSetting] = useState({
+  const [purchaseInformation, setPurchaseInformation] = useState({
     count: 0,
     isInsurance: false,
     isDinner: false,
@@ -20,18 +20,18 @@ const ProductModal = ({ product, close }) => {
      * is* : 옵션들  * 500
      * ex) setPrice((5개 * 1,000원) + (5개 * (옵션 3개 체크) * 500원))) = 9,500원
      */
-    setPrice(setting.count * 1000 + setting.count * (setting.isInsurance + setting.isDinner + setting.isFirstClass) * 500);
-  }, [setting]);
+    setPrice(purchaseInformation.count * 1000 + purchaseInformation.count * (purchaseInformation.isInsurance + purchaseInformation.isDinner + purchaseInformation.isFirstClass) * 500);
+  }, [purchaseInformation]);
 
   const onClick = () => {
     setTotalPrice(price);
 
     setProductList({
       title: product.name,
-      count: setting.count,
-      isInsurance: setting.isInsurance,
-      isDinner: setting.isDinner,
-      isFirstClass: setting.isFirstClass,
+      count: purchaseInformation.count,
+      isInsurance: purchaseInformation.isInsurance,
+      isDinner: purchaseInformation.isDinner,
+      isFirstClass: purchaseInformation.isFirstClass,
       price: price,
     });
 
@@ -60,7 +60,7 @@ const ProductModal = ({ product, close }) => {
                   id="count"
                   type="number"
                   onChange={(event) => {
-                    setSetting({ ...setting, count: event.target.value });
+                    setPurchaseInformation({ ...purchaseInformation, count: event.target.value });
                   }}
                   placeholder="0"
                 />
@@ -76,7 +76,7 @@ const ProductModal = ({ product, close }) => {
                     type="checkbox"
                     id="insurance"
                     onChange={() => {
-                      setSetting({ ...setting, isInsurance: !setting.isInsurance });
+                      setPurchaseInformation({ ...purchaseInformation, isInsurance: !purchaseInformation.isInsurance });
                     }}
                   />
                   insurance
@@ -89,7 +89,7 @@ const ProductModal = ({ product, close }) => {
                     type="checkbox"
                     id="Dinner"
                     onChange={() => {
-                      setSetting({ ...setting, isDinner: !setting.isDinner });
+                      setPurchaseInformation({ ...purchaseInformation, isDinner: !purchaseInformation.isDinner });
                     }}
                   />
                   dinner
@@ -102,7 +102,7 @@ const ProductModal = ({ product, close }) => {
                     type="checkbox"
                     id="FirstClass"
                     onChange={() => {
-                      setSetting({ ...setting, isFirstClass: !setting.isFirstClass });
+                      setPurchaseInformation({ ...purchaseInformation, isFirstClass: !purchaseInformation.isFirstClass });
                     }}
                   />
                   firstClass

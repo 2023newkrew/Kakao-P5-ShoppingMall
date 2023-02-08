@@ -2,21 +2,12 @@ import styled from "styled-components";
 import Product from "./Product";
 
 import { API } from "../../utils/fetch";
-import { useEffect, useState } from "react";
+import useFetch from "../../hooks/useFetch";
 
 const ProductList = () => {
-  const [fetchProductList, setFetchProductList] = useState([]);
+  const { data: fetchProductList, loading, LoadingComponent } = useFetch(API.fetchProductItems());
 
-  useEffect(() => {
-    fetchProductItems();
-
-    async function fetchProductItems() {
-      const response = await API.fetchProductItems();
-      setFetchProductList(response);
-    }
-  }, []);
-
-  if (fetchProductList === undefined) return <div>로딩중</div>;
+  if (loading) return <LoadingComponent />;
 
   const ProductList = fetchProductList.map((product, index) => <Product key={index} product={product} />);
 
