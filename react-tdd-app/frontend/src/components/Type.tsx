@@ -74,7 +74,7 @@ const Type = ({ orderType }: Props) => {
       <h2>{info[orderType].title}</h2>
       <p>개당 가격 : ₩{info[orderType].price}</p>
       <p>총 가격 : ₩{orderType === 'products' ? totalProductsPrice : totalOptionsPrice}</p>
-      <div className="flex overflow-x-scroll" style={{ flexDirection: orderType === 'products' ? 'row' : 'column' }}>
+      <div className="flex" style={{ flexDirection: orderType === 'products' ? 'row' : 'column' }}>
         {renderItems()}
       </div>
     </div>
