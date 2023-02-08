@@ -8,15 +8,11 @@ const Credit = () => {
   const { productList } = useStore((state) => state);
 
   function getTotalPrice() {
-    let totalPrice = 0;
-    for (let index = 0; index < productList.length; index++) {
-      totalPrice += productList[index].price;
-    }
-    return totalPrice;
+    return productList.reduce((totalPrice, product) => totalPrice + product.price, 0);
   }
 
   function getProductList() {
-    const products = productList.map((element, index) => (
+    return productList.map((element, index) => (
       <li key={index}>
         {element.count} {element.title}
         <ul>
@@ -26,7 +22,6 @@ const Credit = () => {
         </ul>
       </li>
     ));
-    return products;
   }
 
   return (
