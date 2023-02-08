@@ -1,8 +1,9 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 import { MOCK_BASE_URL } from "../../../../mocks/handlers";
 import { mockServer } from "../../../../mocks/mockServer";
+import { render } from "../../../../test-utils";
 import OrderContainer from "./OrderContainer";
 
 test("display products image from server", async () => {
@@ -54,4 +55,21 @@ test("update product's total when products change", async () => {
   userEvent.type(englandInput, "3");
 
   expect(productsTotal).toHaveTextContent("4000");
+});
+
+test("update option's total when options change", async () => {
+  render(<OrderContainer requestPath="options" />);
+
+  const optionsTotal = screen.getByText("총 가격", { exact: false });
+  const insuranceCheckBox = await screen.findByRole("checkbox", { name: "Insurance" });
+
+  userEvent.click(insuranceCheckBox);
+  expect(optionsTotal).toHaveTextContent(500);
+
+  const dinnerCheckBox = await screen.findByRole("checkbox", { name: "Dinner" });
+  userEvent.click(dinnerCheckBox);
+  expect(optionsTotal).toHaveTextContent(1000);
+
+  userEvent.click(dinnerCheckBox);
+  expect(optionsTotal).toHaveTextContent(500);
 });
