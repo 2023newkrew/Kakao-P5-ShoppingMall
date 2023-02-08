@@ -1,9 +1,9 @@
-import { ChangeEvent, useContext } from 'react';
+import { ChangeEvent } from 'react';
 import { Option as OptionType } from '../types/option';
-import { OrderContext } from 'contexts/OrderContext';
+import { useOrderContext } from 'contexts/OrderContext';
 
 const Option = ({ name }: OptionType) => {
-  const { updateOption } = useContext(OrderContext);
+  const { updateOption } = useOrderContext();
 
   const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
     const currentValue = e.target.checked;

@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useCallback, useMemo, useState } from 'react';
+import { ReactNode, createContext, useCallback, useContext, useMemo, useState } from 'react';
 
 type UpdateProductFunction = (key: string, value: number) => void;
 type UpdateOptionFunction = (key: string, value: boolean) => void;
@@ -62,3 +62,11 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
 
   return <OrderContext.Provider value={value}>{children}</OrderContext.Provider>;
 }
+
+export const useOrderContext = () => {
+  const context = useContext(OrderContext);
+  if (!context) {
+    throw new Error('useOrderContext must be used within a OrderProvider');
+  }
+  return context;
+};

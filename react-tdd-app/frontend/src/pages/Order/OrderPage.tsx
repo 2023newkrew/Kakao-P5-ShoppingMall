@@ -1,13 +1,12 @@
 import Type from 'components/Type';
 import { OPTION_PRICE, PRODUCT_PRICE } from 'constants/price';
-import { OrderContext } from 'contexts/OrderContext';
-import { useContext } from 'react';
+import { useOrderContext } from 'contexts/OrderContext';
 
 const getSumOfNumbers = (numbers: number[]) => numbers.reduce((sum, value) => sum + value, 0);
 const getCheckedCount = (checkValues: boolean[]) => checkValues.reduce((sum, value) => (value ? sum + 1 : sum), 0);
 
 const OrderPage = () => {
-  const { products, options } = useContext(OrderContext);
+  const { products, options } = useOrderContext();
   const totalPrice =
     PRODUCT_PRICE * getSumOfNumbers(Array.from(products.values())) +
     OPTION_PRICE * getCheckedCount(Array.from(options.values()));

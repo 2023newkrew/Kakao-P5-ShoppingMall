@@ -1,11 +1,11 @@
 import axios from 'axios';
-import { memo, useContext, useEffect, useMemo, useState } from 'react';
+import { memo, useEffect, useMemo, useState } from 'react';
 import Product from './Product';
 import { Product as ProductType } from 'types/product';
 import { Option as OptionType } from 'types/option';
 import ErrorBanner from './ErrorBanner';
 import Option from './Option';
-import { OrderContext } from 'contexts/OrderContext';
+import { useOrderContext } from 'contexts/OrderContext';
 import { OPTION_PRICE, PRODUCT_PRICE } from 'constants/price';
 
 export type OrderType = 'products' | 'options';
@@ -25,7 +25,7 @@ const item = {
 };
 
 const Type = ({ orderType }: Props) => {
-  const { options, products } = useContext(OrderContext);
+  const { options, products } = useOrderContext();
   const [items, setItems] = useState<ProductType[] | OptionType[]>([]);
   const [error, setError] = useState(false);
 
