@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
 type BasketStoreType = {
-  baskets: { [key: string]: number };
+  baskets: Record<string, number>;
   totalBasketCount: number;
   setBasket: (productName: string, productCount: number) => void;
 };
