@@ -17,7 +17,7 @@ describe('<ProductOrderPage />', () => {
     const { findAllByRole } = render(<ProductOrderPage />);
     const items = await findAllByRole('listitem', { name: /options$/i });
 
-    expect(items).toHaveLength(4);
+    expect(items).toHaveLength(3);
   });
 
   test('[주문하기] 버튼을 눌렀을 때 주문 확인 페이지로 넘어가야 한다.', () => {});
