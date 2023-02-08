@@ -1,6 +1,6 @@
-import Credit from "../components/credit/Credit";
-import Header from "../components/header/Header";
-import MainLayoutComponent from "../templates/MainLayoutComponent";
+import Credit from "@components/credit/Credit";
+
+import MainLayoutComponent from "@templates/MainLayoutComponent";
 
 const CreditPage = () => {
   return (

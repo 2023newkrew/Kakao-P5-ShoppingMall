@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import LoadingComponent from "../components/loading/Loading";
+import LoadingComponent from "@components/loading/Loading";
 
 const useFetch = (fetch, value) => {
   const [data, setData] = useState();

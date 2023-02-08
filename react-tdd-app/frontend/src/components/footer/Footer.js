@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import useStore from "../../store/store";
+import useStore from "@store/store";
 
 const Footer = () => {
   const { totalPrice } = useStore((state) => state);

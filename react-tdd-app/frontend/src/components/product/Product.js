@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-import useModal from "../../hooks/useModal";
-import ProductModal from "../modal/ProductModal";
+import useModal from "@hooks/useModal";
+import ProductModal from "@components/modal/ProductModal";
 
-const Product = ({ product, setTotalPrice, setProductList }) => {
+const Product = ({ product }) => {
   const { Modal, open, close } = useModal();
 
   return (

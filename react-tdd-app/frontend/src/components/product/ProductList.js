@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import Product from "./Product";
 
-import { API } from "../../utils/fetch";
-import useFetch from "../../hooks/useFetch";
+import Product from "@components/product/Product";
+
+import { API } from "@utils/fetch";
+import useFetch from "@hooks/useFetch";
 
 const ProductList = () => {
   const { data: fetchProductList, loading, LoadingComponent } = useFetch(API.fetchProductItems());

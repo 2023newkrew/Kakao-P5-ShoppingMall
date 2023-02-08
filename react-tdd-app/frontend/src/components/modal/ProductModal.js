@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import useStore from "../../store/store";
+import useStore from "@store/store";
 
 const ProductModal = ({ product, close }) => {
   const { setTotalPrice, setProductList } = useStore((state) => state);

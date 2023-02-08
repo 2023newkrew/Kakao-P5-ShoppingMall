@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+
 import styled from "styled-components";
-import useStore from "../../store/store";
+import useStore from "@store/store";
 
 const Credit = () => {
   const [checked, setChecked] = useState(false);

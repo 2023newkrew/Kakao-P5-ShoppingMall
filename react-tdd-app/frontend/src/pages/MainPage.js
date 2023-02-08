@@ -1,7 +1,7 @@
-import ProductList from "../components/product/ProductList";
-import MainLayoutComponent from "../templates/MainLayoutComponent";
+import ProductList from "@components/product/ProductList";
+import MainLayoutComponent from "@templates/MainLayoutComponent";
 
-const MainPage = ({ setTotalPrice, setProductList }) => {
+const MainPage = () => {
   return (
     <MainLayoutComponent header footer>
       <ProductList />
