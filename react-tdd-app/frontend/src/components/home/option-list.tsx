@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Option } from '@/containers/app';
 import {
   OptionListContainer,
@@ -9,18 +9,13 @@ import {
 } from './option-list.style';
 import OptionItem from './option-item';
 import useBasketStore from '@/stores/use-basket-store';
-import { OPTION_PRICE } from '@/constants/price';
 
 export type OptionListProps = {
   options: Option[];
 };
 
 const OptionList: React.FC<OptionListProps> = ({ options }) => {
-  const { totalOptionsBasketCount } = useBasketStore();
-  const totalPrice = useMemo(
-    () => totalOptionsBasketCount * OPTION_PRICE,
-    [totalOptionsBasketCount],
-  );
+  const { totalOptionsPrice } = useBasketStore();
 
   return (
     <OptionListContainer>
@@ -28,7 +23,7 @@ const OptionList: React.FC<OptionListProps> = ({ options }) => {
       <OptionListParagraph>하나의 가격</OptionListParagraph>
       <OptionListParagraph>
         옵션 총 가격:{' '}
-        <OptionListPriceText data-testid="option-price">{totalPrice}</OptionListPriceText>
+        <OptionListPriceText data-testid="option-price">{totalOptionsPrice}</OptionListPriceText>
       </OptionListParagraph>
       <OptionListItemContainer>
         {options.map((option) => (

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Product } from '@/containers/app';
 import ProductItem from './product-item';
 import {
@@ -9,16 +9,13 @@ import {
   ProductListTitle,
 } from './product-list.style';
 import useBasketStore from '@/stores/use-basket-store';
-import { PRODUCT_PRICE } from '@/constants/price';
 
 export type ProductListProps = {
   products: Product[];
 };
 
 const ProductList: React.FC<ProductListProps> = ({ products }) => {
-  const { totalProductsBasketCount: totalBasketCount } = useBasketStore();
-
-  const totalPrice = useMemo(() => totalBasketCount * PRODUCT_PRICE, [totalBasketCount]);
+  const { totalProductsPrice } = useBasketStore();
 
   return (
     <ProductListContainer>
@@ -26,7 +23,7 @@ const ProductList: React.FC<ProductListProps> = ({ products }) => {
       <ProductListParagraph>하나의 가격</ProductListParagraph>
       <ProductListParagraph>
         상품 총 가격:
-        <ProductListPriceText data-testid="total-price">{totalPrice}</ProductListPriceText>
+        <ProductListPriceText data-testid="total-price">{totalProductsPrice}</ProductListPriceText>
       </ProductListParagraph>
       <ProductListItemContainer>
         {products.map((product) => (

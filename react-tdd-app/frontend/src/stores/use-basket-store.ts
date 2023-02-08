@@ -1,44 +1,63 @@
 import { create } from 'zustand';
+import { OPTION_PRICE, PRODUCT_PRICE } from '@/constants/price';
 
 type BasketStoreType = {
-  productsBasket: { [key: string]: number };
-  totalProductsBasketCount: number;
+  totalPrice: number;
+
+  productsBasket: Record<string, number>;
+  totalProductsPrice: number;
   setProductsBasket: (productName: string, productCount: number) => void;
 
-  optionsBasket: { [key: string]: boolean };
-  totalOptionsBasketCount: number;
+  optionsBasket: Record<string, boolean>;
+  totalOptionsPrice: number;
   setOptionsBasket: (optionName: string, isChecked: boolean) => void;
 };
 
 const useBasketStore = create<BasketStoreType>((set) => ({
+  totalPrice: 0,
+
   productsBasket: {},
-  totalProductsBasketCount: 0,
+  totalProductsPrice: 0,
   setProductsBasket: (productName, productCount) => {
-    set((state) => ({
-      productsBasket: {
+    set((state) => {
+      const totalProductsCount = Object.values({
         ...state.productsBasket,
         [productName]: productCount,
-      },
-      totalProductsBasketCount: Object.values({
-        ...state.productsBasket,
-        [productName]: productCount,
-      }).reduce((acc, cur) => acc + cur, 0),
-    }));
+      }).reduce((acc, cur) => acc + cur, 0);
+
+      const totalProductsPrice = totalProductsCount * PRODUCT_PRICE;
+
+      return {
+        productsBasket: {
+          ...state.productsBasket,
+          [productName]: productCount,
+        },
+        totalProductsPrice,
+        totalPrice: totalProductsPrice + state.totalOptionsPrice,
+      };
+    });
   },
 
   optionsBasket: {},
-  totalOptionsBasketCount: 0,
+  totalOptionsPrice: 0,
   setOptionsBasket: (optionName, isChecked) => {
-    set((state) => ({
-      optionsBasket: {
+    set((state) => {
+      const totalOptionsCount = Object.values({
         ...state.optionsBasket,
         [optionName]: isChecked,
-      },
-      totalOptionsBasketCount: Object.values({
-        ...state.optionsBasket,
-        [optionName]: isChecked,
-      }).filter(Boolean).length,
-    }));
+      }).filter(Boolean).length;
+
+      const totalOptionsPrice = totalOptionsCount * OPTION_PRICE;
+
+      return {
+        optionsBasket: {
+          ...state.optionsBasket,
+          [optionName]: isChecked,
+        },
+        totalOptionsPrice,
+        totalPrice: state.totalProductsPrice + totalOptionsPrice,
+      };
+    });
   },
 }));
 
