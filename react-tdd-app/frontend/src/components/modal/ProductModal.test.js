@@ -36,6 +36,31 @@ test("입력한 값에 따라 가격의 총합이 변화하는 지 테스트", (
   expect(priceElement).toHaveTextContent(2500);
 });
 
+test("zustand test", () => {
+  render(
+    <ProductModal
+      product={{
+        name: "America",
+        imagePath: "/images/america.jpeg",
+        description: "Good America",
+      }}
+    />
+  );
+
+  const priceElement = screen.getByTestId("price");
+
+  const insuranceElement = screen.getByLabelText("insurance");
+  const optionItemCheckboxEls = screen.getAllByRole("checkbox");
+
+  const countElement = screen.getByLabelText("개수");
+  fireEvent.change(countElement, { target: { value: 1 } });
+
+  optionItemCheckboxEls.forEach(async (element, index) => {
+    fireEvent.click(element);
+    expect(priceElement).toHaveTextContent(1000 + (index + 1) * 500);
+  });
+});
+
 test("입력된 price의 값이 0이면 버튼이 disable 되는지 테스트", () => {
   render(
     <ProductModal
