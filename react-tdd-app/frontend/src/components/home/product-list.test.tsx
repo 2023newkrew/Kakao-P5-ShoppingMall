@@ -1,4 +1,5 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
+import useRender from '@/tests/hooks/use-render';
 import ProductList from './product-list';
 
 describe('ProductList Component', () => {
@@ -26,7 +27,7 @@ describe('ProductList Component', () => {
       },
     ];
 
-    render(<ProductList products={products} />);
+    useRender(<ProductList products={products} />);
 
     const productEls = screen.getAllByText(/Product/);
 
