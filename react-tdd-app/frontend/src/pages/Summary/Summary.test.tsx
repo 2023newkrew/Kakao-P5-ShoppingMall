@@ -11,7 +11,7 @@ describe('summary page', () => {
 
     expect(checkbox.checked).toEqual(false);
 
-    const confirmButton = screen.getByRole('button', { name: '주문 확인' }) as HTMLButtonElement;
+    const confirmButton = screen.getByRole('button', { name: '주문하기' }) as HTMLButtonElement;
     expect(confirmButton.disabled).toBeTruthy();
   });
 });
