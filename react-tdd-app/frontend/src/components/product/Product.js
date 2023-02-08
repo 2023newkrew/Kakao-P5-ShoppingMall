@@ -21,7 +21,7 @@ const Product = ({ product, setTotalPrice, setProductList }) => {
             +
           </PurchaseButton>
           <Modal data-testid="productModal">
-            <ProductModal product={product} setTotalPrice={setTotalPrice} close={close} setProductList={setProductList} />
+            <ProductModal product={product} close={close} />
           </Modal>
         </ProductWrapper>
       </ProductContainer>

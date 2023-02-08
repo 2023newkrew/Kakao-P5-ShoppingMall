@@ -2,10 +2,10 @@ import Credit from "../components/credit/Credit";
 import Header from "../components/header/Header";
 import MainLayoutComponent from "../templates/MainLayoutComponent";
 
-const CreditPage = ({ productList }) => {
+const CreditPage = () => {
   return (
     <MainLayoutComponent header>
-      <Credit productList={productList} />
+      <Credit />
     </MainLayoutComponent>
   );
 };

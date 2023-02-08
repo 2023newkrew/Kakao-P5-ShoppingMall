@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import useStore from "../../store/store";
 
-const ProductModal = ({ product, setTotalPrice, close, setProductList }) => {
+const ProductModal = ({ product, close }) => {
+  const { setTotalPrice, setProductList } = useStore((state) => state);
+
   const [price, setPrice] = useState(0);
 
   const [setting, setSetting] = useState({
@@ -12,22 +15,25 @@ const ProductModal = ({ product, setTotalPrice, close, setProductList }) => {
   });
 
   useEffect(() => {
-    setPrice(setting.count * 1000 + (setting.isInsurance + setting.isDinner + setting.isFirstClass) * 500 * setting.count);
+    /*
+     * count : product 개수 * 1000
+     * is* : 옵션들  * 500
+     * ex) setPrice((5개 * 1,000원) + (5개 * (옵션 3개 체크) * 500원))) = 9,500원
+     */
+    setPrice(setting.count * 1000 + setting.count * (setting.isInsurance + setting.isDinner + setting.isFirstClass) * 500);
   }, [setting]);
 
   const onClick = () => {
-    setTotalPrice((prevPrice) => prevPrice + price);
+    setTotalPrice(price);
 
-    setProductList((prevProduct) =>
-      prevProduct.concat({
-        title: product.name,
-        count: setting.count,
-        isInsurance: setting.isInsurance,
-        isDinner: setting.isDinner,
-        isFirstClass: setting.isFirstClass,
-        price: price,
-      })
-    );
+    setProductList({
+      title: product.name,
+      count: setting.count,
+      isInsurance: setting.isInsurance,
+      isDinner: setting.isDinner,
+      isFirstClass: setting.isFirstClass,
+      price: price,
+    });
 
     close();
   };

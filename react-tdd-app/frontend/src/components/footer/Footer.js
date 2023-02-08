@@ -1,7 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import useStore from "../../store/store";
 
-const Footer = ({ totalPrice }) => {
+const Footer = () => {
+  const { totalPrice } = useStore((state) => state);
+
   const navigate = useNavigate();
   const onClick = () => {
     navigate("/credit");
