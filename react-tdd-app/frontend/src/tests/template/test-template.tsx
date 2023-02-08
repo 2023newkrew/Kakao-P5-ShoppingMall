@@ -3,7 +3,7 @@ import React from 'react';
 import theme from '@/styles/theme';
 
 type TestTemplateProps = {
-  children: React.ReactNode;
+  children: JSX.Element | JSX.Element[];
 };
 
 const TestTemplate: React.FC<TestTemplateProps> = ({ children }) => (
