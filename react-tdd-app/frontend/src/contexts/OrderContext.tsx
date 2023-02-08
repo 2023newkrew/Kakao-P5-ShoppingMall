@@ -1,46 +1,70 @@
-import React, { createContext, ReactElement, useCallback, useMemo } from 'react';
-import { useState } from 'react';
+import React, { createContext, ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 
 const OrderStateContext = createContext({
-  travelProductOrder: {
-    quantity: 0,
-    name: '',
-  },
-  optionProductOrder: new Set(),
-  travelProductPrice: 1000,
-  optionProductPrice: 500,
-});
-
-const OrderDispatchContext = createContext({});
-
-function OrderProvider({ children }: { children: ReactElement }) {
-  const [order, setOrder] = useState({
-    travelProductOrder: {
+  order: {
+    products: {
       quantity: 0,
       name: '',
     },
-    optionProductOrder: new Set(),
+    options: new Set(),
+  },
+
+  count: {
+    products: 0,
+    options: 0,
+  },
+  total: 0,
+});
+
+const OrderDispatchContext = createContext({
+  setTravelOrder: (quantity: number, name: string) => {
+    // default function
+  },
+  setOptionOrder: (name: string, isAdd: boolean) => {
+    // default function
+  },
+});
+
+function OrderProvider({ children }: { children: ReactElement }) {
+  const [order, setOrder] = useState({
+    products: {
+      quantity: 0,
+      name: '',
+    },
+    options: new Set(),
   });
-
-  const [price, setPrice] = useState({
-    travelProductPrice: 1000,
-    optionProductPrice: 500,
+  const [count, setCount] = useState({
+    products: 0,
+    options: 0,
   });
+  const [total, setTotal] = useState(0);
 
-  const setTravelOrder = useCallback((quantity: number, name: string) => {
-    setOrder({ ...order, travelProductOrder: { quantity, name } });
-  }, []);
+  useEffect(() => {
+    setCount({
+      products: order.products.quantity,
+      options: order.options.size,
+    });
+    setTotal(order.products.quantity * 1000 + order.options.size * 500);
+  }, [order]);
 
-  const setOptionOrder = useCallback((name: string) => {
-    const newOrderSet = new Set();
-    newOrderSet.add(name);
+  const setTravelOrder = (quantity: number, name: string) => {
+    setOrder({ ...order, products: { quantity, name } });
+  };
 
-    setOrder({ ...order, optionProductOrder: newOrderSet });
-  }, []);
+  const setOptionOrder = (name: string, isAdd: boolean) => {
+    const newOrderSet = new Set(order.options);
+
+    if (isAdd) {
+      newOrderSet.add(name);
+    } else {
+      newOrderSet.delete(name);
+    }
+    setOrder({ ...order, options: newOrderSet });
+  };
 
   const orderStateValue = useMemo(() => {
-    return { ...order, ...price };
-  }, [order, price]);
+    return { order, count, total };
+  }, [order, total]);
 
   const orderDispatchValue = useMemo(() => {
     return { setTravelOrder, setOptionOrder };
