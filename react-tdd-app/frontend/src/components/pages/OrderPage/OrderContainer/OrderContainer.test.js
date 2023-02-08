@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
 import { MOCK_BASE_URL } from "../../../../mocks/handlers";
 import { mockServer } from "../../../../mocks/mockServer";
@@ -33,4 +34,24 @@ test("display options from server", async () => {
 
   expect(optionValues).toHaveLength(3);
   expect(optionValues).toEqual(["Insurance", "Dinner", "FirstClass"]);
+});
+
+test("update product's total when products change", async () => {
+  render(<OrderContainer requestPath={"products"} />);
+
+  const productsTotal = screen.getByText("총 가격", { exact: false });
+  expect(productsTotal).toHaveTextContent("0");
+
+  const americaInput = await screen.findByRole("spinbutton", {
+    name: "America",
+  });
+  userEvent.type(americaInput, "1");
+  expect(productsTotal).toHaveTextContent("1000");
+
+  const englandInput = await screen.findByRole("spinbutton", {
+    name: "England",
+  });
+  userEvent.type(englandInput, "3");
+
+  expect(productsTotal).toHaveTextContent("4000");
 });

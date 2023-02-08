@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Product from "../Product/Product";
 import Option from "../Option/Option";
 import ErrorBanner from "../../../ErrorBanner";
 import "./OrderContainer.css";
+import { OrderContext, pricePerItem } from "../../../../contexts/OrderContext";
 
 const BASE_URL = "http://localhost:5000";
 export default function OrderContainer({ requestPath }) {
   const [itemInfoList, setItemInfoList] = useState([]);
   const [isError, setIsError] = useState(false);
+  const { totals, updateOrderData } = useContext(OrderContext);
+
   const fetchData = async (path) => {
     try {
       const res = await axios.get(`${BASE_URL}/${path}`);
@@ -25,12 +28,17 @@ export default function OrderContainer({ requestPath }) {
   const ItemComponent = requestPath === "products" ? Product : Option;
   return (
     <div className="order-container">
-      <h2>상품 종류 : </h2>
-      <p>하나당 가격 : </p>
-      <p>총 가격 : </p>
+      <h2>상품 종류 : {requestPath}</h2>
+      <p>하나당 가격 : {pricePerItem[requestPath]}</p>
+      <p>총 가격 : {totals[requestPath]}</p>
       <div className="order-container-items" style={{ flexDirection: requestPath === "products" ? "row" : "column" }}>
         {itemInfoList.map((itemInfo) => (
-          <ItemComponent key={itemInfo.name} name={itemInfo.name} imagePath={itemInfo.imagePath} />
+          <ItemComponent
+            key={itemInfo.name}
+            name={itemInfo.name}
+            imagePath={itemInfo.imagePath}
+            updateOrderData={(itemName, itemCount) => updateOrderData(itemName, itemCount, requestPath)}
+          />
         ))}
       </div>
     </div>
