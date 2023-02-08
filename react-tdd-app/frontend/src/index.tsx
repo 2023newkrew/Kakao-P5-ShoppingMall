@@ -16,8 +16,11 @@ const GlobalStyle = createGlobalStyle`
   input {
    ${tw`pl-2 border border-gray-500 rounded focus:outline-blue-500`}
   }
-  button {
-    ${tw`bg-blue-600 rounded  p-2 text-white hover:bg-blue-700`}
+  button, [type='submit'] {
+    ${tw`bg-blue-600 rounded  px-4 py-2 text-white cursor-pointer hover:bg-blue-700`}
+  }
+  button[disabled]{
+    ${tw`bg-gray-400 hover:bg-gray-400 cursor-default`}
   }
   h1{
     ${tw`font-bold text-3xl`}
