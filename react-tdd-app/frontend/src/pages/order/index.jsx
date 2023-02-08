@@ -4,8 +4,7 @@ import Products from './components/Products';
 import Options from './components/Options';
 
 export default function Order() {
-  const [products, setProducts] = useState([]);
-  const [options, setOptions] = useState([]);
+  const [orderData, setOrderData] = useState({ products: [], options: [] });
   const [order, setOrder] = useState({ products: {}, options: {} });
 
   const handleProductOrderChange = (name, quantity) => {
@@ -32,10 +31,8 @@ export default function Order() {
     const fetch = async () => {
       const { data: productsData } = await axios.get('/products');
       const { data: optionsData } = await axios.get('/options');
-      setProducts(productsData);
-      setOptions(optionsData);
-      setOrder((prev) => ({
-        ...prev,
+      setOrderData({ products: productsData, options: optionsData });
+      setOrder({
         products: productsData.reduce(
           (acc, { name }) => ({ ...acc, [name]: 0 }),
           {}
@@ -44,7 +41,7 @@ export default function Order() {
           (acc, { name }) => ({ ...acc, [name]: false }),
           {}
         ),
-      }));
+      });
     };
 
     fetch();
@@ -54,12 +51,12 @@ export default function Order() {
     <>
       <h1>상품 주문</h1>
       <Products
-        products={products}
+        products={orderData.products}
         order={order}
         handleProductOrderChange={handleProductOrderChange}
       />
       <Options
-        options={options}
+        options={orderData.options}
         order={order}
         handleOptionOrderChange={handleOptionOrderChange}
       />
