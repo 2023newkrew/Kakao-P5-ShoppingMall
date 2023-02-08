@@ -2,8 +2,7 @@ import { ChangeEvent, useContext } from 'react';
 import { Option as OptionType } from '../types/option';
 import { OrderContext } from 'contexts/OrderContext';
 
-type Props = OptionType;
-const Option = ({ name }: Props) => {
+const Option = ({ name }: OptionType) => {
   const { updateOption } = useContext(OrderContext);
 
   const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {

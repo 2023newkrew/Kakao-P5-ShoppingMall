@@ -2,9 +2,7 @@ import { ChangeEvent, memo, useContext } from 'react';
 import { Product as ProductType } from '../types/product';
 import { OrderContext } from 'contexts/OrderContext';
 
-type Props = ProductType;
-
-const Product = ({ name, imagePath }: Props) => {
+const Product = ({ name, imagePath }: ProductType) => {
   const { updateProductCount } = useContext(OrderContext);
 
   const handleUpdateCount = (e: ChangeEvent<HTMLInputElement>) => {
