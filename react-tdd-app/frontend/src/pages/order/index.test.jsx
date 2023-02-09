@@ -1,29 +1,34 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Order from '.';
+import { PRODUCTS, OPTIONS } from '../../mocks/data';
 
 describe('상품 목록', () => {
   test('상품 이미지', async () => {
     render(<Order />);
 
     const productImages = await screen.findAllByRole('img');
-    expect(productImages).toHaveLength(4);
+    expect(productImages).toHaveLength(PRODUCTS.length);
 
     const srcTexts = productImages.map((image) => image.src);
-    expect(srcTexts.every((srcText) => srcText.startsWith('http'))).toBe(true);
+    expect(
+      srcTexts.every((srcText, index) =>
+        srcText.endsWith(PRODUCTS[index].imagePath)
+      )
+    ).toBe(true);
 
     const altTexts = productImages.map((image) => image.alt);
-    expect(altTexts).toEqual(['America', 'England', 'Germany', 'Portland']);
+    expect(altTexts).toEqual(PRODUCTS.map((product) => product.name));
   });
 
   test('상품 수량', async () => {
     render(<Order />);
 
     const productInputs = await screen.findAllByRole('spinbutton');
-    expect(productInputs).toHaveLength(4);
+    expect(productInputs).toHaveLength(PRODUCTS.length);
 
     const productQuantities = productInputs.map((input) => input.value);
-    expect(productQuantities).toEqual(['0', '0', '0', '0']);
+    expect(productQuantities).toEqual(Array(PRODUCTS.length).fill('0'));
   });
 
   test('잘못된 상품 수량 입력', async () => {
@@ -61,10 +66,10 @@ describe('상품 옵션 목록', () => {
     render(<Order />);
 
     const options = await screen.findAllByRole('checkbox');
-    expect(options).toHaveLength(3);
+    expect(options).toHaveLength(OPTIONS.length);
 
     const labelTexts = options.map((option) => option.labels[0].textContent);
-    expect(labelTexts).toEqual(['Insurance', 'Dinner', 'FirstClass']);
+    expect(labelTexts).toEqual(OPTIONS.map((option) => option.name));
   });
 
   test('상품 옵션 선택', async () => {
