@@ -3,6 +3,12 @@ import userEvent from '@testing-library/user-event';
 import Order from '../pages/order';
 import { PRODUCTS, OPTIONS } from '../mocks/data';
 
+const mockedNavigate = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+  useNavigate: () => mockedNavigate,
+}));
+
 describe('상품 목록', () => {
   test('상품 이미지', async () => {
     render(<Order />);
@@ -114,5 +120,16 @@ describe('주문', () => {
     userEvent.type(productInputs[0], '1');
     expect(totalPrice).toHaveTextContent('₩1,000');
     expect(orderButton).toBeEnabled();
+  });
+
+  test('주문 버튼을 클릭하면 주문 확인 페이지로 이동한다.', async () => {
+    render(<Order />);
+
+    const orderButton = await screen.findByRole('button', { name: /주문/i });
+    const productInputs = await screen.findAllByRole('spinbutton');
+
+    userEvent.type(productInputs[0], '1');
+    userEvent.click(orderButton);
+    expect(mockedNavigate).toBeCalledWith('/confirm');
   });
 });
