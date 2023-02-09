@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render } from 'utils/testUtils';
 import { server } from 'mocks/server';
 import { ProductOrderPage } from 'pages';
 import { OPTION_PRODUCT_PRICE, TRAVEL_PRODUCT_PRICE } from 'utils/constants';

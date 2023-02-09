@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render } from 'utils/testUtils';
 import { OrderConfirmPage } from 'pages';
 
 describe('<OrderConfirmPage />', () => {
@@ -15,6 +15,7 @@ describe('<OrderConfirmPage />', () => {
     const input = getByRole('checkbox');
     const button = getByRole('button', { name: '주문확인' }) as HTMLButtonElement;
 
+    fireEvent.click(input);
     fireEvent.click(input);
     expect(button.disabled).toBe(true);
   });
