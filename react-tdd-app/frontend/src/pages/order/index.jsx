@@ -36,12 +36,16 @@ export default function Order() {
       <Products
         products={orderData.products}
         order={order}
-        handleProductOrderChange={updateOrder}
+        handleOrderChange={(name, quantity) =>
+          updateOrder('products', name, quantity)
+        }
       />
       <Options
         options={orderData.options}
         order={order}
-        handleOptionOrderChange={updateOrder}
+        handleOrderChange={(name, checked) =>
+          updateOrder('options', name, checked)
+        }
       />
     </>
   );

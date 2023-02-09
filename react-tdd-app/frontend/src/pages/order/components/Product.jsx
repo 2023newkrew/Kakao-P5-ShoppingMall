@@ -3,13 +3,13 @@ export default function Product({
   imagePath,
   description,
   quantity,
-  handleProductOrderChange,
+  handleOrderChange,
 }) {
   const id = `${name}-number`;
 
   const handleChange = (event) => {
     const value = Math.max(0, event.target.value);
-    handleProductOrderChange('products', name, value);
+    handleOrderChange(name, value);
   };
 
   return (

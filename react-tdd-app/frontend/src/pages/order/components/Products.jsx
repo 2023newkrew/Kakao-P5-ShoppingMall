@@ -13,11 +13,7 @@ const Ul = styled.ul`
   }
 `;
 
-export default function Products({
-  products,
-  order,
-  handleProductOrderChange,
-}) {
+export default function Products({ products, order, handleOrderChange }) {
   const productTotalPrice = Object.values(order.products).reduce(
     (acc, quantity) => acc + quantity * 1000,
     0
@@ -36,7 +32,7 @@ export default function Products({
             imagePath={imagePath}
             description={description}
             quantity={order.products[name]}
-            handleProductOrderChange={handleProductOrderChange}
+            handleOrderChange={handleOrderChange}
           />
         ))}
       </Ul>

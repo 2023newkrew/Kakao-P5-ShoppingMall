@@ -1,6 +1,6 @@
 import Option from './Option';
 
-export default function Options({ options, order, handleOptionOrderChange }) {
+export default function Options({ options, order, handleOrderChange }) {
   const optionTotalPrice = Object.values(order.options).reduce(
     (acc, checked) => acc + (checked ? 500 : 0),
     0
@@ -17,7 +17,7 @@ export default function Options({ options, order, handleOptionOrderChange }) {
             key={name}
             name={name}
             checked={order.options[name]}
-            handleOptionOrderChange={handleOptionOrderChange}
+            handleOrderChange={handleOrderChange}
           />
         ))}
       </ul>
