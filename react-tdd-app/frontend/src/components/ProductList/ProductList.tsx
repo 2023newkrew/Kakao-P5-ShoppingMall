@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { CheckBox, QuantityInput } from 'components';
 import { ProductListProps } from 'types';
 import { OrderDispatchContext, OrderStateContext } from 'contexts/OrderContext';

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { CheckBoxProps } from 'types';
 
 function CheckBox({ name, description, updateOrder }: CheckBoxProps) {

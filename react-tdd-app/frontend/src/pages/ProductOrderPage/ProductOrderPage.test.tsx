@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import { server } from 'mocks/server';
 import { ProductOrderPage } from 'pages';
 import { OPTION_PRODUCT_PRICE, TRAVEL_PRODUCT_PRICE } from 'utils/constants';
@@ -28,7 +28,9 @@ describe('<ProductOrderPage />', () => {
     expect(items).toHaveLength(3);
   });
 
-  test('[주문하기] 버튼을 눌렀을 때 주문 확인 페이지로 넘어가야 한다.', () => {});
+  test('[주문하기] 버튼을 눌렀을 때 주문 확인 페이지로 넘어가야 한다.', () => {
+    // 어떻게 테스트 하나 찾아보기
+  });
 
   test('travel product를 선택한 경우에는 [주문하기] 버튼이 enable 되어야 한다.', async () => {
     const { findAllByRole, findByRole } = render(<ProductOrderPage />);

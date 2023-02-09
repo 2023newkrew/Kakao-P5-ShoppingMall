@@ -1,9 +1,5 @@
-import { fireEvent, render, screen, within } from '@testing-library/react';
-import { wait } from '@testing-library/user-event/dist/utils';
-import { server } from 'mocks/server';
+import { fireEvent, render } from '@testing-library/react';
 import { OrderConfirmPage } from 'pages';
-import { OPTION_PRODUCT_PRICE, TRAVEL_PRODUCT_PRICE } from 'utils/constants';
-import { removeCharacter } from 'utils/shared';
 
 describe('<OrderConfirmPage />', () => {
   test('주문여부 체크박스를 선택한 경우에는 [주문확인] 버튼이 enable 되어야 한다.', async () => {
