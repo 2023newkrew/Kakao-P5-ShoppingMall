@@ -1,4 +1,5 @@
 import { createContext, useMemo, useRef, useState } from "react";
+import { REQUEST_PATH } from "../constant";
 
 export const OrderContext = createContext();
 
@@ -26,8 +27,8 @@ export function OrderContextProvider(props) {
       const newOrderData = { ...orderData };
       newOrderData[requestPath] = newOrderMap;
 
-      const productsTotal = _calculateSubTotal("products", newOrderData);
-      const optionsTotal = _calculateSubTotal("options", newOrderData);
+      const productsTotal = _calculateSubTotal(REQUEST_PATH.products, newOrderData);
+      const optionsTotal = _calculateSubTotal(REQUEST_PATH.options, newOrderData);
       totals.current = { products: productsTotal, options: optionsTotal, total: productsTotal + optionsTotal };
       setOrderData(newOrderData);
     };

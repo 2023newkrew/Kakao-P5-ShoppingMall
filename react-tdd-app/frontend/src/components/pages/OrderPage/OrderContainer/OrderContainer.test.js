@@ -1,13 +1,14 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { rest } from "msw";
+import { REQUEST_PATH } from "../../../../constant";
 import { MOCK_BASE_URL } from "../../../../mocks/handlers";
 import { mockServer } from "../../../../mocks/mockServer";
 import { render } from "../../../../test-utils";
 import OrderContainer from "./OrderContainer";
 
 test("display products image from server", async () => {
-  render(<OrderContainer requestPath="products" />);
+  render(<OrderContainer requestPath={REQUEST_PATH.products} />);
 
   const itemImages = await screen.findAllByRole("img", {
     name: /product$/i,
@@ -20,7 +21,7 @@ test("display products image from server", async () => {
 
 test("when fetching product data, face an error", async () => {
   mockServer.resetHandlers(rest.get(`${MOCK_BASE_URL}/products`, (req, res, ctx) => res(ctx.status(500))));
-  render(<OrderContainer requestPath="products" />);
+  render(<OrderContainer requestPath={REQUEST_PATH.products} />);
 
   const errorBanner = await screen.findByTestId("error-banner");
 
@@ -28,7 +29,7 @@ test("when fetching product data, face an error", async () => {
 });
 
 test("display options from server", async () => {
-  render(<OrderContainer requestPath="options" />);
+  render(<OrderContainer requestPath={REQUEST_PATH.options} />);
 
   const optionList = await screen.findAllByTestId("option-label");
   const optionValues = optionList.map((optionEl) => optionEl.textContent);
@@ -38,7 +39,7 @@ test("display options from server", async () => {
 });
 
 test("update product's total when products change", async () => {
-  render(<OrderContainer requestPath={"products"} />);
+  render(<OrderContainer requestPath={REQUEST_PATH.products} />);
 
   const productsTotal = screen.getByText("총 가격", { exact: false });
   expect(productsTotal).toHaveTextContent("0");
@@ -58,7 +59,7 @@ test("update product's total when products change", async () => {
 });
 
 test("update option's total when options change", async () => {
-  render(<OrderContainer requestPath="options" />);
+  render(<OrderContainer requestPath={REQUEST_PATH.options} />);
 
   const optionsTotal = screen.getByText("총 가격", { exact: false });
   const insuranceCheckBox = await screen.findByRole("checkbox", { name: "Insurance" });

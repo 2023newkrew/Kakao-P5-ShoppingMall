@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { REQUEST_PATH } from "../../../constant";
 import { OrderContext } from "../../../contexts/OrderContext";
 import OrderContainer from "./OrderContainer/OrderContainer";
 import "./OrderPage.css";
@@ -9,7 +10,7 @@ export default function OrderPage() {
     <div className="order-page">
       <div className="order-page__top">
         <h1>Travel Products</h1>
-        <OrderContainer requestPath="products" />
+        <OrderContainer requestPath={REQUEST_PATH.products} />
       </div>
       <div className="order-page__bottom">
         <div className="order-container-style">

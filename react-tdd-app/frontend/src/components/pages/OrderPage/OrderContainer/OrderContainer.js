@@ -5,6 +5,7 @@ import Option from "../Option/Option";
 import ErrorBanner from "../../../ErrorBanner";
 import "./OrderContainer.css";
 import { OrderContext, pricePerItem } from "../../../../contexts/OrderContext";
+import { REQUEST_PATH } from "../../../../constant";
 
 const BASE_URL = "http://localhost:5000";
 export default function OrderContainer({ requestPath }) {
@@ -25,13 +26,16 @@ export default function OrderContainer({ requestPath }) {
   }, [requestPath]);
 
   if (isError) return <ErrorBanner message={"에러가 발생했습니다."} />;
-  const ItemComponent = requestPath === "products" ? Product : Option;
+  const ItemComponent = requestPath === REQUEST_PATH.products ? Product : Option;
   return (
     <div className="order-container">
       <h2>상품 종류 : {requestPath}</h2>
       <p>하나당 가격 : {pricePerItem[requestPath]}</p>
       <p>총 가격 : {totals[requestPath]}</p>
-      <div className="order-container-items" style={{ flexDirection: requestPath === "products" ? "row" : "column" }}>
+      <div
+        className="order-container-items"
+        style={{ flexDirection: requestPath === REQUEST_PATH.products ? "row" : "column" }}
+      >
         {itemInfoList.map((itemInfo) => (
           <ItemComponent
             key={itemInfo.name}
