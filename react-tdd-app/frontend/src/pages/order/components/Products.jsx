@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Product from './Product';
+import { unitPrice } from '../../../stores/orderStore';
 
 const Ul = styled.ul`
   display: flex;
@@ -22,7 +23,7 @@ export default function Products({ products, order, handleOrderChange }) {
   return (
     <>
       <h2>여행 상품</h2>
-      <div>상품당 가격: ₩1,000</div>
+      <div>상품당 가격: ₩{unitPrice.products.toLocaleString()}</div>
       <div>상품 총 가격: ₩{productTotalPrice.toLocaleString()}</div>
       <Ul>
         {products.map(({ name, imagePath, description }) => (

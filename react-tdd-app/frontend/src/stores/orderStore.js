@@ -1,5 +1,10 @@
 import { create } from 'zustand';
 
+export const unitPrice = {
+  products: 1000,
+  options: 500,
+};
+
 export const useOrderStore = create((set) => ({
   order: { products: {}, options: {} },
   setOrder: (order) => set({ order }),
