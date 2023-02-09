@@ -2,11 +2,11 @@ import { fireEvent, screen } from '@testing-library/react';
 import useRender from '@/tests/hooks/use-render';
 import { FAKER_RESPONSE_OPTIONS, FAKER_RESPONSE_PRODUCTS } from '@/tests/constants/faker';
 import { OPTION_PRICE, PRODUCT_PRICE } from '@/constants/price';
-import App from './app';
+import Home from './home';
 
-describe('App component', () => {
-  it('App component renders correctly', () => {
-    useRender(<App />);
+describe('Home component', () => {
+  it('Home component renders correctly', () => {
+    useRender(<Home />);
 
     const headerEl = screen.getByTestId('header');
     const productListEl = screen.getByTestId('product-list');
@@ -20,7 +20,7 @@ describe('App component', () => {
   });
 
   it('one can add products and options to the basket and total price changes', async () => {
-    useRender(<App />);
+    useRender(<Home />);
 
     const productItemInputEls = await screen.findAllByTestId(/product-item-input/);
     const optionItemCheckboxEls = await screen.findAllByTestId(/option-item-checkbox/);
@@ -63,7 +63,7 @@ describe('App component', () => {
   });
 
   it('if the total price is lower than 0, the order button should be disabled', async () => {
-    useRender(<App />);
+    useRender(<Home />);
 
     const orderButtonEl = screen.getByTestId('order-button');
     const optionItemCheckboxEls = await screen.findAllByTestId(/option-item-checkbox/);
