@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ProductList } from 'components';
 import api from 'utils/api';
+import { OrderStateContext } from 'contexts/OrderContext';
 
 function ProductOrderPage() {
   const [travelProducts, setTravelProducts] = useState([]);
   const [optionProducts, setOptionProducts] = useState([]);
+  const { total, count } = useContext(OrderStateContext);
 
   const getTravelProducts = async () => {
     const res = await api.get('/products', {});
@@ -28,8 +30,10 @@ function ProductOrderPage() {
       <ProductList products={travelProducts} price={1000} type="products" />
       <ProductList products={optionProducts} price={500} type="options" />
       <section>
-        <h2>Total Price: value</h2>
-        <button type="button">주문하기</button>
+        <h2>Total Price: ${total}</h2>
+        <button type="button" disabled={count.products === 0}>
+          주문하기
+        </button>
       </section>
     </main>
   );
