@@ -20,3 +20,4 @@ export const COUNTRIES = [
     "description": "Good Portland"
   }
 ];
+export const PRODUCT_PRICE = 1000;

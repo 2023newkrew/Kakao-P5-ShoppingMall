@@ -12,3 +12,4 @@ export const OPTIONS = [
     "description": "편안한 비행을 위해서!"
   }
 ]
+export const OPTION_PRICE = 500;
