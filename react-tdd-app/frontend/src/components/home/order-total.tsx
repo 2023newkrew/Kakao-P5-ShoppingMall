@@ -10,7 +10,7 @@ const OrderTotal = () => {
   }, []);
 
   return (
-    <OrderTotalContainer>
+    <OrderTotalContainer data-testid="order-total">
       <OrderTotalTitle>Total Price: {totalPrice}</OrderTotalTitle>
       <OrderButton type="button" onClick={onClick}>
         주문하기

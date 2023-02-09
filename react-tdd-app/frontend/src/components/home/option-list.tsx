@@ -18,7 +18,7 @@ const OptionList: React.FC<OptionListProps> = ({ options }) => {
   const { totalOptionsPrice } = useBasketStore();
 
   return (
-    <OptionListContainer>
+    <OptionListContainer data-testid="option-list">
       <OptionListTitle>주문 종류</OptionListTitle>
       <OptionListParagraph>하나의 가격</OptionListParagraph>
       <OptionListParagraph>
@@ -27,7 +27,7 @@ const OptionList: React.FC<OptionListProps> = ({ options }) => {
       </OptionListParagraph>
       <OptionListItemContainer>
         {options.map((option) => (
-          <OptionItem option={option} key={crypto.randomUUID()} />
+          <OptionItem option={option} key={option.name} />
         ))}
       </OptionListItemContainer>
     </OptionListContainer>

@@ -20,6 +20,7 @@ const OptionItem: React.FC<OptionItemProps> = ({ option }) => {
         type="checkbox"
         id={`check-box-${option.name}`}
         defaultChecked={!!optionsBasket[option.name]}
+        data-testid={`option-item-checkbox--${option.name}`}
         onClick={onClick}
       />
       {option.name}

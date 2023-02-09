@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { Product } from '@/containers/app';
 import useBasketStore from '@/stores/use-basket-store';
 import {
@@ -9,7 +9,11 @@ import {
   ProductItemName,
 } from './product-item.style';
 
-const ProductItem = ({ product }: { product: Product }) => {
+type ProductItemProps = {
+  product: Product;
+};
+
+const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
   const { productsBasket: baskets, setProductsBasket: setBasket } = useBasketStore();
 
   const onInput = useCallback(
@@ -20,7 +24,7 @@ const ProductItem = ({ product }: { product: Product }) => {
   );
 
   return (
-    <ProductItemContainer>
+    <ProductItemContainer data-testid={`product-item--${product.name}`}>
       <ProductItemImage
         src={`${process.env.REACT_APP_API_URL}${product.imagePath}`}
         alt={product.name}
@@ -31,6 +35,7 @@ const ProductItem = ({ product }: { product: Product }) => {
           type="number"
           value={baskets[product.name] || 0}
           onInput={onInput}
+          data-testid={`product-item-input--${product.name}`}
           required
         />
       </ProductItemContent>

@@ -18,7 +18,7 @@ const ProductList: React.FC<ProductListProps> = ({ products }) => {
   const { totalProductsPrice } = useBasketStore();
 
   return (
-    <ProductListContainer>
+    <ProductListContainer data-testid="product-list">
       <ProductListTitle>주문 종류</ProductListTitle>
       <ProductListParagraph>하나의 가격</ProductListParagraph>
       <ProductListParagraph>
@@ -27,7 +27,7 @@ const ProductList: React.FC<ProductListProps> = ({ products }) => {
       </ProductListParagraph>
       <ProductListItemContainer>
         {products.map((product) => (
-          <ProductItem key={crypto.randomUUID()} product={product} />
+          <ProductItem key={product.name} product={product} />
         ))}
       </ProductListItemContainer>
     </ProductListContainer>
