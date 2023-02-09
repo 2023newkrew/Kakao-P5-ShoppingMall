@@ -21,6 +21,7 @@ const SummaryPage = () => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
+    navigate('/complete', { replace: true });
   };
 
   return (
