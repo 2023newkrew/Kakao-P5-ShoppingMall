@@ -3,7 +3,7 @@ import { Option as OptionType } from '../types/option';
 import { useOrderContext } from 'contexts/OrderContext';
 
 const Option = ({ name }: OptionType) => {
-  const { updateOption } = useOrderContext();
+  const { updateOption, options } = useOrderContext();
 
   const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
     const currentValue = e.target.checked;
@@ -15,7 +15,7 @@ const Option = ({ name }: OptionType) => {
         type="checkbox"
         id={`${name} option`}
         aria-label={`${name} option`}
-        defaultChecked={false}
+        defaultChecked={options.get(name)}
         onChange={handleCheck}
       />
       <label className="ml-2" htmlFor={`${name} option`}>
