@@ -1,9 +1,9 @@
-import React, { useContext, useState } from "react";
-import { orderContext } from "../context/order";
+import React, { useState } from "react";
+import { useOrder } from "../context/order";
 
 function OrderConfirmPage() {
   const [isConfirmed, setIsConfirmed] = useState(false);
-  const [{ products, options }] = useContext(orderContext);
+  const { products, options } = useOrder();
 
   const handleSubmit = (event) => {
     event.preventDefault();
