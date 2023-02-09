@@ -7,6 +7,11 @@ const store = (set) => ({
 
   productList: [],
   setProductList: (product) => set((state) => ({ productList: [...state.productList, product] })),
+
+  orderList: [],
+  setOrderList: (order) => set({ orderList: order }),
+
+  reset: () => set(() => ({ totalPrice: 0, productList: [], orderList: [] })),
 });
 
 const useStore = create(devtools(store));

@@ -1,10 +1,15 @@
 import { render, screen } from "@testing-library/react";
+import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
 import CreditPage from "../../pages/CreditPage";
 
 import Credit from "./Credit";
 
 test("checkbox and button", () => {
-  render(<Credit productList={[]} />);
+  render(
+    <BrowserRouter>
+      <Credit />
+    </BrowserRouter>
+  );
 
   const checkbox = screen.getByRole("checkbox", {
     name: "주문하려는 것을 확인하셨나요?",

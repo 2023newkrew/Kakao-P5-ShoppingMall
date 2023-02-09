@@ -2,39 +2,40 @@ import { useState } from "react";
 
 import styled from "styled-components";
 import useStore from "@store/store";
+import CreditProductList from "./CreditProductList";
+import { useNavigate } from "react-router-dom";
 
 const Credit = () => {
   const [checked, setChecked] = useState(false);
   const { productList } = useStore((state) => state);
 
-  function getTotalPrice() {
+  function getTotalPrice(productList) {
     return productList.reduce((totalPrice, product) => totalPrice + product.price, 0);
   }
 
-  function getProductList() {
-    return productList.map((element, index) => (
-      <li key={index}>
-        {element.count} {element.title}
-        <ul>
-          {element.isInsurance && <li>insurance</li>}
-          {element.isDinner && <li>isDinner</li>}
-          {element.isFirstClass && <li>isFirstClass</li>}
-        </ul>
-      </li>
-    ));
+  function getProductList(productList) {
+    return productList.map((element, index) => <CreditProductList element={element} key={index} />);
   }
+
+  const navigate = useNavigate();
+
+  const onClick = () => {
+    navigate("/complete");
+  };
 
   return (
     <CreditContainer>
       <CreditWrapper>
         <h1>주문 확인</h1>
-        <h1>Products: ₩{getTotalPrice()}</h1>
-        <ProductContainer>{getProductList()}</ProductContainer>
+        <h1>Products: ₩{getTotalPrice(productList)}</h1>
+        <ProductContainer>{getProductList(productList)}</ProductContainer>
         <label>
           <input type="checkbox" onClick={() => setChecked((checked) => !checked)} />
           주문하려는 것을 확인하셨나요?
         </label>
-        <CreditButton disabled={!checked}>결제하기</CreditButton>
+        <CreditButton disabled={!checked} onClick={onClick}>
+          결제하기
+        </CreditButton>
       </CreditWrapper>
     </CreditContainer>
   );
