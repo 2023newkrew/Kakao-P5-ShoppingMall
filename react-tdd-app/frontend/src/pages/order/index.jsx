@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Products from './components/Products';
-import Options from './components/Options';
+import OrderList from './components/OrderList';
 import OrderForm from './components/OrderForm';
 import { useOrderStore } from '../../stores/orderStore';
 
@@ -36,22 +35,18 @@ export default function Order() {
   return (
     <>
       <h1>상품 주문</h1>
-      <Products
-        products={orderData.products}
-        order={order}
-        subtotalPrice={subtotalPrice}
-        handleOrderChange={(name, quantity) =>
-          updateOrder('products', name, quantity)
-        }
-      />
-      <Options
-        options={orderData.options}
-        order={order}
-        subtotalPrice={subtotalPrice}
-        handleOrderChange={(name, checked) =>
-          updateOrder('options', name, checked)
-        }
-      />
+      {Object.keys(orderData).map((itemType) => (
+        <OrderList
+          key={itemType}
+          itemType={itemType}
+          items={orderData[itemType]}
+          order={order}
+          subtotalPrice={subtotalPrice}
+          handleOrderChange={(name, value) =>
+            updateOrder(itemType, name, value)
+          }
+        />
+      ))}
       <OrderForm totalPrice={totalPrice} />
     </>
   );

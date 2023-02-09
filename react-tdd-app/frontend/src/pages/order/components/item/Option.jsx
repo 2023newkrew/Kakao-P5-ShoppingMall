@@ -1,4 +1,4 @@
-export default function Option({ name, checked, handleOrderChange }) {
+export default function Option({ name, value, handleOrderChange }) {
   const id = `${name}-checkbox`;
 
   const handleChange = (event) => {
@@ -11,7 +11,7 @@ export default function Option({ name, checked, handleOrderChange }) {
         <input
           type="checkbox"
           id={id}
-          checked={checked}
+          checked={value}
           onChange={handleChange}
         />
         {name}
