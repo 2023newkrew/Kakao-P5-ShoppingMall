@@ -7,7 +7,7 @@ const OrderStateContext = createContext({
       quantity: 0,
       name: '',
     },
-    options: new Set(),
+    options: new Set() as Set<string>,
   },
 
   count: {
@@ -32,7 +32,7 @@ function OrderProvider({ children }: { children: ReactElement }) {
       quantity: 0,
       name: '',
     },
-    options: new Set(),
+    options: new Set() as Set<string>,
   });
   const [count, setCount] = useState({
     products: 0,

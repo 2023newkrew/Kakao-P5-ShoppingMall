@@ -1,6 +1,6 @@
 export type CheckBoxProps = {
   name: string;
-  description: string;
+  description?: string;
   updateOrder: (name: string, isAdd: boolean) => void;
 };
 
