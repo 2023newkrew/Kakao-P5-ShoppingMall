@@ -4,4 +4,6 @@ export const OrderTotalContainer = styled.div``;
 
 export const OrderTotalTitle = styled.h2``;
 
+export const OrderTotalPrice = styled.span``;
+
 export const OrderButton = styled.button``;
