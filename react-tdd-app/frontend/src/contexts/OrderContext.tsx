@@ -58,9 +58,7 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
   }, []);
 
   const reset = useCallback(() => {
-    setOrderCounts(() => {
-      return initialContext;
-    });
+    setOrderCounts({ products: new Map(), options: new Map() });
   }, []);
 
   const value: OrderContextType = useMemo(() => {
