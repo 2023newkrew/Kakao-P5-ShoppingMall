@@ -1,13 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Order from '../pages/order';
+import { mockedNavigate } from '../setupTests';
 import { PRODUCTS, OPTIONS } from '../mocks/data';
-
-const mockedNavigate = jest.fn();
-
-jest.mock('react-router-dom', () => ({
-  useNavigate: () => mockedNavigate,
-}));
 
 describe('상품 목록', () => {
   test('상품 이미지', async () => {
