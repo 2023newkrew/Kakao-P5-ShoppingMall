@@ -1,12 +1,13 @@
-import { fireEvent, render } from 'utils/testUtils';
+import { fireEvent, getByRole, render, screen } from 'utils/testUtils';
 import { server } from 'mocks/server';
 import { ProductOrderPage } from 'pages';
 import { OPTION_PRODUCT_PRICE, TRAVEL_PRODUCT_PRICE } from 'utils/constants';
+import { wait } from '@testing-library/user-event/dist/utils';
 
 const mockedUsedNavigate = jest.fn();
 
 jest.mock('react-router-dom', () => ({
-  ...(jest.requireActual('react-router-dom') as any),
+  ...jest.requireActual('react-router-dom'),
   useNavigate: () => mockedUsedNavigate,
 }));
 
@@ -28,8 +29,18 @@ describe('<ProductOrderPage />', () => {
     expect(items).toHaveLength(3);
   });
 
-  test('[주문하기] 버튼을 눌렀을 때 주문 확인 페이지로 넘어가야 한다.', () => {
-    // 어떻게 테스트 하나 찾아보기
+  test('[주문하기] 버튼을 눌렀을 때 주문 확인 페이지로 넘어가야 한다.', async () => {
+    const { findAllByRole, findByRole } = render(<ProductOrderPage />);
+    const travelInputs = await findAllByRole('textbox');
+    const orderButton = (await findByRole('button', { name: '주문하기' })) as HTMLButtonElement;
+
+    fireEvent.change(travelInputs[0], {
+      target: {
+        value: 3,
+      },
+    });
+    fireEvent.click(orderButton);
+    expect(mockedUsedNavigate).toHaveBeenNthCalledWith(1, '/confirm');
   });
 
   test('travel product를 선택한 경우에는 [주문하기] 버튼이 enable 되어야 한다.', async () => {
