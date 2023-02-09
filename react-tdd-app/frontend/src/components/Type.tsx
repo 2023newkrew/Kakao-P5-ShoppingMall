@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { memo, useEffect, useMemo, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { Product as ProductType } from 'types/product';
 import { Option as OptionType } from 'types/option';
 import ErrorBanner from 'components/ErrorBanner';
