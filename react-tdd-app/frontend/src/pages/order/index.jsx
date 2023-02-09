@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Products from './components/Products';
 import Options from './components/Options';
+import OrderForm from './components/OrderForm';
 import { useOrderStore } from '../../stores/orderStore';
 
 export default function Order() {
@@ -47,6 +48,7 @@ export default function Order() {
           updateOrder('options', name, checked)
         }
       />
+      <OrderForm order={order} />
     </>
   );
 }
