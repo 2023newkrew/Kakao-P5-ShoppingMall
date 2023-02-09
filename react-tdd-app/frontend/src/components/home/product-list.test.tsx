@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { Product } from '@/containers/app';
 import ProductList from './product-list';
 
@@ -44,14 +44,11 @@ describe('ProductList Component', () => {
     });
   });
 
-  /* FIXME: Zustand state is not updated in the test */
-  /* TODO: Fix this test */
-  /*
   it('Update total prices with product inputs', () => {
     render(<ProductList products={products} />);
 
     const productCountEl = screen.getByTestId('total-price');
-    const productInputEls = screen.getAllByRole('spinbutton');
+    const productInputEls = screen.getAllByTestId(/product-item-input/);
 
     expect(productCountEl).toHaveTextContent('0');
 
@@ -71,5 +68,4 @@ describe('ProductList Component', () => {
     expect(productInputEls[3]).toHaveValue(2);
     expect(productCountEl).toHaveTextContent('7');
   });
-  */
 });

@@ -1,7 +1,8 @@
-import { screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import { Option } from '@/containers/app';
 import useRender from '@/tests/hooks/use-render';
 import OptionList from './option-list';
+import { OPTION_PRICE } from '@/constants/price';
 
 describe('OptionList component', () => {
   const options: Option[] = [
@@ -35,14 +36,11 @@ describe('OptionList component', () => {
     });
   });
 
-  /* FIXME: Zustand state is not updated in the test */
-  /* TODO: Fix this test */
-  /*
   it('Update total prices with checking and unchecking the checkbox', () => {
     useRender(<OptionList options={options} />);
 
     const optionPriceEl = screen.getByTestId('option-price');
-    const optionItemCheckboxEls = screen.getAllByRole('checkbox');
+    const optionItemCheckboxEls = screen.getAllByTestId(/option-item-checkbox--/);
 
     expect(optionItemCheckboxEls).toHaveLength(options.length);
     expect(optionPriceEl).toHaveTextContent('0');
@@ -54,5 +52,4 @@ describe('OptionList component', () => {
       expect(optionPriceEl).toHaveTextContent((OPTION_PRICE * (index + 1)).toString());
     });
   });
-  */
 });
