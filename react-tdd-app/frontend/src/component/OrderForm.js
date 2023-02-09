@@ -11,6 +11,7 @@ function OrderForm({ productResource, optionResource, onSubmit }) {
   const [selectedProducts, selectProducts] = useState(() =>
     products.map(({ name }) => ({
       name,
+      price: PRODUCT_PRICE,
       amount: 0,
     }))
   );
@@ -18,17 +19,18 @@ function OrderForm({ productResource, optionResource, onSubmit }) {
   const [selectedOptions, selectOptions] = useState(() =>
     options.map(({ name }) => ({
       name,
+      price: OPTION_PRICE,
       amount: 0,
     }))
   );
 
-  const productTotalPrice =
-    PRODUCT_PRICE *
-    selectedProducts.map(({ amount }) => amount).reduce((p, c) => p + c, 0);
+  const productTotalPrice = selectedProducts
+    .map(({ amount, price }) => amount * price)
+    .reduce((p, c) => p + c, 0);
 
-  const optionTotalPrice =
-    OPTION_PRICE *
-    selectedOptions.map(({ amount }) => amount).reduce((p, c) => p + c, 0);
+  const optionTotalPrice = selectedOptions
+    .map(({ amount, price }) => amount * price)
+    .reduce((p, c) => p + c, 0);
 
   const totalPrice = productTotalPrice + optionTotalPrice;
 

@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { orderContext } from "../context/order";
 
-function OrderConfirmPage({ cart }) {
+function OrderConfirmPage() {
   const [isConfirmed, setIsConfirmed] = useState(false);
+  const [{ products, options }] = useContext(orderContext);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -11,6 +13,24 @@ function OrderConfirmPage({ cart }) {
     <div className="order-confirm-page">
       <form onSubmit={handleSubmit}>
         <h1>주문 확인</h1>
+        <fieldset>
+          <h2>Products</h2>
+          <ul>
+            {products.map(({ name, price, amount }) => (
+              <li key={name}>{`${name}: ${price}₩ * ${amount}`}</li>
+            ))}
+          </ul>
+          <h2>Options</h2>
+          {options.length ? (
+            <ul>
+              {options.map(({ name, price }) => (
+                <li key={name}>{`${name}: ${price}₩`}</li>
+              ))}
+            </ul>
+          ) : (
+            <p>미선택</p>
+          )}
+        </fieldset>
         <label>
           <input
             type="checkbox"

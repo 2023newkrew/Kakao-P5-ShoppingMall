@@ -11,7 +11,7 @@ const router = createBrowserRouter([
     element: <OrderFormPage />,
   },
   {
-    path: "confirm",
+    path: "/confirm",
     element: <OrderConfirmPage />,
   },
 ]);
