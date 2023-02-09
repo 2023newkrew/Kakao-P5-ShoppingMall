@@ -1,5 +1,4 @@
 import { fireEvent, screen } from '@testing-library/react';
-import { Option } from '@/containers/app';
 import useRender from '@/tests/hooks/use-render';
 import OptionList from './option-list';
 import { OPTION_PRICE } from '@/constants/price';

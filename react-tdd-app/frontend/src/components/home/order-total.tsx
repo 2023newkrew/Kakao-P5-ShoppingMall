@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useBasketStore from '@/stores/use-basket-store';
 import {
   OrderButton,
@@ -6,13 +7,15 @@ import {
   OrderTotalPrice,
   OrderTotalTitle,
 } from './order-total.style';
+import { ROUTE, ROUTE_PATH } from '@/constants/routes';
 
 const OrderTotal = () => {
   const { totalPrice } = useBasketStore();
+  const navigate = useNavigate();
 
   const onClick = useCallback(() => {
-    // TODO: Move to order page
-  }, []);
+    navigate(ROUTE_PATH[ROUTE.ORDER]);
+  }, [navigate]);
 
   return (
     <OrderTotalContainer>
