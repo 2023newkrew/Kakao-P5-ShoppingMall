@@ -1,4 +1,5 @@
-import React, { createContext, ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { createContext, ReactElement, useEffect, useMemo, useState } from 'react';
+import { TRAVEL_PRODUCT_PRICE, OPTION_PRODUCT_PRICE } from 'utils/constants';
 
 const OrderStateContext = createContext({
   order: {
@@ -44,7 +45,7 @@ function OrderProvider({ children }: { children: ReactElement }) {
       products: order.products.quantity,
       options: order.options.size,
     });
-    setTotal(order.products.quantity * 1000 + order.options.size * 500);
+    setTotal(order.products.quantity * TRAVEL_PRODUCT_PRICE + order.options.size * OPTION_PRODUCT_PRICE);
   }, [order]);
 
   const setTravelOrder = (quantity: number, name: string) => {

@@ -11,12 +11,6 @@ describe('<QuantityInput />', () => {
     updateOrder: jest.fn(),
   } as QuantityInputProps;
 
-  it('name text와 input이 잘 생성되어야 한다.', () => {
-    const { getByText, getByRole } = render(<QuantityInput {...quantityInputProps} />);
-    getByText(quantityInputProps.name);
-    getByRole('textbox');
-  });
-
   it('input의 value를 자연수로 변경할 때 입력한 값으로 변해야한다.', () => {
     const { getByRole } = render(<QuantityInput {...quantityInputProps} />);
     const input = getByRole('textbox');

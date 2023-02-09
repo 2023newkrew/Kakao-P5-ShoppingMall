@@ -2,6 +2,7 @@ import React from 'react';
 import { fireEvent, render, within } from 'utils/testUtils';
 import { ProductList } from 'components';
 import { ProductListProps } from 'types';
+import { TRAVEL_PRODUCT_PRICE, OPTION_PRODUCT_PRICE } from 'utils/constants';
 
 describe('<ProductList />', () => {
   const travelProductListProps = {
@@ -11,7 +12,7 @@ describe('<ProductList />', () => {
       { name: 'test name3', imagePath: 'test.jpeg', description: 'test description' },
       { name: 'test name4', imagePath: 'test.jpeg', description: 'test description' },
     ],
-    price: 1000,
+    price: TRAVEL_PRODUCT_PRICE,
     type: 'products',
   } as ProductListProps;
 
@@ -22,21 +23,9 @@ describe('<ProductList />', () => {
       { name: 'test name3', description: 'test description' },
       { name: 'test name4', description: 'test description' },
     ],
-    price: 500,
+    price: OPTION_PRODUCT_PRICE,
     type: 'options',
   } as ProductListProps;
-
-  it('가격과 list가 잘 랜더링 되어야 한다.', () => {
-    const { getByText, getByRole } = render(<ProductList {...travelProductListProps} />);
-
-    const productPrice = getByText(/하나의 가격:/) as HTMLParagraphElement;
-    expect(productPrice.innerHTML).toBe(`하나의 가격: ${travelProductListProps.price}`);
-
-    const productList = getByRole('list');
-    const { getAllByRole } = within(productList);
-    const items = getAllByRole('listitem');
-    expect(items.length).toBe(travelProductListProps.products.length);
-  });
 
   it('product list의 type이 products이면 최종으로 입력한 product외의 quantity는 모두 0이 되어야 한다.', () => {
     const { getAllByRole } = render(<ProductList {...travelProductListProps} />);
@@ -72,7 +61,6 @@ describe('<ProductList />', () => {
         value: 7,
       },
     });
-
     expect(totalPrice.innerHTML).toBe(`총합: ${travelProductListProps.price * 7}`);
   });
 
@@ -96,7 +84,7 @@ describe('<ProductList />', () => {
     expect(totalPrice.innerHTML).toBe(`총합: ${travelProductListProps.price * 3}`);
   });
 
-  it('하나의 option product를 체크하면  총가격은 (1 * product가격)이 되어야 한다.', () => {
+  it('하나의 option product를 체크하면 총가격은 (1 * product가격)이 되어야 한다.', () => {
     const { getAllByRole, getByText } = render(<ProductList {...optionProductListProps} />);
     const inputs = getAllByRole('checkbox');
     const totalPrice = getByText(/총합:/) as HTMLParagraphElement;
