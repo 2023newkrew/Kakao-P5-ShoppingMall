@@ -28,4 +28,28 @@ describe('OrderPage test', () => {
 
     expect(nextButton).toBeDisabled();
   });
+
+  test('Enable routing button when products are selected', async () => {
+    render(<OrderPage />);
+
+    const { totalProductsPrice, nextButton, americaInput } = await waitFor(async () => {
+      const [totalProductsPrice] = await screen.findAllByText('총 가격', { exact: false });
+      const americaInput = await screen.findByRole('spinbutton', { name: `America quantity` });
+
+      const nextButton = await screen.findByRole('button', { name: '주문' });
+      return { totalProductsPrice, nextButton, americaInput };
+    });
+
+    expect(totalProductsPrice).toHaveTextContent('0');
+
+    userEvent.clear(americaInput);
+    userEvent.type(americaInput, '2');
+    await waitFor(() => {
+      expect(totalProductsPrice).toHaveTextContent('2000');
+    });
+
+    await waitFor(() => {
+      expect(nextButton).toBeEnabled();
+    });
+  });
 });
