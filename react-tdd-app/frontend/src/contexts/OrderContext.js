@@ -17,7 +17,7 @@ const _calculateSubTotal = (requestPath, orderData) => {
 };
 
 export function OrderContextProvider(props) {
-  const [orderData, setOrderData] = useState({ products: new Map(), options: new Map() });
+  const [orderData, setOrderData] = useState({ [REQUEST_PATH.products]: new Map(), [REQUEST_PATH.options]: new Map() });
   const totals = useRef({ products: 0, options: 0, total: 0 });
   const value = useMemo(() => {
     const updateOrderData = (itemName, itemCount, requestPath) => {
@@ -29,7 +29,11 @@ export function OrderContextProvider(props) {
 
       const productsTotal = _calculateSubTotal(REQUEST_PATH.products, newOrderData);
       const optionsTotal = _calculateSubTotal(REQUEST_PATH.options, newOrderData);
-      totals.current = { products: productsTotal, options: optionsTotal, total: productsTotal + optionsTotal };
+      totals.current = {
+        [REQUEST_PATH.products]: productsTotal,
+        [REQUEST_PATH.options]: optionsTotal,
+        total: productsTotal + optionsTotal,
+      };
       setOrderData(newOrderData);
     };
 

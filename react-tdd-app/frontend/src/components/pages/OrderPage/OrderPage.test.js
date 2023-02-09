@@ -4,10 +4,12 @@ import { render } from "../../../test-utils";
 import OrderPage from "./OrderPage";
 
 describe("total price of products and options", () => {
-  test("total price starts with 0", () => {
+  test("total price starts with 0", async () => {
     render(<OrderPage />);
     const total = screen.getByText("Total Price", { exact: false });
+    const orderContainers = await screen.findAllByRole("spinbutton");
 
+    expect(orderContainers.length).toBeGreaterThanOrEqual(1);
     expect(total).toHaveTextContent("0");
   });
   test("updating total price when adding America product", async () => {

@@ -4,7 +4,7 @@ import { OrderContext } from "../../../contexts/OrderContext";
 import OrderContainer from "./OrderContainer/OrderContainer";
 import "./OrderPage.css";
 
-export default function OrderPage() {
+export default function OrderPage({ setStep }) {
   const { totals } = useContext(OrderContext);
   return (
     <div className="order-page">
@@ -19,7 +19,13 @@ export default function OrderPage() {
         <div className="order-page__total-price">
           <h2>Total Price : {totals.total}</h2>
           <br />
-          <button>주문</button>
+          <button
+            onClick={() => {
+              setStep(1);
+            }}
+          >
+            주문
+          </button>
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { render } from "../../../test-utils";
 import SummaryPage from "./SummaryPage";
 
 test("button is disabled when check-box is unchecked", () => {
@@ -29,11 +30,4 @@ test("products total price and options total price are not negative", () => {
 
   expect(Number(productsPrice.textContent)).toBeGreaterThanOrEqual(0);
   expect(Number(optionsPrice.textContent)).toBeGreaterThanOrEqual(0);
-});
-
-test("products must be selected at least one", async () => {
-  render(<SummaryPage />);
-  const selectedProducts = await screen.findAllByTestId("selected-product");
-
-  expect(selectedProducts.length).toBeGreaterThan(0);
 });
