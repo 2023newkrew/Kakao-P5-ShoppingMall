@@ -10,6 +10,7 @@ export interface OrderCountType {
 export interface OrderContextType extends OrderCountType {
   updateProductCount: UpdateProductFunction;
   updateOption: UpdateOptionFunction;
+  reset: () => void;
 }
 interface OrderContextProviderProps {
   children: ReactNode;
@@ -26,6 +27,7 @@ export const OrderContext = createContext<OrderContextType>({
   updateOption: (key: string, value: boolean) => {},
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   updateProductCount: (key: string, value: number) => {},
+  reset: () => null,
 });
 
 export function OrderContextProvider({ children }: OrderContextProviderProps) {
@@ -34,8 +36,7 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
   const updateProductCount = useCallback((key: string, updateValue: number) => {
     setOrderCounts((prevOrderCounts) => {
       const newOrderCounts = {
-        products: new Map([...prevOrderCounts.products]),
-        options: new Map([...prevOrderCounts.options]),
+        ...prevOrderCounts,
       };
 
       newOrderCounts.products.set(key, updateValue);
@@ -47,8 +48,7 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
   const updateOption = useCallback((key: string, check: boolean) => {
     setOrderCounts((prevOrderCounts) => {
       const newOrderCounts = {
-        products: new Map([...prevOrderCounts.products]),
-        options: new Map([...prevOrderCounts.options]),
+        ...prevOrderCounts,
       };
 
       newOrderCounts.options.set(key, check);
@@ -57,9 +57,15 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
     });
   }, []);
 
+  const reset = useCallback(() => {
+    setOrderCounts(() => {
+      return initialContext;
+    });
+  }, []);
+
   const value: OrderContextType = useMemo(() => {
-    return { ...orderCounts, updateProductCount, updateOption };
-  }, [orderCounts, updateOption, updateProductCount]);
+    return { ...orderCounts, updateProductCount, updateOption, reset };
+  }, [orderCounts, updateOption, updateProductCount, reset]);
 
   return <OrderContext.Provider value={value}>{children}</OrderContext.Provider>;
 }
@@ -74,5 +80,10 @@ export const useOrderContext = () => {
   const totalProductsPrice = Array.from(products).reduce((sum, [, amount]) => sum + amount * PRODUCT_PRICE, 0);
   const totalOptionsPrice = Array.from(options).reduce((sum, [, checked]) => (checked ? sum + OPTION_PRICE : sum), 0);
 
-  return { ...context, totalProductsPrice, totalOptionsPrice, totalPrice: totalProductsPrice + totalOptionsPrice };
+  return {
+    ...context,
+    totalProductsPrice,
+    totalOptionsPrice,
+    totalPrice: totalProductsPrice + totalOptionsPrice,
+  };
 };
