@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Confirm from '.';
+import Confirm from '../pages/confirm';
 
 test('주문 확인 체크박스가 선택되었을 때만 주문 확인 버튼을 클릭할 수 있다.', () => {
   render(<Confirm />);

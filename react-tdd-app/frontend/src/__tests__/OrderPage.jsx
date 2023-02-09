@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Order from '.';
-import { PRODUCTS, OPTIONS } from '../../mocks/data';
+import Order from '../pages/order';
+import { PRODUCTS, OPTIONS } from '../mocks/data';
 
 describe('상품 목록', () => {
   test('상품 이미지', async () => {
