@@ -1,19 +1,7 @@
-export default function OrderList({ order }) {
-  const productTotalPrice = Object.values(order.products).reduce(
-    (acc, quantity) => acc + quantity * 1000,
-    0
-  );
-
-  const optionTotalPrice = Object.values(order.options).reduce(
-    (acc, checked) => acc + (checked ? 500 : 0),
-    0
-  );
-
-  const totalPrice = productTotalPrice + optionTotalPrice;
-
+export default function OrderList({ order, subtotalPrice, totalPrice }) {
   return (
     <>
-      <h2>여행 상품: ₩{productTotalPrice.toLocaleString()}</h2>
+      <h2>여행 상품: ₩{subtotalPrice.products.toLocaleString()}</h2>
       <ul>
         {Object.entries(order.products).map(([name, quantity]) => (
           <li key={name}>
@@ -21,7 +9,7 @@ export default function OrderList({ order }) {
           </li>
         ))}
       </ul>
-      <h2>상품 옵션: ₩{optionTotalPrice.toLocaleString()}</h2>
+      <h2>상품 옵션: ₩{subtotalPrice.options.toLocaleString()}</h2>
       <ul>
         {Object.entries(order.options).reduce(
           (acc, [name, checked]) =>

@@ -5,17 +5,26 @@ export const unitPrice = {
   options: 500,
 };
 
-export const useOrderStore = create((set) => ({
+export const useOrderStore = create((set, get) => ({
   order: { products: {}, options: {} },
-  setOrder: (order) => set({ order }),
-  updateOrder: (type, name, value) =>
-    set(({ order }) => ({
-      order: {
-        ...order,
-        [type]: {
-          ...order[type],
-          [name]: value,
-        },
-      },
-    })),
+  subtotalPrice: { products: 0, options: 0 },
+  totalPrice: 0,
+  setOrder: (order) =>
+    set({ order, subtotalPrice: { products: 0, options: 0 }, totalPrice: 0 }),
+  updateOrder: (type, name, value) => {
+    const { order, subtotalPrice } = get();
+    order[type][name] = value;
+    subtotalPrice[type] = Object.values(order[type]).reduce(
+      (acc, cur) => acc + cur * unitPrice[type],
+      0
+    );
+    set({
+      order,
+      subtotalPrice,
+      totalPrice: Object.values(subtotalPrice).reduce(
+        (acc, cur) => acc + cur,
+        0
+      ),
+    });
+  },
 }));

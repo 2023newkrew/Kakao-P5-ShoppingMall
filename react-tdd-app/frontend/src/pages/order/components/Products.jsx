@@ -14,17 +14,17 @@ const Ul = styled.ul`
   }
 `;
 
-export default function Products({ products, order, handleOrderChange }) {
-  const productTotalPrice = Object.values(order.products).reduce(
-    (acc, quantity) => acc + quantity * 1000,
-    0
-  );
-
+export default function Products({
+  products,
+  order,
+  subtotalPrice,
+  handleOrderChange,
+}) {
   return (
     <>
       <h2>여행 상품</h2>
       <div>상품당 가격: ₩{unitPrice.products.toLocaleString()}</div>
-      <div>상품 총 가격: ₩{productTotalPrice.toLocaleString()}</div>
+      <div>상품 총 가격: ₩{subtotalPrice.products.toLocaleString()}</div>
       <Ul>
         {products.map(({ name, imagePath, description }) => (
           <Product

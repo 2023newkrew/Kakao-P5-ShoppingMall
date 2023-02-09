@@ -8,6 +8,8 @@ import { useOrderStore } from '../../stores/orderStore';
 export default function Order() {
   const [orderData, setOrderData] = useState({ products: [], options: [] });
   const order = useOrderStore((state) => state.order);
+  const subtotalPrice = useOrderStore((state) => state.subtotalPrice);
+  const totalPrice = useOrderStore((state) => state.totalPrice);
   const setOrder = useOrderStore((state) => state.setOrder);
   const updateOrder = useOrderStore((state) => state.updateOrder);
 
@@ -37,6 +39,7 @@ export default function Order() {
       <Products
         products={orderData.products}
         order={order}
+        subtotalPrice={subtotalPrice}
         handleOrderChange={(name, quantity) =>
           updateOrder('products', name, quantity)
         }
@@ -44,11 +47,12 @@ export default function Order() {
       <Options
         options={orderData.options}
         order={order}
+        subtotalPrice={subtotalPrice}
         handleOrderChange={(name, checked) =>
           updateOrder('options', name, checked)
         }
       />
-      <OrderForm order={order} />
+      <OrderForm totalPrice={totalPrice} />
     </>
   );
 }
