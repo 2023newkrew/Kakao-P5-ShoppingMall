@@ -16,11 +16,11 @@ export function Product({name, description, imagePath}) {
     setOrderCount(event.target.value);
   }
   return (
-    <ProductContainer isSelected={name === selectedProduct} onClick={handleSelectProduct}>
+    <ProductContainer isSelected={name === selectedProduct} onClick={handleSelectProduct} data-testid={`상품`}>
       <p>{name}</p>
       <p>{description}</p>
       <img src={`${process.env.REACT_APP_BACKEND_URL}/${imagePath}`} alt={`${name}`}/>
-      {isSelected && <input name='주문수량' value={orderCount} onChange={handleOrderCountChange}/>}
+      {isSelected && <input placeholder='주문수량' value={orderCount} onChange={handleOrderCountChange}/>}
     </ProductContainer>
   );
 }

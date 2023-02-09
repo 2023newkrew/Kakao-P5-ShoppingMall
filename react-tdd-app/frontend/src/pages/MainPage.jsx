@@ -34,7 +34,7 @@ export function MainPage() {
       <OptionPrice>총 옵션 가격 : {selectedOptionCount * OPTION_PRICE}</OptionPrice>
       
       <TotalPrice>총 가격 : {selectedOptionCount * OPTION_PRICE + orderCount * PRODUCT_PRICE}</TotalPrice>
-      <OrderButton disabled={!orderCount || orderCount === 0}>주문하기</OrderButton>
+      <OrderButton data-testid={!orderCount || orderCount === '0' ? '비활성화' : '활성화'} disabled={!orderCount || orderCount === '0'}>주문하기</OrderButton>
     </Container>
   );
 }
