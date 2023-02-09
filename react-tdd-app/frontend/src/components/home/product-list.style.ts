@@ -14,3 +14,5 @@ export const ProductListItemContainer = styled.div`
 export const ProductListTitle = styled.h2``;
 
 export const ProductListParagraph = styled.p``;
+
+export const ProductListPriceText = styled.span``;
