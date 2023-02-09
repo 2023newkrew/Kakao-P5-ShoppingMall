@@ -1,6 +1,5 @@
-import { render, screen, waitFor } from 'test-utils';
+import { render, screen, act } from 'test-utils';
 import OrderPage from './OrderPage';
-import { act } from 'test-utils';
 
 describe('OrderPage test', () => {
   test('Disable options when products are not selected', async () => {
