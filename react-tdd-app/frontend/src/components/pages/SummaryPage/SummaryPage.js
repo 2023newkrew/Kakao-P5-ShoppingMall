@@ -29,6 +29,7 @@ export default function SummaryPage({ setStep }) {
             <li key={name}>{`${name}  ${count}`}</li>
           ))}
         </ul>
+        <h2>총 가격 : {totals.total}</h2>
       </div>
       <form onSubmit={handleSubmit}>
         <input

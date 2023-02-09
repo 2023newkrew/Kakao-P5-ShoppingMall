@@ -23,6 +23,7 @@ export default function OrderPage({ setStep }) {
             onClick={() => {
               setStep(1);
             }}
+            disabled={totals[REQUEST_PATH.products] === 0}
           >
             주문
           </button>

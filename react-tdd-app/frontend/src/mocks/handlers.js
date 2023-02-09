@@ -46,4 +46,8 @@ export const handlers = [
       ])
     );
   }),
+  rest.get(`${MOCK_BASE_URL}/order`, (req, res, ctx) => {
+    const dummyData = [{ orderNumber: 123454321, price: 999 }];
+    return res(ctx.json(dummyData));
+  }),
 ];

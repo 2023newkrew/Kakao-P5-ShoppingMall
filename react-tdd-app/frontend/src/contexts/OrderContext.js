@@ -36,8 +36,16 @@ export function OrderContextProvider(props) {
       };
       setOrderData(newOrderData);
     };
+    const resetOrderData = () => {
+      totals.current = {
+        [REQUEST_PATH.products]: 0,
+        [REQUEST_PATH.options]: 0,
+        total: 0,
+      };
+      setOrderData({ [REQUEST_PATH.products]: new Map(), [REQUEST_PATH.options]: new Map() });
+    };
 
-    return { orderData: { ...orderData }, totals: totals.current, updateOrderData };
+    return { orderData: { ...orderData }, totals: totals.current, updateOrderData, resetOrderData };
   }, [orderData]);
 
   return <OrderContext.Provider value={value} {...props} />;

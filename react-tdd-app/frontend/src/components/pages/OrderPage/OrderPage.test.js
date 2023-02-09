@@ -12,6 +12,15 @@ describe("total price of products and options", () => {
     expect(orderContainers.length).toBeGreaterThanOrEqual(1);
     expect(total).toHaveTextContent("0");
   });
+  test("order button is disabled when selected product count is 0", async () => {
+    render(<OrderPage />);
+
+    const orderButton = screen.getByRole("button", "주문");
+    const productInputs = await screen.findAllByRole("spinbutton");
+    const productInputsValues = productInputs.map((el) => el.value);
+    expect(productInputsValues).toEqual(["0", "0", "0", "0"]);
+    expect(orderButton).toBeDisabled();
+  });
   test("updating total price when adding America product", async () => {
     render(<OrderPage />);
     const total = screen.getByText("Total Price", { exact: false });

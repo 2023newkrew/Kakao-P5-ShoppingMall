@@ -33,4 +33,22 @@ test("From order-page to complete-page", async () => {
   userEvent.click(confirmButton);
 
   /* CompletePage */
+  const loading = screen.getByText("loading");
+  expect(loading).toBeInTheDocument();
+
+  const completeHeader = await screen.findByRole("heading", { name: "주문이 완료되었습니다." });
+  expect(completeHeader).toBeInTheDocument();
+
+  const afterLoading = screen.queryByText("loading");
+  expect(afterLoading).not.toBeInTheDocument();
+
+  const goFirstPageButton = screen.getByRole("button", { name: "첫 페이지로" });
+  userEvent.click(goFirstPageButton);
+
+  /* CompletePage -> OrderPage */
+  const reAmericaInput = await screen.findByRole("spinbutton", { name: "America" });
+  const totalPrice = screen.getByRole("heading", { name: "Total Price : 0" });
+  expect(totalPrice).toBeInTheDocument();
+
+  expect(reAmericaInput).toBeInTheDocument();
 });
