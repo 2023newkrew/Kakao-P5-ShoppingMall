@@ -38,8 +38,11 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
       const newOrderCounts = {
         ...prevOrderCounts,
       };
-
-      newOrderCounts.products.set(key, updateValue);
+      if (updateValue === 0) {
+        newOrderCounts.products.delete(key);
+      } else {
+        newOrderCounts.products.set(key, updateValue);
+      }
 
       return newOrderCounts;
     });

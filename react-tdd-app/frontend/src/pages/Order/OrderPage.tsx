@@ -4,7 +4,10 @@ import { useOrderContext } from 'contexts/OrderContext';
 
 const OrderPage = () => {
   const navigate = useNavigate();
-  const { totalPrice } = useOrderContext();
+  const { totalPrice, products } = useOrderContext();
+
+  const productsCount = Array.from(products.values()).length;
+  const canGoNext = products.size === 0 || productsCount === 0;
 
   return (
     <div className="p-10">
@@ -22,6 +25,7 @@ const OrderPage = () => {
             <br />
             <button
               className="w-1/2 min-w-[80px]"
+              disabled={canGoNext}
               onClick={() => {
                 navigate('/summary');
               }}
