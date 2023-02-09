@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-import { Option } from '@/containers/app';
 import useBasketStore from '@/stores/use-basket-store';
 import { OptionItemCheckbox, OptionItemLabel } from './option-item.style';
 

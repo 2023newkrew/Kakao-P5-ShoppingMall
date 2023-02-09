@@ -1,5 +1,4 @@
 import React from 'react';
-import { Option } from '@/containers/app';
 import {
   OptionListContainer,
   OptionListItemContainer,
