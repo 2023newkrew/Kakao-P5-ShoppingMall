@@ -16,6 +16,8 @@ function QuantityInput({ name, imagePath, description, updateOrder }: QuantityIn
   useEffect(() => {
     if (order.products.name !== name) {
       setQuantity(0);
+    } else {
+      setQuantity(order.products.quantity);
     }
   }, [order]);
 
