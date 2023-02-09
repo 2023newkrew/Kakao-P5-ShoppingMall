@@ -25,5 +25,6 @@ module.exports = {
       'error',
       { devDependencies: ['src/mocks/**/*'] },
     ],
+    'import/prefer-default-export': 'off',
   },
 };

@@ -9,7 +9,7 @@ export default function Product({
 
   const handleChange = (event) => {
     const value = Math.max(0, event.target.value);
-    handleProductOrderChange(name, value);
+    handleProductOrderChange('products', name, value);
   };
 
   return (

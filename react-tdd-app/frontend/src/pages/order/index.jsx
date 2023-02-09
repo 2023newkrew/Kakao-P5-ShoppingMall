@@ -2,30 +2,13 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Products from './components/Products';
 import Options from './components/Options';
+import { useOrderStore } from '../../stores/orderStore';
 
 export default function Order() {
   const [orderData, setOrderData] = useState({ products: [], options: [] });
-  const [order, setOrder] = useState({ products: {}, options: {} });
-
-  const handleProductOrderChange = (name, quantity) => {
-    setOrder((prev) => ({
-      ...prev,
-      products: {
-        ...prev.products,
-        [name]: quantity,
-      },
-    }));
-  };
-
-  const handleOptionOrderChange = (name, checked) => {
-    setOrder((prev) => ({
-      ...prev,
-      options: {
-        ...prev.options,
-        [name]: checked,
-      },
-    }));
-  };
+  const order = useOrderStore((state) => state.order);
+  const setOrder = useOrderStore((state) => state.setOrder);
+  const updateOrder = useOrderStore((state) => state.updateOrder);
 
   useEffect(() => {
     const fetch = async () => {
@@ -45,7 +28,7 @@ export default function Order() {
     };
 
     fetch();
-  }, []);
+  }, [setOrder]);
 
   return (
     <>
@@ -53,12 +36,12 @@ export default function Order() {
       <Products
         products={orderData.products}
         order={order}
-        handleProductOrderChange={handleProductOrderChange}
+        handleProductOrderChange={updateOrder}
       />
       <Options
         options={orderData.options}
         order={order}
-        handleOptionOrderChange={handleOptionOrderChange}
+        handleOptionOrderChange={updateOrder}
       />
     </>
   );
