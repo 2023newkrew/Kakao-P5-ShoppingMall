@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import { rest } from 'msw';
-import { FAKER_RESPONSE_OPTIONS, FAKER_RESPONSE_PRODUCTS } from './faker';
+import { FAKER_RESPONSE_OPTIONS, FAKER_RESPONSE_PRODUCTS } from '../constants/faker';
 import { API_ROUTE, API_ROUTE_PATH } from '@/constants/api';
 
 export const handlers = [

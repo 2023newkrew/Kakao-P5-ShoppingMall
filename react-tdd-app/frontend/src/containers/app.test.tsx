@@ -1,6 +1,6 @@
 import { fireEvent, screen } from '@testing-library/react';
 import useRender from '@/tests/hooks/use-render';
-import { FAKER_RESPONSE_OPTIONS, FAKER_RESPONSE_PRODUCTS } from '@/mocks/faker';
+import { FAKER_RESPONSE_OPTIONS, FAKER_RESPONSE_PRODUCTS } from '@/tests/constants/faker';
 import { OPTION_PRICE, PRODUCT_PRICE } from '@/constants/price';
 import App from './app';
 
