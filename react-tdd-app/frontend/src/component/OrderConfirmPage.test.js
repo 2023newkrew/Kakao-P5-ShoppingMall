@@ -1,9 +1,16 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import OrderContextProvider from "../context/order";
 import OrderConfirmPage from "./OrderConfirmPage";
 
+const targetReactElement = (
+  <OrderContextProvider>
+    <OrderConfirmPage />
+  </OrderContextProvider>
+);
+
 test("initial checkbox.checked should be false", () => {
-  render(<OrderConfirmPage />);
+  render(targetReactElement);
 
   const checkbox = screen.getByRole("checkbox", {
     name: "주문하려는 것을 확인하셨나요?",
@@ -15,7 +22,7 @@ test("initial checkbox.checked should be false", () => {
 });
 
 test("button should be activated by clicking the checkbox", () => {
-  render(<OrderConfirmPage />);
+  render(targetReactElement);
 
   const checkbox = screen.getByRole("checkbox", {
     name: "주문하려는 것을 확인하셨나요?",

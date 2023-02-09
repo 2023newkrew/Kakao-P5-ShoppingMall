@@ -1,6 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
+import { BrowserRouter, Route, Router } from "react-router-dom";
+import OrderContextProvider from "../context/order";
 import OrderFormPage from "./OrderFormPage";
 
 const server = setupServer(
@@ -40,20 +42,28 @@ beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
+const targetReactElement = (
+  <BrowserRouter>
+    <OrderContextProvider>
+      <OrderFormPage />
+    </OrderContextProvider>
+  </BrowserRouter>
+);
+
 test("renders heading", () => {
-  render(<OrderFormPage />);
+  render(targetReactElement);
   const headingElement = screen.getByRole("heading");
   expect(headingElement).toHaveTextContent("Travel Products");
 });
 
 test("renders loading", () => {
-  render(<OrderFormPage />);
+  render(targetReactElement);
   const loadingElement = screen.getByText("loading...");
   expect(loadingElement).toBeInTheDocument();
 });
 
 test("renders product names", async () => {
-  render(<OrderFormPage />);
+  render(targetReactElement);
   const americaElement = await screen.findByText("America");
   expect(americaElement).toBeInTheDocument();
   const englandElement = await screen.findByText("England");
@@ -67,25 +77,21 @@ test("handles server error", async () => {
     })
   );
 
-  render(<OrderFormPage />);
+  render(targetReactElement);
   const errorElement = await screen.findByText("문제가 발생했습니다.");
   expect(errorElement).toBeInTheDocument();
 });
 
 test("renders product images", async () => {
-  render(<OrderFormPage />);
-  const americaImageElement = await screen.findByAltText(
-    "America scene"
-  );
+  render(targetReactElement);
+  const americaImageElement = await screen.findByAltText("America scene");
   expect(americaImageElement).toBeInTheDocument();
-  const englandImageElement = await screen.findByAltText(
-    "England scene"
-  );
+  const englandImageElement = await screen.findByAltText("England scene");
   expect(englandImageElement).toBeInTheDocument();
 });
 
 test("renders option names", async () => {
-  render(<OrderFormPage />);
+  render(targetReactElement);
   const insuranceElement = await screen.findByText("Insurance");
   expect(insuranceElement).toBeInTheDocument();
   const dinnerElement = await screen.findByText("Dinner");
