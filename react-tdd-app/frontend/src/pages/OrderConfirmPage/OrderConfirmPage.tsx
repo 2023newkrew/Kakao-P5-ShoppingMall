@@ -2,10 +2,12 @@ import React, { useContext, useState } from 'react';
 import { CheckBox } from 'components';
 import { OrderStateContext } from 'contexts/OrderContext';
 import { TRAVEL_PRODUCT_PRICE, OPTION_PRODUCT_PRICE } from 'utils/constants';
+import { useNavigate } from 'react-router-dom';
 
 function OrderConfirmPage() {
   const [confirmOrder, setConfirmOrder] = useState(false);
   const { order, count } = useContext(OrderStateContext);
+  const navigator = useNavigate();
 
   return (
     <main>
@@ -33,7 +35,13 @@ function OrderConfirmPage() {
             setConfirmOrder(checked);
           }}
         />
-        <button type="button" disabled={!confirmOrder}>
+        <button
+          type="button"
+          disabled={!confirmOrder}
+          onClick={() => {
+            navigator('/complete');
+          }}
+        >
           주문확인
         </button>
       </section>
