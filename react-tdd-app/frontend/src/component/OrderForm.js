@@ -4,7 +4,7 @@ import "./OrderForm.css";
 const PRODUCT_PRICE = 1000;
 const OPTION_PRICE = 500;
 
-function OrderForm({ productResource, optionResource }) {
+function OrderForm({ productResource, optionResource, onSubmit }) {
   const products = productResource.read();
   const options = optionResource.read();
 
@@ -58,6 +58,19 @@ function OrderForm({ productResource, optionResource }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    const filteredSelectedProducts = selectedProducts.filter(({ amount }) =>
+      Boolean(amount)
+    );
+
+    const filteredSelectedOptions = selectedOptions.filter(({ amount }) =>
+      Boolean(amount)
+    );
+
+    onSubmit({
+      products: filteredSelectedProducts,
+      options: filteredSelectedOptions,
+    });
   };
 
   return (

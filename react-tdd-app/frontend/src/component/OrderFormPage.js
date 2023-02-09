@@ -1,12 +1,22 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useContext } from "react";
 import { fetchOptions, fetchProducts } from "../api";
 import ErrorBoundary from "./ErrorBoundary";
 import { useResource } from "../hook";
 import OrderForm from "./OrderForm";
+import { orderContext } from "../context/order";
+import { useNavigate } from "react-router-dom";
 
 function OrderFormPage() {
   const productResource = useResource(fetchProducts);
   const optionResource = useResource(fetchOptions);
+
+  const [order, setOrder] = useContext(orderContext);
+  const navigate = useNavigate();
+
+  const handleSubmit = (order) => {
+    setOrder(order);
+    navigate("/confirm");
+  };
 
   return (
     <div className="order-form-page">
@@ -16,6 +26,7 @@ function OrderFormPage() {
           <OrderForm
             productResource={productResource}
             optionResource={optionResource}
+            onSubmit={handleSubmit}
           />
         </Suspense>
       </ErrorBoundary>
