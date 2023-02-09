@@ -1,7 +1,14 @@
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import { server } from 'mocks/server';
 import { ProductOrderPage } from 'pages';
-import { removeCharacter } from 'utils/shared';
+import { OPTION_PRODUCT_PRICE, TRAVEL_PRODUCT_PRICE } from 'utils/constants';
+
+const mockedUsedNavigate = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+  ...(jest.requireActual('react-router-dom') as any),
+  useNavigate: () => mockedUsedNavigate,
+}));
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
@@ -22,6 +29,20 @@ describe('<ProductOrderPage />', () => {
   });
 
   test('[주문하기] 버튼을 눌렀을 때 주문 확인 페이지로 넘어가야 한다.', () => {});
+
+  test('travel product를 선택한 경우에는 [주문하기] 버튼이 enable 되어야 한다.', async () => {
+    const { findAllByRole, findByRole } = render(<ProductOrderPage />);
+    const travelInputs = await findAllByRole('textbox');
+    const orderButton = (await findByRole('button', { name: '주문하기' })) as HTMLButtonElement;
+
+    fireEvent.change(travelInputs[0], {
+      target: {
+        value: 3,
+      },
+    });
+
+    expect(orderButton.disabled).toBe(false);
+  });
 
   test('travel product를 선택하지 않은 경우에는 [주문하기] 버튼이 disable 되어야 한다.', async () => {
     const { findAllByRole, findByRole } = render(<ProductOrderPage />);
@@ -44,11 +65,12 @@ describe('<ProductOrderPage />', () => {
   });
 
   test('travel product와 option product를 선택했을 때, Total Price는 각 product의 총 가격을 합친 값이어야한다.', async () => {
-    const { findAllByText, findByRole, findAllByRole } = render(<ProductOrderPage />);
-    const productTotalPrices = (await findAllByText(/총합:/)) as HTMLParagraphElement[];
-    const totalPrice = (await findByRole('heading', { name: /Total Price:/ })) as HTMLHeadingElement;
+    const { findAllByRole, getByRole } = render(<ProductOrderPage />);
+
     const travelInputs = (await findAllByRole('textbox')) as HTMLInputElement[];
     const optionInputs = (await findAllByRole('checkbox')) as HTMLInputElement[];
+
+    const totalPrice = getByRole('heading', { name: /Total Price:/ }) as HTMLHeadingElement;
 
     fireEvent.change(travelInputs[0], {
       target: {
@@ -57,11 +79,6 @@ describe('<ProductOrderPage />', () => {
     });
     fireEvent.click(optionInputs[0]);
 
-    let totalSum = 0;
-    for (const productTotalPrice of productTotalPrices) {
-      totalSum += removeCharacter(productTotalPrice.innerHTML);
-    }
-
-    expect(totalPrice.innerHTML).toBe(`Total Price: $${totalSum}`);
+    expect(totalPrice.innerHTML).toBe(`Total Price: $${TRAVEL_PRODUCT_PRICE * 3 + OPTION_PRODUCT_PRICE}`);
   });
 });
