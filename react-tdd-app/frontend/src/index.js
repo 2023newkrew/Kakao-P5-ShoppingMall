@@ -1,10 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
+if (process.env.NODE_ENV === "development") {
+  // develop 환경에서만 사용
+  const { mockWorker } = require("./mocks/mockWorker");
+  mockWorker.start();
+}
+
 root.render(
   <React.StrictMode>
     <App />
