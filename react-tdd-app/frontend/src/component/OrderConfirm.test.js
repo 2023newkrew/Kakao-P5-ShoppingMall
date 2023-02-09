@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import ErrorBoundary from "./ErrorBoundary";
 import OrderConfirm from "./OrderConfirm";
 
 const products = [
@@ -45,4 +46,15 @@ test("button should be activated by clicking the checkbox", () => {
 
   expect(checkbox.checked).toEqual(true);
   expect(confirmButton.disabled).toBeFalsy();
+});
+
+test("if products prop is empty array, should throw error", () => {
+  render(
+    <ErrorBoundary fallback={<div>error!!!</div>}>
+      <OrderConfirm products={[]} options={options} />
+    </ErrorBoundary>
+  );
+
+  const errorElement = screen.getByText("error", { exact: false });
+  expect(errorElement).toBeInTheDocument();
 });
