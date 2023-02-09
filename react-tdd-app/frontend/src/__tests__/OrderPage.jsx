@@ -50,7 +50,7 @@ describe('상품 목록', () => {
   test('상품 총 가격', async () => {
     render(<Order />);
 
-    const productTotalPrice = await screen.findByText(/상품 총 가격/i);
+    const productTotalPrice = await screen.findByText(/^상품 총 가격/i);
     const productInputs = await screen.findAllByRole('spinbutton');
 
     userEvent.type(productInputs[0], '1');
@@ -89,7 +89,7 @@ describe('상품 옵션 목록', () => {
   test('상품 옵션 총 가격', async () => {
     render(<Order />);
 
-    const optionTotalPrice = await screen.findByText(/옵션 총 가격/i);
+    const optionTotalPrice = await screen.findByText(/^옵션 총 가격/i);
     const options = await screen.findAllByRole('checkbox');
 
     userEvent.click(options[0]);
@@ -97,5 +97,22 @@ describe('상품 옵션 목록', () => {
 
     userEvent.click(options[1]);
     expect(optionTotalPrice).toHaveTextContent('₩1,000');
+  });
+});
+
+describe('주문', () => {
+  test('주문서에 상품/옵션이 있을 때만 주문 버튼을 클릭할 수 있다.', async () => {
+    render(<Order />);
+
+    const totalPrice = await screen.findByText(/^총 가격/i);
+    const orderButton = await screen.findByRole('button', { name: /주문/i });
+    const productInputs = await screen.findAllByRole('spinbutton');
+
+    expect(totalPrice).toHaveTextContent('₩0');
+    expect(orderButton).toBeDisabled();
+
+    userEvent.type(productInputs[0], '1');
+    expect(totalPrice).toHaveTextContent('₩1,000');
+    expect(orderButton).toBeEnabled();
   });
 });
