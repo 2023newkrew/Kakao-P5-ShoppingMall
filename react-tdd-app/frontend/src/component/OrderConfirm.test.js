@@ -1,12 +1,24 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import OrderContextProvider from "../context/order";
-import OrderConfirmPage from "./OrderConfirmPage";
+import OrderConfirm from "./OrderConfirm";
+
+const products = [
+  {
+    name: "GoodProduct",
+    amount: 2,
+    price: 1800,
+  },
+];
+const options = [
+  {
+    name: "GoodOption",
+    amount: 1,
+    price: 800,
+  },
+];
 
 const targetReactElement = (
-  <OrderContextProvider>
-    <OrderConfirmPage />
-  </OrderContextProvider>
+  <OrderConfirm products={products} options={options} />
 );
 
 test("initial checkbox.checked should be false", () => {
