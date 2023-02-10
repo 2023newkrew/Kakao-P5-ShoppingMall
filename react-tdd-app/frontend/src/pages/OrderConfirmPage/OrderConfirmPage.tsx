@@ -24,7 +24,7 @@ function OrderConfirmPage() {
         <h2>옵션: {count.options * OPTION_PRODUCT_PRICE}</h2>
         <ul>
           {Array.from(order.options).map((option) => (
-            <li>{option}</li>
+            <li key={option}>{option}</li>
           ))}
         </ul>
       </section>
