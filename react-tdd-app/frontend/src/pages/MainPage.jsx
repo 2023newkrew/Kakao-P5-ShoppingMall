@@ -9,15 +9,24 @@ import { orderCountState } from '../recoil/productState';
 import { selectedOptionCountState } from '../recoil/optionState';
 import { PRODUCT_PRICE } from '../constant/contries.constant';
 import { OPTION_PRICE } from '../constant/options.constant';
+import { useNavigate } from 'react-router-dom';
 
 export function MainPage() {
+  const navigate = useNavigate();
   const [products, isLoadingProducts, isErrorProducts] = useFetchProducts();
   const [options, isLoadingOptions, isErrorOptions] = useFetchOptions();
   const orderCount = useRecoilValue(orderCountState);
   const selectedOptionCount = useRecoilValue(selectedOptionCountState);
+  const productsPrice = orderCount * PRODUCT_PRICE;
+  const optionsPrice = selectedOptionCount * OPTION_PRICE;
+  
+  const orderButtonStatus = !orderCount || orderCount === '0' ? '비활성화' : '활성화';
+  function handleOrder () {
+    navigate('/confirm');
+  }
+
   if (isLoadingProducts || isLoadingOptions) return <>loading...</>;
   if (isErrorProducts || isErrorOptions) return <>error!</>;
-
   return (
     <Container>
       <Title>상품 목록</Title>
@@ -25,16 +34,16 @@ export function MainPage() {
       <ProductList>
         {products.map((product) => <Product key={product.name} {...product}/> )}
       </ProductList>
-      <ProductPrice>총 상품 가격 : {orderCount * PRODUCT_PRICE}</ProductPrice>
+      <ProductPrice>총 상품 가격 : {productsPrice}</ProductPrice>
 
       <Title>옵션 목록</Title>
       <OptionList>
         {options.map((option) => <Option key={option.name} {...option} isChecked={false}/> )}
       </OptionList>
-      <OptionPrice>총 옵션 가격 : {selectedOptionCount * OPTION_PRICE}</OptionPrice>
+      <OptionPrice>총 옵션 가격 : {optionsPrice}</OptionPrice>
       
-      <TotalPrice>총 가격 : {selectedOptionCount * OPTION_PRICE + orderCount * PRODUCT_PRICE}</TotalPrice>
-      <OrderButton data-testid={!orderCount || orderCount === '0' ? '비활성화' : '활성화'} disabled={!orderCount || orderCount === '0'}>주문하기</OrderButton>
+      <TotalPrice>총 가격 : {optionsPrice + productsPrice}</TotalPrice>
+      <OrderButton onClick={handleOrder} data-testid={orderButtonStatus} disabled={!orderCount || orderCount === '0'}>주문하기</OrderButton>
     </Container>
   );
 }

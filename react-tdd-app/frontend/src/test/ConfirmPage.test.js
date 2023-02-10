@@ -1,12 +1,9 @@
 import { renderWithRouter } from '../testing';
 import { screen } from '@testing-library/react';
 import { Router } from '../Router';
-
-renderWithRouter(<Router/>, { route: '/confirm' })
-
 describe("Confirm Page - Render", () => {
   it('선택한 상품 정보를 볼 수 있다.', () => {
-    
+    renderWithRouter(<Router/>, { route: '/confirm' })
   })
   it('산텍힌 옵션 정보를 볼 수 있다.', () => {
     

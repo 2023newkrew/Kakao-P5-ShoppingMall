@@ -5,5 +5,5 @@ export const selectedProductState = atom({
 });
 export const orderCountState = atom({
   key: 'orderCount',
-  default: '0'
+  default: ''
 })

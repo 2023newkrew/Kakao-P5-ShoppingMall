@@ -9,7 +9,7 @@ export function Product({name, description, imagePath}) {
   
   function handleSelectProduct () {
     setSelectedProduct(name);
-    setOrderCount(0);
+    setOrderCount('');
   }
 
   function handleOrderCountChange (event) {
