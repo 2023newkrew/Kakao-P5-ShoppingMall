@@ -9,7 +9,7 @@ export default function SummaryPage({ setStep }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setStep(2);
+    setStep("2_COMPLETE_STEP");
   };
   return (
     <div className="summary-container">

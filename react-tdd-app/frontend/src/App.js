@@ -6,15 +6,15 @@ import { useState } from "react";
 import CompletePage from "./components/pages/CompletePage/CompletePage";
 
 function App() {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState("0_ORDER_STEP");
 
   return (
     <div className="App">
       {/* 테스트를 위한 랜더링 */}
       <OrderContextProvider>
-        {step === 0 && <OrderPage setStep={setStep} />}
-        {step === 1 && <SummaryPage setStep={setStep} />}
-        {step === 2 && <CompletePage setStep={setStep} />}
+        {step === "0_ORDER_STEP" && <OrderPage setStep={setStep} />}
+        {step === "1_SUMMARY_STEP" && <SummaryPage setStep={setStep} />}
+        {step === "2_COMPLETE_STEP" && <CompletePage setStep={setStep} />}
       </OrderContextProvider>
     </div>
   );

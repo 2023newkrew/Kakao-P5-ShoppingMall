@@ -42,7 +42,7 @@ export default function CompletePage({ setStep }) {
           <button
             onClick={() => {
               resetOrderData();
-              setStep(0);
+              setStep("0_ORDER_STEP");
             }}
           >
             첫 페이지로

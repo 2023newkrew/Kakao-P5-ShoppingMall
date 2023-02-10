@@ -21,7 +21,7 @@ export default function OrderPage({ setStep }) {
           <br />
           <button
             onClick={() => {
-              setStep(1);
+              setStep("1_SUMMARY_STEP");
             }}
             disabled={totals[REQUEST_PATH.products] === 0}
           >
