@@ -6,9 +6,10 @@ function CheckBox({ name, description, updateOrder }: CheckBoxProps) {
     const { checked } = event.target;
     updateOrder(name, checked);
   };
+
   return (
     <label htmlFor={name}>
-      <input type="checkbox" name={name} onChange={handleOnChange} />
+      <input type="checkbox" id={name} onChange={handleOnChange} />
       {name}
     </label>
   );
