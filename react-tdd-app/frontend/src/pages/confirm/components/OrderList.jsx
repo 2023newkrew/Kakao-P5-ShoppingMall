@@ -11,10 +11,8 @@ export default function OrderList({ order, subtotalPrice, totalPrice }) {
       </ul>
       <h2>상품 옵션: ₩{subtotalPrice.options.toLocaleString()}</h2>
       <ul>
-        {Object.entries(order.options).reduce(
-          (acc, [name, checked]) =>
-            checked ? [...acc, <li key={name}>{name}</li>] : acc,
-          []
+        {Object.entries(order.options).map(
+          ([name, checked]) => checked && <li key={name}>{name}</li>
         )}
       </ul>
       <h2>총 가격: ₩{totalPrice.toLocaleString()}</h2>
