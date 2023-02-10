@@ -21,7 +21,7 @@ const OrderPage = () => {
             <Type orderType="options" />
           </div>
           <div className="flex w-1/2 flex-col items-center">
-            <h2 className="w-full">Total Price: ₩{totalPrice} </h2>
+            <h2 className="w-full">총 주문 가격 : ₩{totalPrice} </h2>
             <br />
             <button
               className="w-1/2 min-w-[80px]"

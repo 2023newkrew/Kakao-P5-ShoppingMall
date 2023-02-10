@@ -15,7 +15,8 @@ const Option = ({ name }: OptionType) => {
         type="checkbox"
         id={`${name} option`}
         aria-label={`${name} option`}
-        defaultChecked={options.get(name)}
+        // defaultChecked={options.get(name) ?? false}
+        checked={options.get(name) ?? false}
         onChange={handleCheck}
       />
       <label className="ml-2" htmlFor={`${name} option`}>

@@ -16,11 +16,11 @@ interface Props {
 
 const info = {
   products: {
-    title: 'Products',
+    title: '상품',
     price: PRODUCT_PRICE,
   },
   options: {
-    title: 'Options',
+    title: '옵션',
     price: OPTION_PRICE,
   },
 };
@@ -59,8 +59,12 @@ const Type = ({ orderType }: Props) => {
   return (
     <div>
       <h2>{info[orderType].title}</h2>
-      <p>개당 가격 : ₩{info[orderType].price}</p>
-      <p>총 가격 : ₩{orderType === 'products' ? totalProductsPrice : totalOptionsPrice}</p>
+      <p>
+        {info[orderType].title} 개당 가격 : ₩{info[orderType].price}
+      </p>
+      <p>
+        {info[orderType].title} 총 가격 : ₩{orderType === 'products' ? totalProductsPrice : totalOptionsPrice}
+      </p>
       <div className="flex" style={{ flexDirection: orderType === 'products' ? 'row' : 'column' }}>
         {renderItems()}
       </div>
