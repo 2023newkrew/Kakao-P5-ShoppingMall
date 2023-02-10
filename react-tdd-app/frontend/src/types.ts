@@ -16,3 +16,8 @@ export type ProductListProps = {
   price: number;
   type: string;
 };
+
+export type Order = {
+  orderNumber: number;
+  price: number;
+};

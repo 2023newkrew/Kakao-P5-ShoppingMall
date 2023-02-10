@@ -1,4 +1,8 @@
 import { rest } from 'msw';
+import { Order } from 'types';
+
+const orderHistory = [{ orderNumber: 12345678, price: 10000 }] as Order[];
+
 export const handlers = [
   rest.get('http://localhost:4000/products', (req, res, ctx) => {
     return res(
@@ -43,5 +47,8 @@ export const handlers = [
         },
       ]),
     );
+  }),
+  rest.post('http://localhost:4000/order', (req, res, ctx) => {
+    return res(ctx.json(orderHistory));
   }),
 ];

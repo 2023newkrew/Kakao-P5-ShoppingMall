@@ -12,6 +12,22 @@ const api = {
       return {};
     }
   },
+  async post(path: string, params: any) {
+    try {
+      const paramsStr = JSON.stringify(params);
+      const response = await fetch(`${serverURL}${path}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: paramsStr,
+      });
+      return await response.json();
+    } catch (error) {
+      console.error(error);
+      return {};
+    }
+  },
 };
 
 export default api;
