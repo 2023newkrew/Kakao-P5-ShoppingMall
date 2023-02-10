@@ -3,7 +3,7 @@ import { RenderOptions, render } from '@testing-library/react';
 import { OrderContextProvider, OrderCountType } from 'contexts/OrderContext';
 import { BrowserRouter } from 'react-router-dom';
 
-const mockedUsedNavigate = jest.fn();
+export const mockedUsedNavigate = jest.fn();
 
 // Mocking react-router hooks
 jest.mock('react-router-dom', () => ({
