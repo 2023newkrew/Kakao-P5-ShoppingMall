@@ -1,7 +1,8 @@
 import { ReactElement, ReactNode } from 'react';
 import { RenderOptions, render } from '@testing-library/react';
-import { OrderContextProvider } from 'contexts/OrderContext';
+import { OrderContextProvider, OrderCountType } from 'contexts/OrderContext';
 import { BrowserRouter } from 'react-router-dom';
+
 const mockedUsedNavigate = jest.fn();
 
 // Mocking react-router hooks
@@ -12,8 +13,13 @@ jest.mock('react-router-dom', () => ({
 }));
 
 const AppProviders = ({ children }: { children: ReactNode }) => {
+  const context: OrderCountType = {
+    options: new Map(),
+    products: new Map(),
+  };
+
   return (
-    <OrderContextProvider>
+    <OrderContextProvider initialContext={context}>
       <BrowserRouter>{children}</BrowserRouter>
     </OrderContextProvider>
   );

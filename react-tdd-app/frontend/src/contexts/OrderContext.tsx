@@ -14,12 +14,9 @@ export interface OrderContextType extends OrderCountType {
 }
 interface OrderContextProviderProps {
   children: ReactNode;
+  initialContext: OrderCountType;
 }
 
-const initialContext: OrderCountType = {
-  products: new Map(),
-  options: new Map(),
-};
 export const OrderContext = createContext<OrderContextType>({
   products: new Map(),
   options: new Map(),
@@ -30,7 +27,7 @@ export const OrderContext = createContext<OrderContextType>({
   reset: () => null,
 });
 
-export function OrderContextProvider({ children }: OrderContextProviderProps) {
+export function OrderContextProvider({ children, initialContext }: OrderContextProviderProps) {
   const [orderCounts, setOrderCounts] = useState<OrderCountType>(initialContext);
 
   const updateProductCount = useCallback((key: string, updateValue: number) => {
