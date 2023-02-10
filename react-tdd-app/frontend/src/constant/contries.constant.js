@@ -1,0 +1,23 @@
+export const COUNTRIES = [
+  {
+    "name": "America",
+    "imagePath": "/images/america.jpeg",
+    "description": "Good America"
+  },
+  {
+    "name": "England",
+    "imagePath": "/images/england.jpeg",
+    "description": "Good England"
+  },
+  {
+    "name": "Germany",
+    "imagePath": "/images/germany.jpeg",
+    "description": "Good Germany"
+  },
+  {
+    "name": "Portland",
+    "imagePath": "/images/portland.jpeg",
+    "description": "Good Portland"
+  }
+];
+export const PRODUCT_PRICE = 1000;
