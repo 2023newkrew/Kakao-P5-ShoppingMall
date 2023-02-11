@@ -3,16 +3,16 @@ import { TRAVEL_PRODUCT_PRICE, OPTION_PRODUCT_PRICE } from 'utils/constants';
 
 const OrderStateContext = createContext({
   order: {
-    products: {
+    travel: {
       quantity: 0,
       name: '',
     },
-    options: new Set() as Set<string>,
+    option: new Set() as Set<string>,
   },
 
   count: {
-    products: 0,
-    options: 0,
+    travel: 0,
+    option: 0,
   },
   total: 0,
 });
@@ -28,39 +28,39 @@ const OrderDispatchContext = createContext({
 
 function OrderProvider({ children }: { children: ReactElement }) {
   const [order, setOrder] = useState({
-    products: {
+    travel: {
       quantity: 0,
       name: '',
     },
-    options: new Set() as Set<string>,
+    option: new Set() as Set<string>,
   });
   const [count, setCount] = useState({
-    products: 0,
-    options: 0,
+    travel: 0,
+    option: 0,
   });
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
     setCount({
-      products: order.products.quantity,
-      options: order.options.size,
+      travel: order.travel.quantity,
+      option: order.option.size,
     });
-    setTotal(order.products.quantity * TRAVEL_PRODUCT_PRICE + order.options.size * OPTION_PRODUCT_PRICE);
+    setTotal(order.travel.quantity * TRAVEL_PRODUCT_PRICE + order.option.size * OPTION_PRODUCT_PRICE);
   }, [order]);
 
   const setTravelOrder = (quantity: number, name: string) => {
-    setOrder({ ...order, products: { quantity, name } });
+    setOrder({ ...order, travel: { quantity, name } });
   };
 
   const setOptionOrder = (name: string, isAdd: boolean) => {
-    const newOrderSet = new Set(order.options);
+    const newOrderSet = new Set(order.option);
 
     if (isAdd) {
       newOrderSet.add(name);
     } else {
       newOrderSet.delete(name);
     }
-    setOrder({ ...order, options: newOrderSet });
+    setOrder({ ...order, option: newOrderSet });
   };
 
   const orderStateValue = useMemo(() => {

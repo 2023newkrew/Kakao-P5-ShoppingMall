@@ -15,15 +15,15 @@ function OrderConfirmPage() {
         <h1>주문 확인</h1>
       </header>
       <section>
-        <h2>여행상품: {count.products * TRAVEL_PRODUCT_PRICE}</h2>
+        <h2>여행상품: {count.travel * TRAVEL_PRODUCT_PRICE}</h2>
         <p>
-          {order.products.name} {count.products}개
+          {order.travel.name} {count.travel}개
         </p>
       </section>
       <section>
-        <h2>옵션: {count.options * OPTION_PRODUCT_PRICE}</h2>
+        <h2>옵션: {count.option * OPTION_PRODUCT_PRICE}</h2>
         <ul>
-          {Array.from(order.options).map((option) => (
+          {Array.from(order.option).map((option) => (
             <li key={option}>{option}</li>
           ))}
         </ul>

@@ -17,13 +17,13 @@ afterAll(() => server.close());
 describe('<ProductOrderPage />', () => {
   test('server로부터 travel product data를 가져올 수 있다.', async () => {
     const { findAllByRole } = render(<ProductOrderPage />);
-    const items = await findAllByRole('listitem', { name: /products$/i });
+    const items = await findAllByRole('listitem', { name: /travel$/i });
 
     expect(items).toHaveLength(4);
   });
   test('server로부터 option data를 가져올 수 있다.', async () => {
     const { findAllByRole } = render(<ProductOrderPage />);
-    const items = await findAllByRole('listitem', { name: /options$/i });
+    const items = await findAllByRole('listitem', { name: /option$/i });
 
     expect(items).toHaveLength(3);
   });

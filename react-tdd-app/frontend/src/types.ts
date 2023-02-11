@@ -1,20 +1,38 @@
 export type CheckBoxProps = {
   name: string;
-  description?: string;
   updateOrder: (name: string, isAdd: boolean) => void;
 };
 
 export type QuantityInputProps = {
   name: string;
   imagePath: string;
-  description: string;
   updateOrder: (quantity: number, name: string) => void;
 };
 
-export type ProductListProps = {
-  products: Array<QuantityInputProps & CheckBoxProps>;
+export type ProductListProps = TravelProductList | OptionProductList;
+
+export type TravelProductList = {
+  type: 'travel';
+  products: TravelProduct[];
   price: number;
-  type: string;
+};
+
+export type OptionProductList = {
+  type: 'option';
+  products: OptionProduct[];
+  price: number;
+};
+
+export type TravelProduct = {
+  name: string;
+  imagePath: string;
+  description: string;
+};
+
+export type OptionProduct = {
+  type: 'option';
+  name: string;
+  description: string;
 };
 
 export type Order = {

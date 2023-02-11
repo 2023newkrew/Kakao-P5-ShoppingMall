@@ -7,24 +7,19 @@ import { TRAVEL_PRODUCT_PRICE, OPTION_PRODUCT_PRICE } from 'utils/constants';
 describe('<ProductList />', () => {
   const travelProductListProps = {
     products: [
-      { name: 'test name1', imagePath: 'test.jpeg', description: 'test description' },
-      { name: 'test name2', imagePath: 'test.jpeg', description: 'test description' },
-      { name: 'test name3', imagePath: 'test.jpeg', description: 'test description' },
-      { name: 'test name4', imagePath: 'test.jpeg', description: 'test description' },
+      { name: 'test name1', imagePath: 'test.jpeg' },
+      { name: 'test name2', imagePath: 'test.jpeg' },
+      { name: 'test name3', imagePath: 'test.jpeg' },
+      { name: 'test name4', imagePath: 'test.jpeg' },
     ],
     price: TRAVEL_PRODUCT_PRICE,
-    type: 'products',
+    type: 'travel',
   } as ProductListProps;
 
   const optionProductListProps = {
-    products: [
-      { name: 'test name1', description: 'test description' },
-      { name: 'test name2', description: 'test description' },
-      { name: 'test name3', description: 'test description' },
-      { name: 'test name4', description: 'test description' },
-    ],
+    products: [{ name: 'test name1' }, { name: 'test name2' }, { name: 'test name3' }, { name: 'test name4' }],
     price: OPTION_PRODUCT_PRICE,
-    type: 'options',
+    type: 'option',
   } as ProductListProps;
 
   test('product list의 type이 products이면 최종으로 입력한 product외의 quantity는 모두 0이 되어야 한다.', () => {

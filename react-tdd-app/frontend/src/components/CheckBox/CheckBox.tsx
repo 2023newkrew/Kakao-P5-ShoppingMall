@@ -1,7 +1,7 @@
 import React from 'react';
 import { CheckBoxProps } from 'types';
 
-function CheckBox({ name, description, updateOrder }: CheckBoxProps) {
+function CheckBox({ name, updateOrder }: CheckBoxProps) {
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { checked } = event.target;
     updateOrder(name, checked);

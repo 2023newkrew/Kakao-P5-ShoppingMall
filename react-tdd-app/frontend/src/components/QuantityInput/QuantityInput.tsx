@@ -3,7 +3,7 @@ import { OrderStateContext } from 'contexts/OrderContext';
 import { QuantityInputProps } from 'types';
 import { removeCharacter } from 'utils/shared';
 
-function QuantityInput({ name, imagePath, description, updateOrder }: QuantityInputProps) {
+function QuantityInput({ name, imagePath, updateOrder }: QuantityInputProps) {
   const [quantity, setQuantity] = useState(0 as number);
   const { order } = useContext(OrderStateContext);
 
@@ -14,10 +14,10 @@ function QuantityInput({ name, imagePath, description, updateOrder }: QuantityIn
   };
 
   useEffect(() => {
-    if (order.products.name !== name) {
+    if (order.travel.name !== name) {
       setQuantity(0);
     } else {
-      setQuantity(order.products.quantity);
+      setQuantity(order.travel.quantity);
     }
   }, [order]);
 
