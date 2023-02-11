@@ -28,6 +28,7 @@ function QuantityInput({ name, imagePath, updateOrder }: QuantityInputProps) {
         <span className="margin-right--10">{name}</span>
         <input
           type="text"
+          aria-label="quantity input"
           value={quantity}
           onChange={(event) => {
             handleOnChange(event);

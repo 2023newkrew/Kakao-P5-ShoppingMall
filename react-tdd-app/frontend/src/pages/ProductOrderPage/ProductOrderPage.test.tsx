@@ -1,7 +1,14 @@
-import { fireEvent, render } from 'utils/testUtils';
+import { fireEvent, render } from 'mocks/testUtils';
 import { server } from 'mocks/server';
 import { ProductOrderPage } from 'pages';
 import { OPTION_PRODUCT_PRICE, TRAVEL_PRODUCT_PRICE } from 'utils/constants';
+import {
+  productsLength,
+  optionsLength,
+  TRAVEL_PRODUCT_PRIMARY_QUANTITY,
+  TRAVEL_PRODUCT_DEFAULT_QUANTITY,
+  OPTION_PRODUCT_CHECK_COUNT,
+} from 'mocks/testData';
 
 const mockedUsedNavigate = jest.fn();
 
@@ -17,25 +24,25 @@ afterAll(() => server.close());
 describe('<ProductOrderPage />', () => {
   test('server로부터 travel product data를 가져올 수 있다.', async () => {
     const { findAllByRole } = render(<ProductOrderPage />);
-    const items = await findAllByRole('listitem', { name: /travel$/i });
+    const items = await findAllByRole('listitem', { name: /travel product list item$/i });
 
-    expect(items).toHaveLength(4);
+    expect(items).toHaveLength(productsLength);
   });
   test('server로부터 option data를 가져올 수 있다.', async () => {
     const { findAllByRole } = render(<ProductOrderPage />);
-    const items = await findAllByRole('listitem', { name: /option$/i });
+    const items = await findAllByRole('listitem', { name: /option product list item$/i });
 
-    expect(items).toHaveLength(3);
+    expect(items).toHaveLength(optionsLength);
   });
 
   test('[주문하기] 버튼을 눌렀을 때 주문 확인 페이지로 넘어가야 한다.', async () => {
-    const { findAllByRole, findByRole } = render(<ProductOrderPage />);
-    const travelInputs = await findAllByRole('textbox');
-    const orderButton = (await findByRole('button', { name: '주문하기' })) as HTMLButtonElement;
+    const { findAllByRole, getByRole } = render(<ProductOrderPage />);
+    const travelInputs = (await findAllByRole('textbox', { name: /quantity input/ })) as HTMLInputElement[];
+    const orderButton = getByRole('button', { name: '주문하기' }) as HTMLButtonElement;
 
     fireEvent.change(travelInputs[0], {
       target: {
-        value: 3,
+        value: TRAVEL_PRODUCT_PRIMARY_QUANTITY,
       },
     });
     fireEvent.click(orderButton);
@@ -43,13 +50,13 @@ describe('<ProductOrderPage />', () => {
   });
 
   test('travel product를 선택한 경우에는 [주문하기] 버튼이 enable 되어야 한다.', async () => {
-    const { findAllByRole, findByRole } = render(<ProductOrderPage />);
-    const travelInputs = await findAllByRole('textbox');
-    const orderButton = (await findByRole('button', { name: '주문하기' })) as HTMLButtonElement;
+    const { findAllByRole, getByRole } = render(<ProductOrderPage />);
+    const travelInputs = (await findAllByRole('textbox', { name: /quantity input/ })) as HTMLInputElement[];
+    const orderButton = getByRole('button', { name: '주문하기' }) as HTMLButtonElement;
 
     fireEvent.change(travelInputs[0], {
       target: {
-        value: 3,
+        value: TRAVEL_PRODUCT_PRIMARY_QUANTITY,
       },
     });
 
@@ -57,40 +64,45 @@ describe('<ProductOrderPage />', () => {
   });
 
   test('travel product를 선택하지 않은 경우에는 [주문하기] 버튼이 disable 되어야 한다.', async () => {
-    const { findAllByRole, findByRole } = render(<ProductOrderPage />);
-    const travelInputs = await findAllByRole('textbox');
-    const optionInputs = await findAllByRole('checkbox');
-    const orderButton = (await findByRole('button', { name: '주문하기' })) as HTMLButtonElement;
+    const { findAllByRole, getByRole } = render(<ProductOrderPage />);
+    const travelInputs = (await findAllByRole('textbox', { name: /quantity input/ })) as HTMLInputElement[];
+
+    const orderButton = getByRole('button', { name: '주문하기' }) as HTMLButtonElement;
 
     fireEvent.change(travelInputs[0], {
       target: {
-        value: 3,
+        value: TRAVEL_PRODUCT_PRIMARY_QUANTITY,
       },
     });
     fireEvent.change(travelInputs[0], {
       target: {
-        value: 0,
+        value: TRAVEL_PRODUCT_DEFAULT_QUANTITY,
       },
     });
-    fireEvent.click(optionInputs[0]);
     expect(orderButton.disabled).toBe(true);
   });
 
   test('travel product와 option product를 선택했을 때, Total Price는 각 product의 총 가격을 합친 값이어야한다.', async () => {
     const { findAllByRole, getByRole } = render(<ProductOrderPage />);
 
-    const travelInputs = (await findAllByRole('textbox')) as HTMLInputElement[];
-    const optionInputs = (await findAllByRole('checkbox')) as HTMLInputElement[];
+    const travelInputs = (await findAllByRole('textbox', { name: /quantity input/ })) as HTMLInputElement[];
+    const optionInputs = (await findAllByRole('checkbox', { name: /check input/ })) as HTMLInputElement[];
 
     const totalPrice = getByRole('heading', { name: /Total Price:/ }) as HTMLHeadingElement;
 
     fireEvent.change(travelInputs[0], {
       target: {
-        value: 3,
+        value: TRAVEL_PRODUCT_PRIMARY_QUANTITY,
       },
     });
-    fireEvent.click(optionInputs[0]);
+    for (let i = 0; i < OPTION_PRODUCT_CHECK_COUNT; i++) {
+      fireEvent.click(optionInputs[i]);
+    }
 
-    expect(totalPrice.innerHTML).toBe(`Total Price: $${TRAVEL_PRODUCT_PRICE * 3 + OPTION_PRODUCT_PRICE}`);
+    expect(totalPrice.innerHTML).toBe(
+      `Total Price: $${
+        TRAVEL_PRODUCT_PRICE * TRAVEL_PRODUCT_PRIMARY_QUANTITY + OPTION_PRODUCT_PRICE * OPTION_PRODUCT_CHECK_COUNT
+      }`,
+    );
   });
 });

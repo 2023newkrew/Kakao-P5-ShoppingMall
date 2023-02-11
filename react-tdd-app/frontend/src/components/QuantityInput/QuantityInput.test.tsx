@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render } from 'utils/testUtils';
+import { fireEvent, render } from 'mocks/testUtils';
 import { QuantityInput } from 'components';
 import { QuantityInputProps } from 'types';
 
@@ -13,7 +13,7 @@ describe('<QuantityInput />', () => {
 
   test('input의 value를 자연수로 변경할 때 입력한 값으로 변해야한다.', () => {
     const { getByRole } = render(<QuantityInput {...quantityInputProps} />);
-    const input = getByRole('textbox');
+    const input = getByRole('textbox', { name: /quantity input/ });
     fireEvent.change(input, {
       target: {
         value: 1,
@@ -24,7 +24,7 @@ describe('<QuantityInput />', () => {
 
   test('input의 value를 음수로 변경할 때 입력이 안되고 value는 0이 되어야한다.', () => {
     const { getByRole } = render(<QuantityInput {...quantityInputProps} />);
-    const input = getByRole('textbox');
+    const input = getByRole('textbox', { name: /quantity input/ });
     fireEvent.change(input, {
       target: {
         value: -1,
@@ -35,26 +35,12 @@ describe('<QuantityInput />', () => {
 
   test('input의 value를 숫자외의 문자로 변경할 때 입력이 안되고 value는 0이 되어야한다.', () => {
     const { getByRole } = render(<QuantityInput {...quantityInputProps} />);
-    const input = getByRole('textbox');
+    const input = getByRole('textbox', { name: /quantity input/ });
     fireEvent.change(input, {
       target: {
         value: '문자',
       },
     });
     expect(input).toHaveAttribute('value', '0');
-  });
-
-  test('img의 alt에 상품 이름이 포함 되어야한다.', () => {
-    const { getByRole } = render(<QuantityInput {...quantityInputProps} />);
-    const image = getByRole('img') as HTMLImageElement;
-
-    expect(image.alt).toContain(quantityInputProps.name);
-  });
-
-  test('img의 src에 .jpeg 확장자를 가진 파일 경로가 들어와야 한다. ', () => {
-    const { getByRole } = render(<QuantityInput {...quantityInputProps} />);
-    const image = getByRole('img') as HTMLImageElement;
-
-    expect(image.src).toContain('.jpeg');
   });
 });

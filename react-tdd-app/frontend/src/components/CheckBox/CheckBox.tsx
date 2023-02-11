@@ -19,7 +19,7 @@ function CheckBox({ name, updateOrder }: CheckBoxProps) {
 
   return (
     <label htmlFor={name}>
-      <input type="checkbox" id={name} onChange={handleOnChange} ref={checkBoxInput} />
+      <input type="checkbox" aria-label="check input" id={name} onChange={handleOnChange} ref={checkBoxInput} />
       {name}
     </label>
   );

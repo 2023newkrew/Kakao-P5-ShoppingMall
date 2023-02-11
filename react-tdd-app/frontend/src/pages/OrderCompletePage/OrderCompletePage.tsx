@@ -25,7 +25,7 @@ function OrderCompletePage() {
       <ul style={{ width: '300px', margin: '0 auto' }}>
         {orders.map((order) => {
           return (
-            <li className="flex-row" key={order.orderNumber}>
+            <li className="flex-row" aria-label="order list" key={order.orderNumber}>
               <div>
                 <h3>주문번호</h3>
                 <p>{order.orderNumber}</p>
