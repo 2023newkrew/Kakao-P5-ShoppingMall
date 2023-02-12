@@ -8,7 +8,7 @@ function OrderForm({ productResource, optionResource, onSubmit }) {
   const products = productResource.read();
   const options = optionResource.read();
 
-  const [selectedProducts, selectProducts] = useState(() =>
+  const [selectedProducts, setSelectedProducts] = useState(() =>
     products.map(({ name }) => ({
       name,
       price: PRODUCT_PRICE,
@@ -16,7 +16,7 @@ function OrderForm({ productResource, optionResource, onSubmit }) {
     }))
   );
 
-  const [selectedOptions, selectOptions] = useState(() =>
+  const [selectedOptions, setSelectedOptions] = useState(() =>
     options.map(({ name }) => ({
       name,
       price: OPTION_PRICE,
@@ -43,7 +43,7 @@ function OrderForm({ productResource, optionResource, onSubmit }) {
     );
     targetProduct.amount = Number(target.value);
 
-    selectProducts(nextSelectedProducts);
+    setSelectedProducts(nextSelectedProducts);
   };
 
   const handleOptionInputChange = (event) => {
@@ -55,7 +55,7 @@ function OrderForm({ productResource, optionResource, onSubmit }) {
     );
     targetOption.amount = Number(target.checked);
 
-    selectOptions(nextSelectedOptions);
+    setSelectedOptions(nextSelectedOptions);
   };
 
   const handleSubmit = (event) => {
