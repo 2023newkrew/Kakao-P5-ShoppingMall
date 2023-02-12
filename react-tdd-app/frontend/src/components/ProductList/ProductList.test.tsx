@@ -45,7 +45,7 @@ describe('<ProductList />', () => {
         value: TRAVEL_PRODUCT_PRIMARY_QUANTITY,
       },
     });
-    expect(totalPrice.innerHTML).toBe(`총합: ${TRAVEL_PRODUCT_PRICE * TRAVEL_PRODUCT_PRIMARY_QUANTITY}`);
+    expect(totalPrice.innerHTML).toBe(`${TRAVEL_PRODUCT_PRICE * TRAVEL_PRODUCT_PRIMARY_QUANTITY}`);
   });
 
   test('여러개의 travel product에 각각 개수를 입력하면 총가격은 (마지막에 입력한값 * product가격)이 되어야 한다.', () => {
@@ -65,7 +65,7 @@ describe('<ProductList />', () => {
       },
     });
 
-    expect(totalPrice.innerHTML).toBe(`총합: ${TRAVEL_PRODUCT_PRICE * TRAVEL_PRODUCT_SECONDARY_QUANTITY}`);
+    expect(totalPrice.innerHTML).toBe(`${TRAVEL_PRODUCT_PRICE * TRAVEL_PRODUCT_SECONDARY_QUANTITY}`);
   });
 
   test('여러개의 option product를 체크하면 총가격은 (체크한개수 * product가격)이 되어야 한다.', () => {
@@ -77,6 +77,6 @@ describe('<ProductList />', () => {
       fireEvent.click(inputs[i]);
     }
 
-    expect(totalPrice.innerHTML).toBe(`총합: ${OPTION_PRODUCT_PRICE * OPTION_PRODUCT_CHECK_COUNT}`);
+    expect(totalPrice.innerHTML).toBe(`${OPTION_PRODUCT_PRICE * OPTION_PRODUCT_CHECK_COUNT}`);
   });
 });

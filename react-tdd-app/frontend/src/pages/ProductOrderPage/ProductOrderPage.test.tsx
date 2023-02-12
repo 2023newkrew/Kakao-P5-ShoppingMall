@@ -83,12 +83,12 @@ describe('<ProductOrderPage />', () => {
   });
 
   test('travel product와 option product를 선택했을 때, Total Price는 각 product의 총 가격을 합친 값이어야한다.', async () => {
-    const { findAllByRole, getByRole } = render(<ProductOrderPage />);
+    const { findAllByRole, getByLabelText } = render(<ProductOrderPage />);
 
     const travelInputs = (await findAllByRole('textbox', { name: /quantity input/ })) as HTMLInputElement[];
     const optionInputs = (await findAllByRole('checkbox', { name: /check input/ })) as HTMLInputElement[];
 
-    const totalPrice = getByRole('heading', { name: /Total Price:/ }) as HTMLHeadingElement;
+    const totalPrice = getByLabelText('total price');
 
     fireEvent.change(travelInputs[0], {
       target: {
@@ -100,9 +100,7 @@ describe('<ProductOrderPage />', () => {
     }
 
     expect(totalPrice.innerHTML).toBe(
-      `Total Price: $${
-        TRAVEL_PRODUCT_PRICE * TRAVEL_PRODUCT_PRIMARY_QUANTITY + OPTION_PRODUCT_PRICE * OPTION_PRODUCT_CHECK_COUNT
-      }`,
+      `${TRAVEL_PRODUCT_PRICE * TRAVEL_PRODUCT_PRIMARY_QUANTITY + OPTION_PRODUCT_PRICE * OPTION_PRODUCT_CHECK_COUNT}`,
     );
   });
 });

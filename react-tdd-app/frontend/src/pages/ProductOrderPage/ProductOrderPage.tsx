@@ -33,7 +33,9 @@ function ProductOrderPage() {
       <ProductList products={travelProducts} price={1000} type="travel" />
       <ProductList products={optionProducts} price={500} type="option" />
       <section>
-        <h2>Total Price: ${total}</h2>
+        <h2>
+          Total Price: <span aria-label="total price">{total}</span>
+        </h2>
         <button
           type="button"
           disabled={count.travel === 0}

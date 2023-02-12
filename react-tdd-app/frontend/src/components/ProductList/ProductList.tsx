@@ -30,8 +30,14 @@ function ProductList({ products, price, type }: ProductListProps) {
   return (
     <section>
       <h2>주문 종류</h2>
-      <p aria-label="price per product">하나의 가격: {price}</p>
-      <p aria-label="product total price">총합: {count[type] * price}</p>
+      <p>
+        하나의 가격:
+        <span aria-label="price per product">{price}</span>
+      </p>
+      <p>
+        총합:
+        <span aria-label="product total price">{count[type] * price}</span>
+      </p>
       <ul className={type === 'travel' ? 'flex-row' : undefined} aria-label={`${type} product list`}>
         {renderProducts()}
       </ul>
