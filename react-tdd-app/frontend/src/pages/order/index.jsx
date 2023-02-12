@@ -42,19 +42,20 @@ export default function Order() {
   return (
     <>
       <h1>상품 주문</h1>
-      {Object.keys(orderData).map((itemType) => (
-        <OrderList
-          key={itemType}
-          itemType={itemType}
-          items={orderData[itemType]}
-          order={order}
-          subtotalPrice={subtotalPrice}
-          handleOrderChange={(name, value) =>
-            updateOrder(itemType, name, value)
-          }
-        />
-      ))}
-      <OrderForm totalPrice={totalPrice} />
+      <OrderForm totalPrice={totalPrice}>
+        {Object.keys(orderData).map((itemType) => (
+          <OrderList
+            key={itemType}
+            itemType={itemType}
+            items={orderData[itemType]}
+            order={order}
+            subtotalPrice={subtotalPrice}
+            handleOrderChange={(name, value) =>
+              updateOrder(itemType, name, value)
+            }
+          />
+        ))}
+      </OrderForm>
     </>
   );
 }
