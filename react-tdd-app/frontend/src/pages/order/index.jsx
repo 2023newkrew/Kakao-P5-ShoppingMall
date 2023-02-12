@@ -1,31 +1,23 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Products from './components/Products';
-import Options from './components/Options';
+import { shallow } from 'zustand/shallow';
+import OrderList from './components/OrderList';
+import OrderForm from './components/OrderForm';
+import { useOrderStore } from '../../stores/orderStore';
 
 export default function Order() {
   const [orderData, setOrderData] = useState({ products: [], options: [] });
-  const [order, setOrder] = useState({ products: {}, options: {} });
-
-  const handleProductOrderChange = (name, quantity) => {
-    setOrder((prev) => ({
-      ...prev,
-      products: {
-        ...prev.products,
-        [name]: quantity,
-      },
-    }));
-  };
-
-  const handleOptionOrderChange = (name, checked) => {
-    setOrder((prev) => ({
-      ...prev,
-      options: {
-        ...prev.options,
-        [name]: checked,
-      },
-    }));
-  };
+  const { order, subtotalPrice, totalPrice, setOrder, updateOrder } =
+    useOrderStore(
+      (state) => ({
+        order: state.order,
+        subtotalPrice: state.subtotalPrice,
+        totalPrice: state.totalPrice,
+        setOrder: state.setOrder,
+        updateOrder: state.updateOrder,
+      }),
+      shallow
+    );
 
   useEffect(() => {
     const fetch = async () => {
@@ -45,21 +37,25 @@ export default function Order() {
     };
 
     fetch();
-  }, []);
+  }, [setOrder]);
 
   return (
     <>
       <h1>상품 주문</h1>
-      <Products
-        products={orderData.products}
-        order={order}
-        handleProductOrderChange={handleProductOrderChange}
-      />
-      <Options
-        options={orderData.options}
-        order={order}
-        handleOptionOrderChange={handleOptionOrderChange}
-      />
+      <OrderForm totalPrice={totalPrice}>
+        {Object.keys(orderData).map((itemType) => (
+          <OrderList
+            key={itemType}
+            itemType={itemType}
+            items={orderData[itemType]}
+            order={order}
+            subtotalPrice={subtotalPrice}
+            handleOrderChange={(name, value) =>
+              updateOrder(itemType, name, value)
+            }
+          />
+        ))}
+      </OrderForm>
     </>
   );
 }

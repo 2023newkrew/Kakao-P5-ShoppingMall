@@ -2,14 +2,14 @@ export default function Product({
   name,
   imagePath,
   description,
-  quantity,
-  handleProductOrderChange,
+  value,
+  handleOrderChange,
 }) {
   const id = `${name}-number`;
 
   const handleChange = (event) => {
-    const value = Math.max(0, event.target.value);
-    handleProductOrderChange(name, value);
+    const quantity = Math.max(0, event.target.value);
+    handleOrderChange(name, quantity);
   };
 
   return (
@@ -21,7 +21,7 @@ export default function Product({
         <input
           type="number"
           id={id}
-          value={quantity}
+          value={value}
           min="0"
           onChange={handleChange}
         />

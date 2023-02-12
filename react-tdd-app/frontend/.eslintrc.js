@@ -25,5 +25,7 @@ module.exports = {
       'error',
       { devDependencies: ['src/mocks/**/*'] },
     ],
+    'import/prefer-default-export': 'off',
+    'react/jsx-props-no-spreading': 'off',
   },
 };

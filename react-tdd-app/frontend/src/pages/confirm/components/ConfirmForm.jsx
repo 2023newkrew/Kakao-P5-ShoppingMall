@@ -1,10 +1,17 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function ConfirmForm() {
+  const navigate = useNavigate();
   const [checked, setChecked] = useState(false);
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    navigate('/complete');
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <label htmlFor="confirm-checkbox">
         <input
           type="checkbox"

@@ -3,3 +3,4 @@
 
 cd react-tdd-app/frontend
 npx lint-staged
+CI=true npm run test
