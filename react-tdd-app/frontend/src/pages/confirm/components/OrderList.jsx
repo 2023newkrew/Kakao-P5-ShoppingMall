@@ -1,4 +1,16 @@
-export default function OrderList({ order, subtotalPrice, totalPrice }) {
+import { shallow } from 'zustand/shallow';
+import { useOrderStore } from '../../../stores/orderStore';
+
+export default function OrderList() {
+  const { order, subtotalPrice, totalPrice } = useOrderStore(
+    (state) => ({
+      order: state.order,
+      subtotalPrice: state.subtotalPrice,
+      totalPrice: state.totalPrice,
+    }),
+    shallow
+  );
+
   return (
     <>
       <h2>여행 상품: ₩{subtotalPrice.products.toLocaleString()}</h2>
