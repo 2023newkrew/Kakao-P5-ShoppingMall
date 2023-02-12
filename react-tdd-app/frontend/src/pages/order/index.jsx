@@ -1,16 +1,23 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { shallow } from 'zustand/shallow';
 import OrderList from './components/OrderList';
 import OrderForm from './components/OrderForm';
 import { useOrderStore } from '../../stores/orderStore';
 
 export default function Order() {
   const [orderData, setOrderData] = useState({ products: [], options: [] });
-  const order = useOrderStore((state) => state.order);
-  const subtotalPrice = useOrderStore((state) => state.subtotalPrice);
-  const totalPrice = useOrderStore((state) => state.totalPrice);
-  const setOrder = useOrderStore((state) => state.setOrder);
-  const updateOrder = useOrderStore((state) => state.updateOrder);
+  const { order, subtotalPrice, totalPrice, setOrder, updateOrder } =
+    useOrderStore(
+      (state) => ({
+        order: state.order,
+        subtotalPrice: state.subtotalPrice,
+        totalPrice: state.totalPrice,
+        setOrder: state.setOrder,
+        updateOrder: state.updateOrder,
+      }),
+      shallow
+    );
 
   useEffect(() => {
     const fetch = async () => {
