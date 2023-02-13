@@ -1,21 +1,5 @@
-import { useEffect, useState } from 'react';
-import Header from '@/components/home/header';
-import { getProducts } from '@/apis/client';
-import ProductList from '@/components/home/product-list';
+import AppRouter from '@/routes/app-router';
 
-const App = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-
-  useEffect(() => {
-    getProducts().then((res) => setProducts(res));
-  }, []);
-
-  return (
-    <>
-      <Header />
-      <ProductList products={products} />
-    </>
-  );
-};
+const App = () => <AppRouter />;
 
 export default App;
