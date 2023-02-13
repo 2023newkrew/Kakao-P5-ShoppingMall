@@ -1,0 +1,14 @@
+.order-page {
+  padding: 4rem;
+}
+.order-page__bottom {
+  display: flex;
+  margin-top: 20px;
+}
+
+.order-container-style {
+  width: 50%;
+}
+.order-page__total-price {
+  width: 50%;
+}

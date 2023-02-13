@@ -1,8 +1,8 @@
 import { rest } from "msw";
 
-const BASE_URL = "http://localhost:5000";
+export const MOCK_BASE_URL = "http://localhost:5000";
 export const handlers = [
-  rest.get(`${BASE_URL}/products`, (req, res, ctx) => {
+  rest.get(`${MOCK_BASE_URL}/products`, (req, res, ctx) => {
     return res(
       ctx.json([
         {
@@ -28,7 +28,7 @@ export const handlers = [
       ])
     );
   }),
-  rest.get(`${BASE_URL}/options`, (req, res, ctx) => {
+  rest.get(`${MOCK_BASE_URL}/options`, (req, res, ctx) => {
     return res(
       ctx.json([
         {
@@ -45,5 +45,9 @@ export const handlers = [
         },
       ])
     );
+  }),
+  rest.get(`${MOCK_BASE_URL}/order`, (req, res, ctx) => {
+    const dummyData = [{ orderNumber: 123454321, price: 999 }];
+    return res(ctx.json(dummyData));
   }),
 ];

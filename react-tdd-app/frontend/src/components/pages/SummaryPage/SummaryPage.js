@@ -1,16 +1,37 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { REQUEST_PATH } from "../../../constant";
+import { OrderContext } from "../../../contexts/OrderContext";
+import "./SummaryPage.css";
 
-export default function SummaryPage() {
+export default function SummaryPage({ setStep }) {
   const [checked, setChecked] = useState(false);
+  const { orderData, totals } = useContext(OrderContext);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setStep("2_COMPLETE_STEP");
+  };
   return (
-    <div>
+    <div className="summary-container">
+      <h1>주문 확인</h1>
       <div>
-        여행 상품 : <span data-testid="products-price">000</span>
+        <ul>
+          여행 상품 총 가격 : <span data-testid="products-price">{totals[REQUEST_PATH.products]}</span>
+          {[...orderData[REQUEST_PATH.products]].map(([name, count]) => (
+            <li key={name}>{`${name}  ${count}`}</li>
+          ))}
+        </ul>
       </div>
       <div>
-        옵션 : <span data-testid="options-price">000</span>
+        <ul>
+          옵션 총 가격: <span data-testid="options-price">{totals[REQUEST_PATH.options]}</span>
+          {[...orderData[REQUEST_PATH.options]].map(([name, count]) => (
+            <li key={name}>{`${name}  ${count}`}</li>
+          ))}
+        </ul>
+        <h2>총 가격 : {totals.total}</h2>
       </div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           type={"checkbox"}
           checked={checked}
