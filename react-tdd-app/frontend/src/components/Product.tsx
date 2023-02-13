@@ -3,7 +3,7 @@ import { Product as ProductType } from '../types/product';
 import { useOrderContext } from 'contexts/OrderContext';
 
 const Product = ({ name, imagePath }: ProductType) => {
-  const { updateProductCount } = useOrderContext();
+  const { updateProductCount, products } = useOrderContext();
 
   const handleUpdateCount = (e: ChangeEvent<HTMLInputElement>) => {
     const currentValue = e.target.valueAsNumber;
@@ -35,11 +35,16 @@ const Product = ({ name, imagePath }: ProductType) => {
           name={`${name} quantity`}
           min="0"
           className="w-1/2"
-          defaultValue={0}
+          defaultValue={products.get(name) ?? 0}
           onChange={handleUpdateCount}
         />
       </form>
     </div>
   );
 };
-export default memo(Product);
+export default memo(Product, (prevProps, newProps) => {
+  if (prevProps.imagePath === newProps.imagePath && prevProps.name === newProps.name) {
+    return false;
+  }
+  return true;
+});

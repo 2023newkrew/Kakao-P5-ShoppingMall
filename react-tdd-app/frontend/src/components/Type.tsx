@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { memo, useEffect, useMemo, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { Product as ProductType } from 'types/product';
 import { Option as OptionType } from 'types/option';
 import ErrorBanner from 'components/ErrorBanner';
@@ -16,32 +16,19 @@ interface Props {
 
 const info = {
   products: {
-    title: 'Products',
+    title: '상품',
     price: PRODUCT_PRICE,
   },
   options: {
-    title: 'Options',
+    title: '옵션',
     price: OPTION_PRICE,
   },
 };
 
 const Type = ({ orderType }: Props) => {
-  const { options, products } = useOrderContext();
+  const { totalOptionsPrice, totalProductsPrice } = useOrderContext();
   const [data, setData] = useState<ItemType | null>(null);
   const [error, setError] = useState(false);
-
-  const totalProductsPrice = Array.from(products).reduce((totalPrice, [, price]) => {
-    return totalPrice + price * PRODUCT_PRICE;
-  }, 0);
-
-  const totalOptionsPrice = useMemo(() => {
-    return Array.from(options).reduce((totalPrice, [, checked]) => {
-      if (!checked) {
-        return totalPrice;
-      }
-      return totalPrice + OPTION_PRICE;
-    }, 0);
-  }, [options]);
 
   useEffect(() => {
     const loadItems = async (orderType: OrderType) => {
@@ -72,8 +59,12 @@ const Type = ({ orderType }: Props) => {
   return (
     <div>
       <h2>{info[orderType].title}</h2>
-      <p>개당 가격 : ₩{info[orderType].price}</p>
-      <p>총 가격 : ₩{orderType === 'products' ? totalProductsPrice : totalOptionsPrice}</p>
+      <p>
+        {info[orderType].title} 개당 가격 : ₩{info[orderType].price}
+      </p>
+      <p>
+        {info[orderType].title} 총 가격 : ₩{orderType === 'products' ? totalProductsPrice : totalOptionsPrice}
+      </p>
       <div className="flex" style={{ flexDirection: orderType === 'products' ? 'row' : 'column' }}>
         {renderItems()}
       </div>
