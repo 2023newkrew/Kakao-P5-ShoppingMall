@@ -1,0 +1,2 @@
+export const TRAVEL_PRODUCT_PRICE = 1000;
+export const OPTION_PRODUCT_PRICE = 500;

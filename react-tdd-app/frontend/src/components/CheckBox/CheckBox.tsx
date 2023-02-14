@@ -1,14 +1,25 @@
-import React, { useState } from 'react';
+import { OrderStateContext } from 'contexts/OrderContext';
+import React, { useContext, useEffect, useRef } from 'react';
+import { CheckBoxProps } from 'types';
 
-type CheckBoxProps = {
-  name: string;
-  description: string;
-};
+function CheckBox({ name, updateOrder }: CheckBoxProps) {
+  const { order } = useContext(OrderStateContext);
+  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { checked } = event.target;
+    updateOrder(name, checked);
+  };
 
-function CheckBox({ name, description }: CheckBoxProps) {
+  const checkBoxInput = useRef<null | HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (order.option.has(name)) {
+      if (checkBoxInput.current instanceof Element) checkBoxInput.current.checked = true;
+    }
+  }, []);
+
   return (
     <label htmlFor={name}>
-      <input type="checkbox" name={name} />
+      <input type="checkbox" aria-label="check input" id={name} onChange={handleOnChange} ref={checkBoxInput} />
       {name}
     </label>
   );

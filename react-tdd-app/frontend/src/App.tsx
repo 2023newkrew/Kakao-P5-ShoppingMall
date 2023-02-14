@@ -1,11 +1,14 @@
 import React from 'react';
 import Router from 'Router';
+import { OrderProvider } from 'contexts/OrderContext';
 import './App.css';
 
 function App() {
   return (
     <div className="app">
-      <Router />
+      <OrderProvider>
+        <Router />
+      </OrderProvider>
     </div>
   );
 }
